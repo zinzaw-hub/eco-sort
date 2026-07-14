@@ -92,7 +92,7 @@ with st.sidebar:
                                                         "#6b7a4f","#d9c48f","#5c5c4d"]))])
     fig.update_layout(margin=dict(t=0,b=0,l=0,r=0), height=280,
                        paper_bgcolor="rgba(0,0,0,0)", font_color="#3a3a30" if not st.session_state.dark_mode else "#f0ead6")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig)
 
 # ---------------- Main ----------------
 st.title("\u267b\ufe0f EcoSort - AI Plastic Classifier")
@@ -105,7 +105,7 @@ if uploaded_file is not None:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image(image, caption="Uploaded Image", use_container_width=True)
+        st.image(image, caption="Uploaded Image")
 
     with st.spinner("Analyzing..."):
         results = model(image)
@@ -114,7 +114,7 @@ if uploaded_file is not None:
         r = results[0]
         annotated = r.plot()
         annotated_rgb = annotated[:, :, ::-1]
-        st.image(annotated_rgb, caption="Detection Result", use_container_width=True)
+        st.image(annotated_rgb, caption="Detection Result")
 
     if len(r.boxes) == 0:
         st.warning("No plastic items detected. Try a clearer photo.")
