@@ -1,13 +1,11 @@
-
 import streamlit as st
 from ultralytics import YOLO
 from PIL import Image
-import numpy as np
 import os
 import plotly.graph_objects as go
 from groq import Groq
 
-st.set_page_config(page_title="EcoSort", page_icon="\u267b\ufe0f", layout="wide")
+st.set_page_config(page_title="EcoSort", page_icon="♻️", layout="wide")
 
 # ---------------- Theme ----------------
 if "dark_mode" not in st.session_state:
@@ -33,23 +31,22 @@ def apply_theme():
 
 apply_theme()
 
-# ---------------- Resin code symbols (Unicode recycling symbols) ----------------
+# ---------------- Resin Info ----------------
 RESIN_SYMBOLS = {
-    "PET": "\u2673", "HDPE": "\u2674", "PVC": "\u2675",
-    "LDPE": "\u2676", "PP": "\u2677", "PS": "\u2678", "Other": "\u2679",
+    "PET": "♳", "HDPE": "♴", "LDPE": "♶",
+    "PP": "♷", "PS": "♸", "Others": "♹",
 }
 
 RECYCLABILITY = {
-    "PET":   {"recyclable": True,  "code": "1", "name_en": "Polyethylene Terephthalate"},
-    "HDPE":  {"recyclable": True,  "code": "2", "name_en": "High-Density Polyethylene"},
-    "PVC":   {"recyclable": False, "code": "3", "name_en": "Polyvinyl Chloride"},
-    "LDPE":  {"recyclable": True,  "code": "4", "name_en": "Low-Density Polyethylene"},
-    "PP":    {"recyclable": True,  "code": "5", "name_en": "Polypropylene"},
-    "PS":    {"recyclable": False, "code": "6", "name_en": "Polystyrene"},
-    "Other": {"recyclable": False, "code": "7", "name_en": "Other / Mixed Plastics"},
+    "PET":    {"recyclable": True,  "code": "1", "name_en": "Polyethylene Terephthalate"},
+    "HDPE":   {"recyclable": True,  "code": "2", "name_en": "High-Density Polyethylene"},
+    "LDPE":   {"recyclable": True,  "code": "4", "name_en": "Low-Density Polyethylene"},
+    "PP":     {"recyclable": True,  "code": "5", "name_en": "Polypropylene"},
+    "PS":     {"recyclable": False, "code": "6", "name_en": "Polystyrene"},
+    "Others": {"recyclable": False, "code": "7", "name_en": "Other / Mixed Plastics"},
 }
 
-# ---------------- Groq LLM guidance ----------------
+# ---------------- Groq LLM ----------------
 @st.cache_data(show_spinner=False)
 def get_guidance(plastic_type, recyclable):
     api_key = os.environ.get("GROQ_API_KEY")
@@ -75,7 +72,7 @@ def get_guidance(plastic_type, recyclable):
 # ---------------- Model ----------------
 @st.cache_resource
 def load_model():
-    return YOLO("plastic_yolov8_v2.pt")
+    return YOLO("best_model_yolov8.pt")
 
 model = load_model()
 
@@ -85,63 +82,66 @@ with st.sidebar:
     st.toggle("Dark mode", key="dark_mode", on_change=apply_theme)
     st.markdown("---")
     st.subheader("Global Plastic Waste by Type")
-    labels = ["PET", "HDPE", "PVC", "LDPE", "PP", "PS", "Other"]
-    values = [12, 17, 10, 15, 19, 8, 19]  # approximate share, illustrative
-    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.4,
-                                   marker=dict(colors=["#8a9a5b","#bfa76a","#a9b18f","#c9a66b",
-                                                        "#6b7a4f","#d9c48f","#5c5c4d"]))])
-    fig.update_layout(margin=dict(t=0,b=0,l=0,r=0), height=280,
-                       paper_bgcolor="rgba(0,0,0,0)", font_color="#3a3a30" if not st.session_state.dark_mode else "#f0ead6")
+    labels = ["PET", "HDPE", "LDPE", "PP", "PS", "Others"]
+    values = [12, 17, 15, 19, 8, 29]
+    fig = go.Figure(data=[go.Pie(
+        labels=labels, values=values, hole=0.4,
+        marker=dict(colors=["#8a9a5b","#bfa76a","#a9b18f","#c9a66b","#6b7a4f","#5c5c4d"])
+    )])
+    fig.update_layout(
+        margin=dict(t=0,b=0,l=0,r=0), height=280,
+        paper_bgcolor="rgba(0,0,0,0)",
+        font_color="#3a3a30" if not st.session_state.dark_mode else "#f0ead6"
+    )
     st.plotly_chart(fig)
 
 # ---------------- Main ----------------
-st.title("\u267b\ufe0f EcoSort - AI Plastic Classifier")
+st.title("♻️ EcoSort - AI Plastic Classifier")
 st.write("Upload a photo of plastic waste to identify its resin type and get recycling guidance.")
 
 uploaded_file = st.file_uploader("Choose an image", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
-    col1, col2 = st.columns(2)
 
+    col1, col2 = st.columns(2)
     with col1:
         st.image(image, caption="Uploaded Image")
 
     with st.spinner("Analyzing..."):
         results = model(image)
 
+    r = results[0]
+    probs = r.probs
+
+    # Top prediction
+    top1_idx = probs.top1
+    top1_cls = model.names[top1_idx]
+    top1_conf = float(probs.top1conf)
+
+    info = RECYCLABILITY.get(top1_cls, RECYCLABILITY["Others"])
+    symbol = RESIN_SYMBOLS.get(top1_cls, "♹")
+
     with col2:
-        r = results[0]
-        annotated = r.plot()
-        annotated_rgb = annotated[:, :, ::-1]
-        st.image(annotated_rgb, caption="Detection Result")
+        st.markdown(f"## {symbol} {top1_cls}")
+        st.markdown(f"**{info['name_en']}** (Code {info['code']})")
+        st.progress(top1_conf, text=f"Confidence: {top1_conf:.1%}")
 
-    if len(r.boxes) == 0:
-        st.warning("No plastic items detected. Try a clearer photo.")
-    else:
-        st.subheader("Detected Items")
-        seen_types = set()
-        for i, box in enumerate(r.boxes):
-            cls_name = model.names[int(box.cls)]
-            conf = float(box.conf)
-            info = RECYCLABILITY.get(cls_name, RECYCLABILITY["Other"])
-            symbol = RESIN_SYMBOLS.get(cls_name, "\u2679")
+        if info["recyclable"]:
+            st.success("✅ Recyclable")
+        else:
+            st.error("❌ Non-recyclable")
 
-            with st.container():
-                c1, c2, c3 = st.columns([1, 2, 2])
-                with c1:
-                    st.markdown(f"### {symbol} {cls_name} ({info['code']})")
-                with c2:
-                    st.progress(conf, text=f"Confidence: {conf:.1%}")
-                with c3:
-                    if info["recyclable"]:
-                        st.success("\u2705 Recyclable")
-                    else:
-                        st.error("\u274c Non-recyclable")
+    # Top 3 predictions
+    st.subheader("📊 Top Predictions")
+    top5_indices = probs.top5
+    top5_confs = probs.top5conf.tolist()
+    for idx, conf in zip(top5_indices[:3], top5_confs[:3]):
+        cls_name = model.names[idx]
+        st.progress(float(conf), text=f"{cls_name}: {conf:.1%}")
 
-                if cls_name not in seen_types:
-                    seen_types.add(cls_name)
-                    with st.expander(f"Recycling guidance for {cls_name}"):
-                        guidance = get_guidance(cls_name, info["recyclable"])
-                        st.write(guidance)
-                st.markdown("---")
+    # Guidance
+    st.subheader("♻️ Recycling Guidance")
+    with st.spinner("Getting guidance..."):
+        guidance = get_guidance(top1_cls, info["recyclable"])
+    st.info(guidance)
