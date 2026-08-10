@@ -2,146 +2,952 @@ import streamlit as st
 from ultralytics import YOLO
 from PIL import Image
 import os
+from datetime import datetime
 import plotly.graph_objects as go
 from groq import Groq
 
-st.set_page_config(page_title="EcoSort", page_icon="♻️", layout="wide")
+st.set_page_config(
+    page_title="EcoSort",
+    page_icon="♻️",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
-# ---------------- Theme ----------------
-if "dark_mode" not in st.session_state:
-    st.session_state.dark_mode = False
-
-def apply_theme():
-    if st.session_state.dark_mode:
-        bg, card, text, accent, accent2 = "#2b2b24", "#3a3a30", "#f0ead6", "#a9b18f", "#c9a66b"
+# ---------------- Theme CSS ----------------
+def apply_theme(dark):
+    if dark:
+        bg        = "#14213D"
+        card_bg   = "#1B2A4A"
+        sidebar   = "#0F1830"
+        text      = "#F1FAEE"
+        muted     = "#8D99AE"
+        accent    = "#06D6A0"
+        accent2   = "#FFD166"
+        border    = "#2A3B5C"
+        success_bg = "#16352A"
+        success_c  = "#06D6A0"
+        error_bg   = "#3D1F2B"
+        error_c    = "#EF476F"
+        uploader_bg = "#1B2A4A"
+        uploader_border = "#2A3B5C"
     else:
-        bg, card, text, accent, accent2 = "#f5f2e8", "#ffffff", "#3a3a30", "#8a9a5b", "#bfa76a"
+        bg        = "#F0FBF4"
+        card_bg   = "#FFFFFF"
+        sidebar   = "#E8F8ED"
+        text      = "#1B4332"
+        muted     = "#5C8374"
+        accent    = "#06D6A0"
+        accent2   = "#FFD166"
+        border    = "#C8F0D9"
+        success_bg = "#D8F5E0"
+        success_c  = "#06A77D"
+        error_bg   = "#FFE3E3"
+        error_c    = "#EF476F"
+        uploader_bg = "#FFFFFF"
+        uploader_border = "#C8F0D9"
+
+    # stash for chart theming outside this function
+    st.session_state["_theme"] = dict(
+        bg=bg, card_bg=card_bg, text=text, muted=muted,
+        accent=accent, accent2=accent2, border=border,
+    )
+
     st.markdown(f"""
-        <style>
-        .stApp {{ background-color: {bg}; color: {text}; }}
-        div[data-testid="stMetric"], div[data-testid="stContainer"] {{
-            background-color: {card}; border-radius: 12px; padding: 8px;
-        }}
-        .stButton>button {{
-            background-color: {accent}; color: white; border-radius: 8px; border: none;
-        }}
-        .stProgress > div > div {{ background-color: {accent2}; }}
-        </style>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@300;400;600;700&display=swap');
+
+    .stApp {{
+        background-color: {bg} !important;
+        font-family: 'Nunito', sans-serif;
+    }}
+    .stApp, .stApp p, .stApp div, .stApp span, .stApp label {{
+        color: {text} !important;
+    }}
+    section[data-testid="stSidebar"] {{
+        background-color: {sidebar} !important;
+        border-right: 1px solid {border};
+    }}
+    section[data-testid="stSidebar"] * {{
+        color: {text} !important;
+    }}
+
+    /* File uploader fix (dropzone) */
+    [data-testid="stFileUploader"] {{
+        background-color: {uploader_bg} !important;
+        border: 3px dashed {accent} !important;
+        border-radius: 20px !important;
+        padding: 1rem !important;
+    }}
+    [data-testid="stFileUploader"] section {{
+        background-color: {uploader_bg} !important;
+    }}
+    [data-testid="stFileUploader"] * {{
+        color: {text} !important;
+    }}
+    [data-testid="stFileUploader"] small {{
+        color: {muted} !important;
+    }}
+    [data-testid="stFileUploadDropzone"] {{
+        background-color: {uploader_bg} !important;
+    }}
+
+    /* File uploader fix (uploaded file row - was a hardcoded dark box) */
+    [data-testid="stFileUploaderFile"] {{
+        background-color: {card_bg} !important;
+        border: 1px solid {border} !important;
+        border-radius: 14px !important;
+    }}
+    [data-testid="stFileUploaderFile"] * {{
+        color: {text} !important;
+        fill: {text} !important;
+    }}
+    [data-testid="stFileUploaderFileName"] {{
+        color: {text} !important;
+    }}
+    [data-testid="stFileUploaderDeleteBtn"] button {{
+        color: {text} !important;
+    }}
+    [data-testid="stFileUploader"] button {{
+        background-color: {card_bg} !important;
+        color: {text} !important;
+        border: 1px solid {border} !important;
+    }}
+
+    .eco-header {{
+        text-align: center;
+        padding: 1.5rem 0 1rem;
+    }}
+    .eco-title {{
+        font-family: 'Baloo 2', sans-serif;
+        font-size: 3.2rem;
+        font-weight: 800;
+        color: {accent} !important;
+        letter-spacing: -0.5px;
+        margin: 0;
+        line-height: 1.1;
+    }}
+    .eco-subtitle {{
+        font-size: 0.8rem;
+        color: {muted} !important;
+        margin-top: 0.4rem;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }}
+    .result-card {{
+        background: {card_bg};
+        border: 2px solid {border};
+        border-radius: 28px;
+        padding: 2rem;
+        margin: 1rem 0;
+        box-shadow: 0 8px 24px rgba(6,214,160,0.12);
+        position: relative;
+        overflow: hidden;
+    }}
+    .result-card::before {{
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, {accent}, {accent2});
+        border-radius: 28px 28px 0 0;
+    }}
+    .plastic-symbol {{
+        font-size: 3.5rem;
+        line-height: 1;
+    }}
+    .plastic-code {{
+        font-family: 'Baloo 2', sans-serif;
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1;
+    }}
+    .plastic-name {{
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: {text} !important;
+        margin: 0.3rem 0 0.1rem;
+    }}
+    .plastic-fullname {{
+        font-size: 0.82rem;
+        color: {muted} !important;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }}
+    .badge-recyclable {{
+        display: inline-block;
+        background: {success_bg};
+        color: {success_c} !important;
+        border: 2px solid {success_c}88;
+        padding: 0.35rem 1.2rem;
+        border-radius: 20px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        margin-top: 0.8rem;
+    }}
+    .badge-non {{
+        display: inline-block;
+        background: {error_bg};
+        color: {error_c} !important;
+        border: 2px solid {error_c}88;
+        padding: 0.35rem 1.2rem;
+        border-radius: 20px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        margin-top: 0.8rem;
+    }}
+    .conf-label {{
+        font-size: 0.75rem;
+        color: {muted} !important;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin: 1rem 0 0.4rem;
+        font-weight: 700;
+    }}
+    .conf-bar-bg {{
+        background: {border};
+        border-radius: 8px;
+        height: 10px;
+        overflow: hidden;
+    }}
+    .examples-text {{
+        font-size: 0.78rem;
+        color: {muted} !important;
+        margin-top: 0.5rem;
+    }}
+    .guidance-box {{
+        background: {accent}20;
+        border-left: 4px solid {accent};
+        border-radius: 0 16px 16px 0;
+        padding: 1rem 1.5rem;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: {text} !important;
+        line-height: 1.7;
+    }}
+    .guidance-list {{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }}
+    .guidance-list li {{
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        margin-bottom: 0.5rem;
+    }}
+    .guidance-list li:last-child {{
+        margin-bottom: 0;
+    }}
+    .guidance-list li::before {{
+        content: "♻";
+        flex-shrink: 0;
+        color: {accent};
+        font-weight: 700;
+    }}
+    .pred-card {{
+        background: {card_bg};
+        border: 2px solid {border};
+        border-radius: 18px;
+        padding: 1rem;
+        text-align: center;
+    }}
+    .pred-cls {{
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: {text} !important;
+        margin: 0.3rem 0;
+    }}
+    .pred-pct {{
+        font-size: 1.4rem;
+        font-weight: 800;
+    }}
+    .divider {{
+        border: none;
+        border-top: 2px solid {border};
+        margin: 1.2rem 0;
+    }}
+    .section-title {{
+        font-family: 'Baloo 2', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: {text} !important;
+        margin: 1.5rem 0 0.8rem;
+    }}
+    .empty-state {{
+        text-align: center;
+        padding: 5rem 2rem;
+        color: {muted};
+    }}
+    .sidebar-logo {{
+        font-family: 'Baloo 2', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: {accent} !important;
+    }}
+    .sidebar-info {{
+        background: {card_bg};
+        border: 2px solid {border};
+        border-radius: 16px;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: {muted} !important;
+        line-height: 1.8;
+    }}
+    .class-chip {{
+        display: inline-block;
+        background: {accent}22;
+        border: 1px solid {accent}55;
+        border-radius: 20px;
+        padding: 0.25rem 0.8rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        margin: 0.2rem;
+        color: {text} !important;
+    }}
+    .about-p {{
+        font-size: 0.95rem;
+        line-height: 1.8;
+        color: {text} !important;
+        margin-bottom: 0.8rem;
+    }}
+    .chart-caption {{
+        font-size: 0.72rem;
+        color: {muted} !important;
+        line-height: 1.6;
+        margin-top: 0.5rem;
+    }}
+    .metric-card {{
+        background: {card_bg};
+        border: 2px solid {border};
+        border-radius: 20px;
+        padding: 1.2rem;
+        text-align: center;
+    }}
+    .metric-value {{
+        font-family: 'Baloo 2', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: {accent} !important;
+        line-height: 1.1;
+    }}
+    .metric-label {{
+        font-size: 0.75rem;
+        color: {muted} !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        margin-top: 0.3rem;
+    }}
+    [data-testid="stSidebar"] button[kind="secondary"] {{
+        background: {card_bg} !important;
+        color: {text} !important;
+        border: 2px solid {border} !important;
+        border-radius: 14px !important;
+        justify-content: flex-start !important;
+        padding: 0.65rem 1rem !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.5rem !important;
+        box-shadow: none !important;
+        transition: all 0.15s ease !important;
+    }}
+    [data-testid="stSidebar"] button[kind="secondary"]:hover {{
+        background: {accent}22 !important;
+        border-color: {accent} !important;
+        color: {accent} !important;
+    }}
+    .nav-active-marker {{
+        display: none;
+    }}
+    [data-testid="stSidebar"] div[data-testid="stElementContainer"]:has(.nav-active-marker)
+        + div[data-testid="stElementContainer"] button,
+    [data-testid="stSidebar"] div.element-container:has(.nav-active-marker)
+        + div.element-container button,
+    [data-testid="stSidebar"] .nav-active-marker + div[data-testid="stButton"] button {{
+        background: {accent} !important;
+        color: #FFFFFF !important;
+        border: 2px solid {accent} !important;
+        box-shadow: 0 4px 12px {accent}44 !important;
+    }}
+    [data-testid="stSidebar"] div[data-testid="stElementContainer"]:has(.nav-active-marker)
+        + div[data-testid="stElementContainer"] button p,
+    [data-testid="stSidebar"] div.element-container:has(.nav-active-marker)
+        + div.element-container button p,
+    [data-testid="stSidebar"] .nav-active-marker + div[data-testid="stButton"] button p {{
+        color: #FFFFFF !important;
+    }}
+    [data-testid="stSidebar"] div[data-testid="stElementContainer"]:has(.nav-active-marker)
+        + div[data-testid="stElementContainer"] button:hover,
+    [data-testid="stSidebar"] div.element-container:has(.nav-active-marker)
+        + div.element-container button:hover,
+    [data-testid="stSidebar"] .nav-active-marker + div[data-testid="stButton"] button:hover {{
+        background: {accent} !important;
+        color: #FFFFFF !important;
+        opacity: 0.92;
+    }}
+    [data-testid="stImage"] {{
+        background: {card_bg};
+        border: 2px solid {border};
+        border-radius: 28px;
+        padding: 0.75rem;
+        box-shadow: 0 8px 24px rgba(6,214,160,0.12);
+        width: 480px;
+        height: 480px;
+        max-width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin: 0 auto;
+    }}
+    [data-testid="stImage"] img {{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 18px;
+        display: block;
+    }}
+    .result-card {{
+        width: 480px;
+        height: 480px;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 1rem auto;
+        overflow-y: auto;
+    }}
+    .result-card.result-card-flex {{
+        width: 100%;
+        height: auto;
+        max-width: none;
+        margin: 1rem 0;
+        overflow-y: visible;
+    }}
+    </style>
     """, unsafe_allow_html=True)
 
-apply_theme()
+# ---------------- State ----------------
+if "dark_mode" not in st.session_state:
+    st.session_state.dark_mode = False
+if "page" not in st.session_state:
+    st.session_state.page = "Classifier"
+if "history" not in st.session_state:
+    st.session_state.history = []
+if "last_file_key" not in st.session_state:
+    st.session_state.last_file_key = None
 
-# ---------------- Resin Info ----------------
+apply_theme(st.session_state.dark_mode)
+
+# ---------------- Data ----------------
 RESIN_SYMBOLS = {
     "PET": "♳", "HDPE": "♴", "LDPE": "♶",
     "PP": "♷", "PS": "♸", "Others": "♹",
 }
-
 RECYCLABILITY = {
-    "PET":    {"recyclable": True,  "code": "1", "name_en": "Polyethylene Terephthalate"},
-    "HDPE":   {"recyclable": True,  "code": "2", "name_en": "High-Density Polyethylene"},
-    "LDPE":   {"recyclable": True,  "code": "4", "name_en": "Low-Density Polyethylene"},
-    "PP":     {"recyclable": True,  "code": "5", "name_en": "Polypropylene"},
-    "PS":     {"recyclable": False, "code": "6", "name_en": "Polystyrene"},
-    "Others": {"recyclable": False, "code": "7", "name_en": "Other / Mixed Plastics"},
+    "PET":    {"recyclable": True,  "code": "1", "name_en": "Polyethylene Terephthalate",  "examples": "Water bottles, soda bottles, food jars"},
+    "HDPE":   {"recyclable": True,  "code": "2", "name_en": "High-Density Polyethylene",   "examples": "Milk jugs, detergent bottles, shampoo bottles"},
+    "LDPE":   {"recyclable": True,  "code": "4", "name_en": "Low-Density Polyethylene",    "examples": "Bread bags, squeeze bottles, shrink wrap"},
+    "PP":     {"recyclable": True,  "code": "5", "name_en": "Polypropylene",               "examples": "Yogurt tubs, bottle caps, takeout containers"},
+    "PS":     {"recyclable": False, "code": "6", "name_en": "Polystyrene",                 "examples": "Foam cups, takeout clamshells, packing peanuts"},
+    "Others": {"recyclable": False, "code": "7", "name_en": "Other / Mixed Plastics",      "examples": "Multi-layer packaging, some bioplastics"},
+}
+COLORS = {
+    "PET": "#EF476F", "HDPE": "#06D6A0", "LDPE": "#FFD166",
+    "PP": "#118AB2", "PS": "#7209B7", "Others": "#FF6B35",
+}
+LEARN_TIPS = {
+    "PET": "Empty and rinse the bottle, leave the cap on (most facilities now recycle caps too), and flatten it to save space. Avoid tossing in food-contaminated PET like oily takeout containers without rinsing first.",
+    "HDPE": "Rinse out any residue (milk, detergent, shampoo), remove pumps/spray tops if possible, and recycle with the cap on. HDPE is one of the most widely and easily recycled plastics.",
+    "LDPE": "Bags, wraps, and film plastic usually can't go in regular household recycling bins — check for a store drop-off point (many supermarkets collect plastic bags separately). Rigid LDPE items can often go in standard recycling.",
+    "PP": "Rinse thoroughly, especially food containers and yogurt tubs. PP is recyclable but is accepted less often than PET/HDPE, so check your local program before assuming it's collected.",
+    "PS": "Foam polystyrene (like packing peanuts and foam cups) is rarely accepted by curbside recycling due to its low density and contamination risk — it generally goes in general waste. Some specialized drop-off centers accept clean rigid PS.",
+    "Others": "Mixed or multi-layer plastics (like chip bags and some pouches) can't be separated into a single material, so they're almost never recyclable through standard programs — dispose of them as general waste, and look for reduce/reuse alternatives where possible.",
 }
 
-# ---------------- Groq LLM ----------------
+# ---------------- Groq ----------------
 @st.cache_data(show_spinner=False)
 def get_guidance(plastic_type, recyclable):
     api_key = os.environ.get("GROQ_API_KEY")
     if not api_key:
-        return "Guidance unavailable: GROQ_API_KEY not configured."
+        return ["Guidance unavailable: GROQ_API_KEY not configured."]
     try:
         client = Groq(api_key=api_key)
-        status = "recyclable" if recyclable else "non-recyclable"
         prompt = (
-            f"In 2 short sentences, tell someone how to properly "
-            f"{'recycle' if recyclable else 'dispose of'} {plastic_type} plastic "
-            f"(a {status} material). Be practical and concise."
+            f"Give exactly 5 short, practical bullet points on how to properly "
+            f"{'recycle' if recyclable else 'dispose of'} {plastic_type} plastic. "
+            f"Each bullet must be a single short actionable sentence (under 15 words). "
+            f"Reply with ONLY the bullet points, one per line, each starting with '- '. "
+            f"No intro, no summary, no extra text."
         )
         resp = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=120,
+            max_tokens=220,
         )
-        return resp.choices[0].message.content
+        raw = resp.choices[0].message.content.strip()
+        points = [
+            line.lstrip("-•* ").strip()
+            for line in raw.splitlines()
+            if line.strip()
+        ]
+        return points if points else [raw]
     except Exception as e:
-        return f"Guidance unavailable: {e}"
+        return [f"Guidance unavailable: {e}"]
 
 # ---------------- Model ----------------
 @st.cache_resource
 def load_model():
-    return YOLO("best_model_yolov8.pt")
+    return YOLO("best_model_finetune.pt")
 
 model = load_model()
 
+# ---------------- Waste chart ----------------
+def render_waste_chart():
+    th = st.session_state["_theme"]
+    st.markdown('<div class="section-title">🌍 Global vs. Myanmar Plastic Recycling</div>', unsafe_allow_html=True)
+
+    years = [2000, 2005, 2010, 2015, 2019, 2022]
+    global_rate = [5, 7, 9, 11, 13, 9.5]
+    myanmar_rate = [10, 10, 10, 10, 10, 10]  # regional LMIC-ASEAN estimate, held flat (see caption)
+
+    color_global = "#118AB2"    # deep sky blue
+    color_myanmar = "#EF476F"   # coral red — high contrast against blue and the mint background
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=years, y=global_rate, mode="lines+markers", name="Global",
+        line=dict(color=color_global, width=4, shape="spline"),
+        marker=dict(size=9, color=color_global),
+    ))
+    fig.add_trace(go.Scatter(
+        x=years, y=myanmar_rate, mode="lines+markers", name="Myanmar (regional estimate)",
+        line=dict(color=color_myanmar, width=4, dash="dash", shape="spline"),
+        marker=dict(size=9, color=color_myanmar),
+    ))
+    fig.update_layout(
+        template="plotly_white",
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="Nunito, sans-serif", color=th["text"], size=13),
+        margin=dict(l=10, r=10, t=10, b=10),
+        height=340,
+        legend=dict(
+            orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0,
+            font=dict(color=th["text"], size=13),
+        ),
+        xaxis=dict(title=None, gridcolor=th["border"], zeroline=False, tickfont=dict(color=th["text"])),
+        yaxis=dict(
+            title="Recycling rate (%)", gridcolor=th["border"], zeroline=False, ticksuffix="%",
+            tickfont=dict(color=th["text"]), title_font=dict(color=th["text"]),
+        ),
+        hovermode="x unified",
+    )
+    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+
+    st.markdown("""
+    <div class="chart-caption">
+        📊 Sources: OECD / Our World in Data (global waste-recycling-rate trend, 2000–2019); global
+        recycled-content share ~9.5% in 2022 (Tsinghua University material-flow study, 2025).
+        Myanmar-specific yearly data isn't publicly tracked, so the dashed line reflects OECD's
+        regional estimate (6–14%, midpoint shown) for lower/middle-income ASEAN countries including
+        Myanmar (OECD <i>Regional Plastics Outlook for Southeast and East Asia</i>, 2023) rather than
+        a true year-by-year trend.
+    </div>
+    """, unsafe_allow_html=True)
+
+# ---------------- About Us page ----------------
+def render_about_page():
+    st.markdown("""
+    <div class="eco-header">
+        <div class="eco-title">♻ About EcoSort</div>
+        <div class="eco-subtitle">AI · Plastic Classifier · Recycling Guide</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="result-card result-card-flex">
+        <div class="about-p">
+            <b>EcoSort</b> is an AI-powered plastic identification and recycling-guidance tool,
+            built as a bachelor's project. It uses a YOLOv8 deep learning model to recognize the
+            resin type of a plastic item from a photo (PET, HDPE, LDPE, PP, PS, or Other), then tells
+            you whether it's recyclable and how to properly recycle or dispose of it.
+        </div>
+        <div class="about-p">
+            <b>Why this matters:</b> globally, less than 10% of plastic waste is effectively recycled,
+            and manual sorting by resin type is one of the biggest bottlenecks in the recycling chain.
+            EcoSort explores how computer vision can make correct sorting easier for everyday people.
+        </div>
+        <div class="about-p">
+            <b>Tech stack:</b> YOLOv8 (Ultralytics) for classification, Streamlit for the interface,
+            and an LLM (via Groq) for generating plain-language disposal guidance.
+        </div>
+        <div class="about-p">
+            <b>Author:</b> Add your name, university, and department here.<br>
+            <b>Contact:</b> Add your email or GitHub link here.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    render_waste_chart()
+
+# ---------------- Dashboard page ----------------
+def render_dashboard_page():
+    th = st.session_state["_theme"]
+    st.markdown("""
+    <div class="eco-header">
+        <div class="eco-title">📊 Dashboard</div>
+        <div class="eco-subtitle">Your Scan History &amp; Stats</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    history = st.session_state.history
+
+    if not history:
+        st.markdown("""
+        <div class="empty-state">
+            <div style="font-size:4rem; margin-bottom:1rem">📊</div>
+            <div style="font-size:1.1rem; font-weight:500; margin-bottom:0.5rem">No scans yet</div>
+            <div style="font-size:0.85rem; opacity:0.7">Classify a plastic item on the Classifier page to see stats here.</div>
+        </div>
+        """, unsafe_allow_html=True)
+        return
+
+    total = len(history)
+    recyclable_count = sum(1 for h in history if h["recyclable"])
+    recyclable_pct = round(recyclable_count / total * 100)
+    type_counts = {}
+    for h in history:
+        type_counts[h["type"]] = type_counts.get(h["type"], 0) + 1
+    most_common = max(type_counts, key=type_counts.get)
+    avg_conf = round(sum(h["confidence"] for h in history) / total)
+
+    # Metric row
+    m1, m2, m3, m4 = st.columns(4)
+    for col, value, label in [
+        (m1, total, "Total Scans"),
+        (m2, f"{recyclable_pct}%", "Recyclable"),
+        (m3, most_common, "Most Common"),
+        (m4, f"{avg_conf}%", "Avg. Confidence"),
+    ]:
+        with col:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-value">{value}</div>
+                <div class="metric-label">{label}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    st.markdown('<div class="section-title">🧴 Scans by Plastic Type</div>', unsafe_allow_html=True)
+    bar_fig = go.Figure(go.Bar(
+        x=list(type_counts.keys()),
+        y=list(type_counts.values()),
+        marker_color=[COLORS.get(k, th["accent"]) for k in type_counts.keys()],
+        text=list(type_counts.values()),
+        textposition="outside",
+    ))
+    bar_fig.update_layout(
+        template="plotly_white",
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(family="Nunito, sans-serif", color=th["text"], size=13),
+        margin=dict(l=10, r=10, t=20, b=10),
+        height=300,
+        xaxis=dict(title=None, gridcolor=th["border"], tickfont=dict(color=th["text"])),
+        yaxis=dict(title="Count", gridcolor=th["border"], tickfont=dict(color=th["text"]),
+                    title_font=dict(color=th["text"])),
+        showlegend=False,
+    )
+    st.plotly_chart(bar_fig, use_container_width=True, config={"displayModeBar": False})
+
+    col_a, col_b = st.columns([1, 1.4], gap="large")
+    with col_a:
+        st.markdown('<div class="section-title">♻️ Recyclable Split</div>', unsafe_allow_html=True)
+        pie_fig = go.Figure(go.Pie(
+            labels=["Recyclable", "Non-recyclable"],
+            values=[recyclable_count, total - recyclable_count],
+            hole=0.55,
+            marker=dict(colors=["#06D6A0", "#EF476F"]),
+            textfont=dict(color="#FFFFFF", size=13),
+        ))
+        pie_fig.update_layout(
+            template="plotly_white",
+            plot_bgcolor="rgba(0,0,0,0)",
+            paper_bgcolor="rgba(0,0,0,0)",
+            font=dict(family="Nunito, sans-serif", color=th["text"], size=13),
+            margin=dict(l=10, r=10, t=10, b=10),
+            height=280,
+            legend=dict(font=dict(color=th["text"])),
+        )
+        st.plotly_chart(pie_fig, use_container_width=True, config={"displayModeBar": False})
+
+    with col_b:
+        st.markdown('<div class="section-title">🕓 Recent Scans</div>', unsafe_allow_html=True)
+        rows = "".join(
+            f"""<div style="display:flex; justify-content:space-between; align-items:center;
+                     padding:0.6rem 0; border-bottom:1px solid {th['border']}; font-size:0.85rem;">
+                <span>{RESIN_SYMBOLS.get(h['type'], '♹')} <b>{h['type']}</b></span>
+                <span style="color:{th['muted']}">{h['confidence']}%</span>
+                <span style="color:{th['muted']}">{h['time']}</span>
+            </div>"""
+            for h in reversed(history[-10:])
+        )
+        st.markdown(f'<div class="result-card result-card-flex" style="max-height:280px; overflow-y:auto;">{rows}</div>', unsafe_allow_html=True)
+
+    if st.button("🗑️ Clear history"):
+        st.session_state.history = []
+        st.session_state.last_file_key = None
+        st.rerun()
+
+# ---------------- Learn page ----------------
+def render_learn_page():
+    st.markdown("""
+    <div class="eco-header">
+        <div class="eco-title">📚 Learn</div>
+        <div class="eco-subtitle">Plastic Types &amp; Recycling Basics</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="result-card result-card-flex">
+        <div class="about-p">
+            <b>Why it matters:</b> globally, less than 10% of plastic waste ever produced has been
+            effectively recycled — most ends up in landfills, is incinerated, or leaks into the
+            environment. A big part of the problem is that different plastics can't be recycled
+            together: each resin type needs its own collection and reprocessing stream. Knowing
+            what you're holding is the first step to sorting it correctly.
+        </div>
+        <div class="about-p">
+            Every plastic item is stamped with a small triangular <b>resin identification code</b>
+            (usually on the bottom) — a number 1 through 7 that tells you what it's made of. Tap
+            through the types below to learn what each one means.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="section-title">🔢 The Resin Types</div>', unsafe_allow_html=True)
+
+    for cls, info in RECYCLABILITY.items():
+        sym = RESIN_SYMBOLS.get(cls, "♹")
+        color = COLORS.get(cls, "#5C8374")
+        badge = (
+            '<span class="badge-recyclable">✓ Recyclable</span>'
+            if info["recyclable"]
+            else '<span class="badge-non">✗ Non-recyclable</span>'
+        )
+        with st.expander(f"{sym}  #{info['code']} · {cls} — {info['name_en']}"):
+            st.markdown(f"""
+            <div style="display:flex; align-items:center; gap:1rem; margin-bottom:0.8rem; flex-wrap:wrap;">
+                <div style="font-size:2.5rem; color:{color}">{sym}</div>
+                {badge}
+            </div>
+            <div class="examples-text" style="margin-bottom:0.6rem;">📦 <b>Common items:</b> {info['examples']}</div>
+            <div class="guidance-box">💡 {LEARN_TIPS.get(cls, "")}</div>
+            """, unsafe_allow_html=True)
+
+    st.markdown('<div class="section-title">🌱 General Tips</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="result-card result-card-flex">
+        <div class="about-p">
+            <b>1. Reduce first.</b> The most effective plastic is the one never produced — reusable
+            bottles, bags, and containers beat recycling every time.
+        </div>
+        <div class="about-p">
+            <b>2. Rinse before you bin it.</b> Food or liquid residue can contaminate an entire batch
+            of recyclables at the sorting facility, sending otherwise-recyclable material to landfill.
+        </div>
+        <div class="about-p">
+            <b>3. Don't "wishcycle."</b> Tossing non-recyclable items into recycling bins hoping
+            they'll somehow get sorted usually does more harm than good — when in doubt, check your
+            local program's accepted materials list.
+        </div>
+        <div class="about-p">
+            <b>4. Know your local rules.</b> What's accepted varies a lot by city and country —
+            use the Classifier page here as a starting point, but always double-check against your
+            local waste authority's guidelines.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
 # ---------------- Sidebar ----------------
 with st.sidebar:
-    st.header("Settings")
-    st.toggle("Dark mode", key="dark_mode", on_change=apply_theme)
+    st.markdown('<div class="sidebar-logo">♻ EcoSort</div>', unsafe_allow_html=True)
     st.markdown("---")
-    st.subheader("Global Plastic Waste by Type")
-    labels = ["PET", "HDPE", "LDPE", "PP", "PS", "Others"]
-    values = [12, 17, 15, 19, 8, 29]
-    fig = go.Figure(data=[go.Pie(
-        labels=labels, values=values, hole=0.4,
-        marker=dict(colors=["#8a9a5b","#bfa76a","#a9b18f","#c9a66b","#6b7a4f","#5c5c4d"])
-    )])
-    fig.update_layout(
-        margin=dict(t=0,b=0,l=0,r=0), height=280,
-        paper_bgcolor="rgba(0,0,0,0)",
-        font_color="#3a3a30" if not st.session_state.dark_mode else "#f0ead6"
-    )
-    st.plotly_chart(fig)
+
+    _pages = [
+        ("Classifier", "🏠", "Classifier"),
+        ("Dashboard", "📊", "Dashboard"),
+        ("Learn", "📚", "Learn"),
+        ("About", "ℹ️", "About Us"),
+    ]
+    _nav_placeholders = []
+    _clicked_key = None
+    for _key, _icon, _label in _pages:
+        _ph = st.empty()
+        _nav_placeholders.append((_ph, _key))
+        if st.button(
+            f"{_icon}  {_label}",
+            key=f"navbtn_{_key}",
+            use_container_width=True,
+        ):
+            _clicked_key = _key
+
+    if _clicked_key is not None:
+        st.session_state.page = _clicked_key
+
+    for _ph, _key in _nav_placeholders:
+        if st.session_state.page == _key:
+            _ph.markdown('<div class="nav-active-marker"></div>', unsafe_allow_html=True)
+
+    st.markdown("---")
+    dark = st.toggle("🌙 Dark mode", value=st.session_state.dark_mode)
+    if dark != st.session_state.dark_mode:
+        st.session_state.dark_mode = dark
+        st.rerun()
+
+
 
 # ---------------- Main ----------------
-st.title("♻️ EcoSort - AI Plastic Classifier")
-st.write("Upload a photo of plastic waste to identify its resin type and get recycling guidance.")
+if st.session_state.page == "About":
+    render_about_page()
+    st.stop()
 
-uploaded_file = st.file_uploader("Choose an image", type=["jpg", "jpeg", "png"])
+if st.session_state.page == "Dashboard":
+    render_dashboard_page()
+    st.stop()
+
+if st.session_state.page == "Learn":
+    render_learn_page()
+    st.stop()
+
+st.markdown("""
+<div class="eco-header">
+    <div class="eco-title">♻ EcoSort</div>
+    <div class="eco-subtitle">AI · Plastic Classifier · Recycling Guide</div>
+</div>
+""", unsafe_allow_html=True)
+
+with st.expander("📋 Supported Classes & How to Use", expanded=False):
+    chip_html = "".join(
+        f'<span class="class-chip">{RESIN_SYMBOLS.get(cls, "♹")} {cls}</span>'
+        for cls in RECYCLABILITY.keys()
+    )
+    st.markdown(f'<div style="margin-bottom:0.8rem;">{chip_html}</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="sidebar-info" style="margin-top:0;">
+        <b>How to use:</b><br>
+        1. Upload a plastic item photo<br>
+        2. Get instant AI classification<br>
+        3. Follow recycling guidance<br><br>
+        <b>Tips for best results:</b><br>
+        • Clear, well-lit photos<br>
+        • Show the recycling symbol if visible<br>
+        • Single item per photo
+    </div>
+    """, unsafe_allow_html=True)
+
+uploaded_file = st.file_uploader(
+    "Upload a photo of plastic waste",
+    type=["jpg", "jpeg", "png"],
+    help="Clear photos work best. Try to capture the recycling symbol if visible."
+)
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
+    col1, col2 = st.columns([1, 1], gap="large")
 
-    col1, col2 = st.columns(2)
     with col1:
-        st.image(image, caption="Uploaded Image")
+        st.image(image, caption="📷 Uploaded Image", use_container_width=False)
 
-    with st.spinner("Analyzing..."):
+    with st.spinner("🔍 Analyzing..."):
         results = model(image)
 
     r = results[0]
     probs = r.probs
-
-    # Top prediction
     top1_idx = probs.top1
     top1_cls = model.names[top1_idx]
     top1_conf = float(probs.top1conf)
 
     info = RECYCLABILITY.get(top1_cls, RECYCLABILITY["Others"])
     symbol = RESIN_SYMBOLS.get(top1_cls, "♹")
+    color = COLORS.get(top1_cls, "#5C8374")
+    conf_pct = int(top1_conf * 100)
+
+    file_key = f"{uploaded_file.name}_{uploaded_file.size}"
+    if st.session_state.last_file_key != file_key:
+        st.session_state.history.append({
+            "time": datetime.now().strftime("%Y-%m-%d %H:%M"),
+            "type": top1_cls,
+            "confidence": conf_pct,
+            "recyclable": info["recyclable"],
+        })
+        st.session_state.last_file_key = file_key
 
     with col2:
-        st.markdown(f"## {symbol} {top1_cls}")
-        st.markdown(f"**{info['name_en']}** (Code {info['code']})")
-        st.progress(top1_conf, text=f"Confidence: {top1_conf:.1%}")
+        badge = (
+            '<span class="badge-recyclable">✓ Recyclable</span>'
+            if info["recyclable"]
+            else '<span class="badge-non">✗ Non-recyclable</span>'
+        )
+        st.markdown(f"""
+        <div class="result-card">
+            <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
+                <div style="font-size:3.5rem; color:{color}">{symbol}</div>
+                <div>
+                    <div style="font-family:'Baloo 2',sans-serif; font-size:3rem; font-weight:800; color:{color}; line-height:1">#{info['code']}</div>
+                    <div class="plastic-name">{top1_cls}</div>
+                    <div class="plastic-fullname">{info['name_en']}</div>
+                    {badge}
+                </div>
+            </div>
+            <div class="conf-label">Confidence Level</div>
+            <div style="display:flex; align-items:center; gap:1rem;">
+                <div class="conf-bar-bg" style="flex:1">
+                    <div style="height:10px; width:{conf_pct}%; background:linear-gradient(90deg,{color},{color}99); border-radius:8px;"></div>
+                </div>
+                <div style="font-weight:800; color:{color}; min-width:48px; font-size:1rem">{conf_pct}%</div>
+            </div>
+            <div class="examples-text">📦 Common items: {info['examples']}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-        if info["recyclable"]:
-            st.success("✅ Recyclable")
-        else:
-            st.error("❌ Non-recyclable")
-
-    # Top 3 predictions
-    st.subheader("📊 Top Predictions")
-    top5_indices = probs.top5
-    top5_confs = probs.top5conf.tolist()
-    for idx, conf in zip(top5_indices[:3], top5_confs[:3]):
-        cls_name = model.names[idx]
-        st.progress(float(conf), text=f"{cls_name}: {conf:.1%}")
+    # # Top 3 Predictions
+    # st.markdown('<div class="section-title">📊 Top Predictions</div>', unsafe_allow_html=True)
+    # top5_indices = probs.top5
+    # top5_confs = probs.top5conf.tolist()
+    # pred_cols = st.columns(3)
+    # for i, (idx, conf) in enumerate(zip(top5_indices[:3], top5_confs[:3])):
+    #     cls_name = model.names[idx]
+    #     c = COLORS.get(cls_name, "#5C8374")
+    #     pct = int(float(conf) * 100)
+    #     sym = RESIN_SYMBOLS.get(cls_name, "♹")
+    #     with pred_cols[i]:
+    #         st.markdown(f"""
+    #         <div class="pred-card" style="border-top: 4px solid {c};">
+    #             <div style="font-size:1.8rem; color:{c}">{sym}</div>
+    #             <div class="pred-cls">{cls_name}</div>
+    #             <div class="pred-pct" style="color:{c}">{pct}%</div>
+    #         </div>
+    #         """, unsafe_allow_html=True)
 
     # Guidance
-    st.subheader("♻️ Recycling Guidance")
+    st.markdown('<div class="section-title">♻️ Recycling Guidance</div>', unsafe_allow_html=True)
     with st.spinner("Getting guidance..."):
-        guidance = get_guidance(top1_cls, info["recyclable"])
-    st.info(guidance)
+        guidance_points = get_guidance(top1_cls, info["recyclable"])
+    guidance_html = "".join(f"<li>{point}</li>" for point in guidance_points)
+    st.markdown(
+        f'<div class="guidance-box"><ul class="guidance-list">{guidance_html}</ul></div>',
+        unsafe_allow_html=True,
+    )
+
+else:
+    st.markdown("""
+    <div class="empty-state">
+        <div style="font-size:4rem; margin-bottom:1rem">📷</div>
+        <div style="font-size:1.1rem; font-weight:500; margin-bottom:0.5rem">Upload a plastic item photo to get started</div>
+        <div style="font-size:0.85rem; opacity:0.7">Supports JPG, JPEG, PNG · AI-powered classification</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown('<hr class="divider">', unsafe_allow_html=True)
+render_waste_chart()
