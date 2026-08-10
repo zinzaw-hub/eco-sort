@@ -519,7 +519,7 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
         </div>
 
         <div class="card">
-            <h3>🔍 Analysis Results</h3>
+            <h3>Analysis Results</h3>
             <p><strong>Plastic Type:</strong> {plastic_type} ({info['name_en']})</p>
             <p><strong>Resin Code:</strong> #{info['code']}</p>
             <p><strong>Confidence:</strong> {confidence:.1f}%</p>
@@ -527,7 +527,7 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
         </div>
 
         <div class="info-box">
-            <h3>📖 Recycling Guidance</h3>
+            <h3>Recycling Guidance</h3>
             <ul>
                 {"".join([f"<li>{point}</li>" for point in guidance_points])}
             </ul>
@@ -552,7 +552,7 @@ model = load_model()
 # ---------------- Waste chart ----------------
 def render_waste_chart():
     th = st.session_state["_theme"]
-    st.markdown('<div class="section-title">🌍 Global vs. Myanmar Plastic Recycling</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Global vs. Myanmar Plastic Recycling</div>', unsafe_allow_html=True)
 
     years = [2000, 2005, 2010, 2015, 2019, 2022]
     global_rate = [5, 7, 9, 11, 13, 9.5]
@@ -656,7 +656,7 @@ def render_dashboard_page():
     if total == 0:
         st.markdown("""
         <div class="empty-state">
-            <div style="font-size:4rem; margin-bottom:1rem">📊</div>
+            <div style="font-size:4rem; margin-bottom:1rem"></div>
             <div style="font-size:1.1rem; font-weight:500; margin-bottom:0.5rem">No scans yet</div>
             <div style="font-size:0.85rem; opacity:0.7">Classify a plastic item on the Classifier page to see stats here.</div>
         </div>
@@ -688,7 +688,7 @@ def render_dashboard_page():
             </div>
             """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">🧴 Scans by Plastic Type</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Scans by Plastic Type</div>', unsafe_allow_html=True)
     bar_fig = go.Figure(go.Bar(
         x=list(type_counts.keys()),
         y=list(type_counts.values()),
@@ -776,7 +776,7 @@ def render_learn_page():
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">🔢 The Resin Types</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">The Resin Types</div>', unsafe_allow_html=True)
 
     for cls, info in RECYCLABILITY.items():
         sym = RESIN_SYMBOLS.get(cls, "♹")
@@ -792,11 +792,11 @@ def render_learn_page():
                 <div style="font-size:2.5rem; color:{color}">{sym}</div>
                 {badge}
             </div>
-            <div class="examples-text" style="margin-bottom:0.6rem;">📦 <b>Common items:</b> {info['examples']}</div>
-            <div class="guidance-box">💡 {LEARN_TIPS.get(cls, "")}</div>
+            <div class="examples-text" style="margin-bottom:0.6rem;"><b>Common items:</b> {info['examples']}</div>
+            <div class="guidance-box">{LEARN_TIPS.get(cls, "")}</div>
             """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">🌱 General Tips</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">General Tips</div>', unsafe_allow_html=True)
     st.markdown("""
     <div class="result-card result-card-flex">
         <div class="about-p">
@@ -826,10 +826,10 @@ with st.sidebar:
     st.markdown("---")
 
     _pages = [
-        ("Classifier", "🏠", "Classifier"),
-        ("Dashboard", "📊", "Dashboard"),
-        ("Learn", "📚", "Learn"),
-        ("About", "ℹ️", "About Us"),
+        ("Classifier", "", "Classifier"),
+        ("Dashboard", "", "Dashboard"),
+        ("Learn", "", "Learn"),
+        ("About", "", "About Us"),
     ]
     _nav_placeholders = []
     _clicked_key = None
