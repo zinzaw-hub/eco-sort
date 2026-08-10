@@ -559,7 +559,7 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
 # ---------------- Model ----------------
 @st.cache_resource
 def load_model():
-    return YOLO("best_model_finetune.pt")
+    return YOLO("best_model_yolov8_ft2.pt")
 
 model = load_model()
 
