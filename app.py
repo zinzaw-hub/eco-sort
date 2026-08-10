@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 from groq import Groq
 import base64
 import io
+import json
 
 st.set_page_config(
     page_title="EcoSort",
@@ -14,6 +15,26 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# ---------------- Global Persistent Stats (JSON) ----------------
+STATS_FILE = "global_stats.json"
+
+def load_global_stats():
+    if os.path.exists(STATS_FILE):
+        try:
+            with open(STATS_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {"total_scans": 0, "plastic_types": {}, "history": []}
+    else:
+        return {"total_scans": 0, "plastic_types": {}, "history": []}
+
+def save_global_stats(stats):
+    with open(STATS_FILE, "w", encoding="utf-8") as f:
+        json.dump(stats, f, ensure_ascii=False, indent=4)
+
+if "global_stats" not in st.session_state:
+    st.session_state.global_stats = load_global_stats()
 
 # ---------------- Theme CSS ----------------
 def apply_theme(dark):
@@ -48,7 +69,6 @@ def apply_theme(dark):
         uploader_bg = "#FFFFFF"
         uploader_border = "#C8F0D9"
 
-    # stash for chart theming outside this function
     st.session_state["_theme"] = dict(
         bg=bg, card_bg=card_bg, text=text, muted=muted,
         accent=accent, accent2=accent2, border=border,
@@ -72,8 +92,6 @@ def apply_theme(dark):
     section[data-testid="stSidebar"] * {{
         color: {text} !important;
     }}
-
-    /* File uploader fix (dropzone) */
     [data-testid="stFileUploader"] {{
         background-color: {uploader_bg} !important;
         border: 3px dashed {accent} !important;
@@ -92,8 +110,6 @@ def apply_theme(dark):
     [data-testid="stFileUploadDropzone"] {{
         background-color: {uploader_bg} !important;
     }}
-
-    /* File uploader fix (uploaded file row - was a hardcoded dark box) */
     [data-testid="stFileUploaderFile"] {{
         background-color: {card_bg} !important;
         border: 1px solid {border} !important;
@@ -114,7 +130,6 @@ def apply_theme(dark):
         color: {text} !important;
         border: 1px solid {border} !important;
     }}
-
     .eco-header {{
         text-align: center;
         padding: 1.5rem 0 1rem;
@@ -153,16 +168,6 @@ def apply_theme(dark):
         height: 6px;
         background: linear-gradient(90deg, {accent}, {accent2});
         border-radius: 28px 28px 0 0;
-    }}
-    .plastic-symbol {{
-        font-size: 3.5rem;
-        line-height: 1;
-    }}
-    .plastic-code {{
-        font-family: 'Baloo 2', sans-serif;
-        font-size: 3.5rem;
-        font-weight: 800;
-        line-height: 1;
     }}
     .plastic-name {{
         font-size: 1.5rem;
@@ -246,23 +251,6 @@ def apply_theme(dark):
         flex-shrink: 0;
         color: {accent};
         font-weight: 700;
-    }}
-    .pred-card {{
-        background: {card_bg};
-        border: 2px solid {border};
-        border-radius: 18px;
-        padding: 1rem;
-        text-align: center;
-    }}
-    .pred-cls {{
-        font-weight: 700;
-        font-size: 0.9rem;
-        color: {text} !important;
-        margin: 0.3rem 0;
-    }}
-    .pred-pct {{
-        font-size: 1.4rem;
-        font-weight: 800;
     }}
     .divider {{
         border: none;
@@ -434,8 +422,6 @@ if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 if "page" not in st.session_state:
     st.session_state.page = "Classifier"
-if "history" not in st.session_state:
-    st.session_state.history = []
 if "last_file_key" not in st.session_state:
     st.session_state.last_file_key = None
 
@@ -503,7 +489,7 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
     image.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
 
-    recyclable_text = "Recyclable (ပြန်လည်အသုံးချနိုင်သည်)" if info["recyclable"] else "Non-recyclable (ပြန်လည်အသုံးချရန် မသင့်တော်ပါ)"
+    recyclable_text = "Recyclable" if info["recyclable"] else "Non-recyclable"
     
     html_content = f"""
     <!DOCTYPE html>
@@ -570,10 +556,10 @@ def render_waste_chart():
 
     years = [2000, 2005, 2010, 2015, 2019, 2022]
     global_rate = [5, 7, 9, 11, 13, 9.5]
-    myanmar_rate = [10, 10, 10, 10, 10, 10]  # regional LMIC-ASEAN estimate, held flat (see caption)
+    myanmar_rate = [10, 10, 10, 10, 10, 10]
 
-    color_global = "#118AB2"    # deep sky blue
-    color_myanmar = "#EF476F"   # coral red — high contrast against blue and the mint background
+    color_global = "#118AB2"
+    color_myanmar = "#EF476F"
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(
@@ -608,7 +594,7 @@ def render_waste_chart():
 
     st.markdown("""
     <div class="chart-caption">
-        📊 Sources: OECD / Our World in Data (global waste-recycling-rate trend, 2000–2019); global
+        Sources: OECD / Our World in Data (global waste-recycling-rate trend, 2000–2019); global
         recycled-content share ~9.5% in 2022 (Tsinghua University material-flow study, 2025).
         Myanmar-specific yearly data isn't publicly tracked, so the dashed line reflects OECD's
         regional estimate (6–14%, midpoint shown) for lower/middle-income ASEAN countries including
@@ -657,14 +643,17 @@ def render_dashboard_page():
     th = st.session_state["_theme"]
     st.markdown("""
     <div class="eco-header">
-        <div class="eco-title">📊 Dashboard</div>
-        <div class="eco-subtitle">Your Scan History &amp; Stats</div>
+        <div class="eco-title">Dashboard</div>
+        <div class="eco-subtitle">Global Scan History &amp; Stats</div>
     </div>
     """, unsafe_allow_html=True)
 
-    history = st.session_state.history
+    stats = st.session_state.global_stats
+    history = stats.get("history", [])
+    total = stats.get("total_scans", 0)
+    type_counts = stats.get("plastic_types", {})
 
-    if not history:
+    if total == 0:
         st.markdown("""
         <div class="empty-state">
             <div style="font-size:4rem; margin-bottom:1rem">📊</div>
@@ -674,16 +663,16 @@ def render_dashboard_page():
         """, unsafe_allow_html=True)
         return
 
-    total = len(history)
-    recyclable_count = sum(1 for h in history if h["recyclable"])
-    recyclable_pct = round(recyclable_count / total * 100)
-    type_counts = {}
-    for h in history:
-        type_counts[h["type"]] = type_counts.get(h["type"], 0) + 1
-    most_common = max(type_counts, key=type_counts.get)
-    avg_conf = round(sum(h["confidence"] for h in history) / total)
+    recyclable_count = sum(
+        type_counts.get(k, 0) for k, info in RECYCLABILITY.items() if info["recyclable"]
+    )
+    recyclable_pct = round(recyclable_count / total * 100) if total > 0 else 0
+    most_common = max(type_counts, key=type_counts.get) if type_counts else "N/A"
+    
+    avg_conf = 0
+    if history:
+        avg_conf = round(sum(h["confidence"] for h in history) / len(history))
 
-    # Metric row
     m1, m2, m3, m4 = st.columns(4)
     for col, value, label in [
         (m1, total, "Total Scans"),
@@ -726,7 +715,7 @@ def render_dashboard_page():
         st.markdown('<div class="section-title">♻️ Recyclable Split</div>', unsafe_allow_html=True)
         pie_fig = go.Figure(go.Pie(
             labels=["Recyclable", "Non-recyclable"],
-            values=[recyclable_count, total - recyclable_count],
+            values=[recyclable_count, max(0, total - recyclable_count)],
             hole=0.55,
             marker=dict(colors=["#06D6A0", "#EF476F"]),
             textfont=dict(color="#FFFFFF", size=13),
@@ -743,7 +732,7 @@ def render_dashboard_page():
         st.plotly_chart(pie_fig, use_container_width=True, config={"displayModeBar": False})
 
     with col_b:
-        st.markdown('<div class="section-title">🕓 Recent Scans</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Recent Scans</div>', unsafe_allow_html=True)
         rows = "".join(
             f"""<div style="display:flex; justify-content:space-between; align-items:center;
                      padding:0.6rem 0; border-bottom:1px solid {th['border']}; font-size:0.85rem;">
@@ -755,8 +744,9 @@ def render_dashboard_page():
         )
         st.markdown(f'<div class="result-card result-card-flex" style="max-height:280px; overflow-y:auto;">{rows}</div>', unsafe_allow_html=True)
 
-    if st.button("🗑️ Clear history"):
-        st.session_state.history = []
+    if st.button("🗑️ Clear global stats"):
+        st.session_state.global_stats = {"total_scans": 0, "plastic_types": {}, "history": []}
+        save_global_stats(st.session_state.global_stats)
         st.session_state.last_file_key = None
         st.rerun()
 
@@ -764,7 +754,7 @@ def render_dashboard_page():
 def render_learn_page():
     st.markdown("""
     <div class="eco-header">
-        <div class="eco-title">📚 Learn</div>
+        <div class="eco-title">Learn</div>
         <div class="eco-subtitle">Plastic Types &amp; Recycling Basics</div>
     </div>
     """, unsafe_allow_html=True)
@@ -866,8 +856,6 @@ with st.sidebar:
         st.session_state.dark_mode = dark
         st.rerun()
 
-
-
 # ---------------- Main ----------------
 if st.session_state.page == "About":
     render_about_page()
@@ -936,12 +924,20 @@ if uploaded_file is not None:
 
     file_key = f"{uploaded_file.name}_{uploaded_file.size}"
     if st.session_state.last_file_key != file_key:
-        st.session_state.history.append({
+        stats = st.session_state.global_stats
+        stats["total_scans"] += 1
+        stats["plastic_types"][top1_cls] = stats["plastic_types"].get(top1_cls, 0) + 1
+        
+        if "history" not in stats:
+            stats["history"] = []
+            
+        stats["history"].append({
             "time": datetime.now().strftime("%Y-%m-%d %H:%M"),
             "type": top1_cls,
             "confidence": conf_pct,
             "recyclable": info["recyclable"],
         })
+        save_global_stats(stats)
         st.session_state.last_file_key = file_key
 
     with col2:
@@ -972,7 +968,6 @@ if uploaded_file is not None:
         </div>
         """, unsafe_allow_html=True)
 
-    # Guidance
     st.markdown('<div class="section-title">♻️ Recycling Guidance</div>', unsafe_allow_html=True)
     with st.spinner("Getting guidance..."):
         guidance_points = get_guidance(top1_cls, info["recyclable"])
@@ -982,7 +977,6 @@ if uploaded_file is not None:
         unsafe_allow_html=True,
     )
 
-    # ---------------- PDF Report Download Button ----------------
     st.markdown("---")
     st.subheader("📥 Export Report")
     
@@ -997,7 +991,7 @@ if uploaded_file is not None:
             use_container_width=True
         )
     else:
-        st.error("PDF ဖန်တီးရန် WeasyPrint လိုအပ်ပါသည်။ (pip install weasyprint)")
+        st.error("Failed to generate PDF. WeasyPrint dependencies might be missing.")
 
 else:
     st.markdown("""
