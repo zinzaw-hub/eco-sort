@@ -414,6 +414,22 @@ def apply_theme(dark):
         margin: 1rem 0;
         overflow-y: visible;
     }}
+
+#pdf download button
+    [data-testid="stDownloadButton"] button {
+        background: {card_bg} !important;
+        color: {text} !important;
+        border: 2px solid {border} !important;
+        border-radius: 14px !important;
+        font-weight: 600 !important;
+        box-shadow: none !important;
+        transition: all 0.15s ease !important;
+    }
+    [data-testid="stDownloadButton"] button:hover {
+        background: {accent}22 !important;
+        border-color: {accent} !important;
+        color: {accent} !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
