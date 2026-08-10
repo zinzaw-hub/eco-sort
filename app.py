@@ -5,6 +5,8 @@ import os
 from datetime import datetime
 import plotly.graph_objects as go
 from groq import Groq
+import base64
+import io
 
 st.set_page_config(
     page_title="EcoSort",
@@ -495,10 +497,69 @@ def get_guidance(plastic_type, recyclable):
     except Exception as e:
         return [f"Guidance unavailable: {e}"]
 
+# ---------------- PDF Report Generator Function ----------------
+def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
+    buffered = io.BytesIO()
+    image.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+
+    recyclable_text = "Recyclable (ပြန်လည်အသုံးချနိုင်သည်)" if info["recyclable"] else "Non-recyclable (ပြန်လည်အသုံးချရန် မသင့်တော်ပါ)"
+    
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <style>
+        @page {{ size: A4; margin: 15mm; background-color: #fdfbf7; }}
+        body {{ font-family: 'Arial', sans-serif; color: #333; line-height: 1.6; }}
+        .header {{ border-bottom: 2px solid #06D6A0; padding-bottom: 10px; margin-bottom: 20px; }}
+        .title {{ color: #06D6A0; font-size: 22px; font-weight: bold; }}
+        .img-container {{ text-align: center; margin-bottom: 20px; }}
+        .img-container img {{ max-width: 220px; height: auto; border-radius: 8px; border: 3px solid #ddd; }}
+        .card {{ background: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px; }}
+        .info-box {{ background-color: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #06D6A0; }}
+        ul {{ margin: 0; padding-left: 20px; }}
+    </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="title">♻️ EcoSort - Plastic Recycling Report</div>
+            <p style="font-size: 12px; color: #666;">Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+        </div>
+
+        <div class="img-container">
+            <img src="data:image/png;base64,{img_str}" alt="Scanned Plastic">
+        </div>
+
+        <div class="card">
+            <h3>🔍 Analysis Results</h3>
+            <p><strong>Plastic Type:</strong> {plastic_type} ({info['name_en']})</p>
+            <p><strong>Resin Code:</strong> #{info['code']}</p>
+            <p><strong>Confidence:</strong> {confidence:.1f}%</p>
+            <p><strong>Status:</strong> {recyclable_text}</p>
+        </div>
+
+        <div class="info-box">
+            <h3>📖 Recycling Guidance</h3>
+            <ul>
+                {"".join([f"<li>{point}</li>" for point in guidance_points])}
+            </ul>
+        </div>
+    </body>
+    </html>
+    """
+    try:
+        from weasyprint import HTML
+        pdf_bytes = HTML(string=html_content).write_pdf()
+        return pdf_bytes
+    except Exception as e:
+        return None
+
 # ---------------- Model ----------------
 @st.cache_resource
 def load_model():
-    return YOLO("best_model_yolov8_ft2.pt")
+    return YOLO("best_model_finetune.pt")
 
 model = load_model()
 
@@ -911,25 +972,6 @@ if uploaded_file is not None:
         </div>
         """, unsafe_allow_html=True)
 
-    # # Top 3 Predictions
-    # st.markdown('<div class="section-title">📊 Top Predictions</div>', unsafe_allow_html=True)
-    # top5_indices = probs.top5
-    # top5_confs = probs.top5conf.tolist()
-    # pred_cols = st.columns(3)
-    # for i, (idx, conf) in enumerate(zip(top5_indices[:3], top5_confs[:3])):
-    #     cls_name = model.names[idx]
-    #     c = COLORS.get(cls_name, "#5C8374")
-    #     pct = int(float(conf) * 100)
-    #     sym = RESIN_SYMBOLS.get(cls_name, "♹")
-    #     with pred_cols[i]:
-    #         st.markdown(f"""
-    #         <div class="pred-card" style="border-top: 4px solid {c};">
-    #             <div style="font-size:1.8rem; color:{c}">{sym}</div>
-    #             <div class="pred-cls">{cls_name}</div>
-    #             <div class="pred-pct" style="color:{c}">{pct}%</div>
-    #         </div>
-    #         """, unsafe_allow_html=True)
-
     # Guidance
     st.markdown('<div class="section-title">♻️ Recycling Guidance</div>', unsafe_allow_html=True)
     with st.spinner("Getting guidance..."):
@@ -939,6 +981,23 @@ if uploaded_file is not None:
         f'<div class="guidance-box"><ul class="guidance-list">{guidance_html}</ul></div>',
         unsafe_allow_html=True,
     )
+
+    # ---------------- PDF Report Download Button ----------------
+    st.markdown("---")
+    st.subheader("📥 Export Report")
+    
+    pdf_data = generate_pdf_report(image, top1_cls, float(top1_conf * 100), info, guidance_points)
+    
+    if pdf_data:
+        st.download_button(
+            label="📄 Download PDF Report",
+            data=pdf_data,
+            file_name=f"EcoSort_Report_{top1_cls}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
+            mime="application/pdf",
+            use_container_width=True
+        )
+    else:
+        st.error("PDF ဖန်တီးရန် WeasyPrint လိုအပ်ပါသည်။ (pip install weasyprint)")
 
 else:
     st.markdown("""
