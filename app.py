@@ -211,7 +211,7 @@ def apply_theme(dark):
         overflow: hidden;
     }}
     .examples-text {{
-        font-size: 0.78rem;
+        font-size: 0.9rem;
         color: {muted} !important;
         margin-top: 0.5rem;
     }}
