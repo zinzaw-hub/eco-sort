@@ -1070,11 +1070,10 @@ if uploaded_file is not None:
     
     props_md = "".join(f"- {prop}\n" for prop in info.get("properties", []))
     
+    # ---------------- Identified Plastic Details ----------------
     st.markdown(f"""
-    <div class="result-card result-card-flex">
-        <div class="about-p">
-            <b>{top1_cls} ({info['name_en']})</b> — {info['description']} Identified by recycling number #{info['code']}.
-        </div>
+    <div style="margin: 1rem 0; line-height: 1.8;">
+        <b>{top1_cls} ({info['name_en']})</b> — {info['description']} Identified by recycling number #{info['code']}.
     </div>
     """, unsafe_allow_html=True)
 
