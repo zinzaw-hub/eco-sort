@@ -607,7 +607,7 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
 
         <div class="card">
             <h3>Analysis Results & Identified Plastic Details</h3>
-            <p><strong>Plastic Type:</strong> {plastic_type} ({info['name_en']}) </br><strong>Resin Code:</strong> #{info['code']} </br><strong>Confidence:</strong> {confidence:.1f}% | <strong>Status:</strong> {recyclable_text}</p>
+            <p><strong>Plastic Type:</strong> {plastic_type} ({info['name_en']}) </br><strong>Resin Code:</strong> #{info['code']} </br><strong>Confidence:</strong> {confidence:.1f}%  </br><strong>Status:</strong> {recyclable_text}</p>
             <p><strong>Description:</strong> {info['description']}</p>
         </div>
 
