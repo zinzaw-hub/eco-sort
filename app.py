@@ -582,11 +582,11 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
     <meta charset="utf-8">
     <style>
         @page {{ size: A4; margin: 10mm; background-color: #fdfbf7; }}
-        body {{ font-family: 'Arial', sans-serif; color: #333; font-size: 10px; line-height: 1.3; }}
+        body {{ font-family: 'Arial', sans-serif; color: #333; font-size: 15px; line-height: 1.7; }}
         .header {{ border-bottom: 1.5px solid #06D6A0; padding-bottom: 4px; margin-bottom: 8px; }}
         .title {{ color: #06D6A0; font-size: 16px; font-weight: bold; }}
         .img-container {{ text-align: center; margin-bottom: 8px; }}
-        .img-container img {{ max-width: 150px; height: auto; border-radius: 6px; border: 2px solid #ddd; }}
+        .img-container img {{ max-width: 250px; height: auto; border-radius: 6px; border: 2px solid #ddd; }}
         .card {{ background: #ffffff; padding: 8px 10px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 8px; }}
         .info-box {{ background-color: #e8f5e9; padding: 8px 10px; border-radius: 6px; border-left: 4px solid #06D6A0; margin-bottom: 8px; }}
         h3 {{ font-size: 11px; margin: 0 0 4px 0; color: #1B4332; }}
@@ -607,7 +607,7 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
 
         <div class="card">
             <h3>Analysis Results & Identified Plastic Details</h3>
-            <p><strong>Plastic Type:</strong> {plastic_type} ({info['name_en']}) | <strong>Resin Code:</strong> #{info['code']} | <strong>Confidence:</strong> {confidence:.1f}% | <strong>Status:</strong> {recyclable_text}</p>
+            <p><strong>Plastic Type:</strong> {plastic_type} ({info['name_en']}) | </br><strong>Resin Code:</strong> #{info['code']} | </br><strong>Confidence:</strong> {confidence:.1f}% | <strong>Status:</strong> {recyclable_text}</p>
             <p><strong>Description:</strong> {info['description']}</p>
         </div>
 
