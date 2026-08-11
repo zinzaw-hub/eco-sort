@@ -573,6 +573,8 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
 
     recyclable_text = "Recyclable" if info["recyclable"] else "Non-recyclable"
     
+    properties_list = info.get("properties", [])
+    
     html_content = f"""
     <!DOCTYPE html>
     <html>
@@ -586,7 +588,7 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
         .img-container {{ text-align: center; margin-bottom: 20px; }}
         .img-container img {{ max-width: 220px; height: auto; border-radius: 8px; border: 3px solid #ddd; }}
         .card {{ background: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px; }}
-        .info-box {{ background-color: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #06D6A0; }}
+        .info-box {{ background-color: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #06D6A0; margin-bottom: 15px; }}
         ul {{ margin: 0; padding-left: 20px; }}
     </style>
     </head>
@@ -601,11 +603,21 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
         </div>
 
         <div class="card">
-            <h3>Analysis Results</h3>
+            <h3>Analysis Results & Identified Plastic Details</h3>
             <p><strong>Plastic Type:</strong> {plastic_type} ({info['name_en']})</p>
             <p><strong>Resin Code:</strong> #{info['code']}</p>
             <p><strong>Confidence:</strong> {confidence:.1f}%</p>
             <p><strong>Status:</strong> {recyclable_text}</p>
+            <p><strong>Description:</strong> {info['description']}</p>
+        </div>
+
+        <div class="card">
+            <h3>Key Properties</h3>
+            <ul>
+                {"".join([f"<li>{prop}</li>" for prop in properties_list])}
+            </ul>
+            <h3 style="margin-top: 15px;">📦 Common Uses</h3>
+            <p>{info['examples']}.</p>
         </div>
 
         <div class="info-box">
@@ -1070,7 +1082,7 @@ if uploaded_file is not None:
     
     props_md = "".join(f"- {prop}\n" for prop in info.get("properties", []))
     
-    # ---------------- Identified Plastic Details ----------------
+    # ---------------- Identified Plastic Details (Box မပါတော့ဘဲ ရိုးရိုးစာသားအဖြစ် ပြင်ထားသည်) ----------------
     st.markdown(f"""
     <div style="margin: 1rem 0; line-height: 1.8;">
         <b>{top1_cls} ({info['name_en']})</b> — {info['description']} Identified by recycling number #{info['code']}.
