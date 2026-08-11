@@ -617,7 +617,7 @@ def render_waste_chart():
 
     st.markdown("""
     <div class="chart-caption">
-        📊 Sources: OECD / Our World in Data (global waste-recycling-rate trend, 2000–2019); 
+        Sources: OECD / Our World in Data (global waste-recycling-rate trend, 2000–2019); 
         global recycled-content share ~9.5% in 2022 (Tsinghua University, 2025).
         2023–2025 values are projections based on current trends.
         Myanmar line reflects OECD regional estimate for lower/middle-income ASEAN countries
@@ -776,13 +776,12 @@ def render_dashboard_page():
 def render_learn_page():
     st.markdown("""
     <div class="eco-header">
-        <div class="eco-title">📚 Learn</div>
+        <div class="eco-title">Learn</div>
         <div class="eco-subtitle">Plastic Types &amp; Recycling Basics</div>
     </div>
     """, unsafe_allow_html=True)
 
-    # YouTube ဗီဒီယို ထည့်သွင်းထားသော Block
-    st.markdown('<div class="section-title">🎥 Featured Video</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Recycling Example Video</div>', unsafe_allow_html=True)
     st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
 
     st.markdown("""
@@ -802,7 +801,7 @@ def render_learn_page():
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">🔢 The Resin Types</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">The Resin Types</div>', unsafe_allow_html=True)
 
     for cls, info in RECYCLABILITY.items():
         sym = RESIN_SYMBOLS.get(cls, "♹")
@@ -902,7 +901,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-with st.expander("📋 Supported Classes & How to Use", expanded=False):
+with st.expander("Supported Classes & How to Use", expanded=False):
     chip_html = "".join(
         f'<span class="class-chip">{RESIN_SYMBOLS.get(cls, "♹")} {cls}</span>'
         for cls in RECYCLABILITY.keys()
@@ -1004,13 +1003,13 @@ if uploaded_file is not None:
     )
 
     st.markdown("---")
-    st.subheader("📥 Export Report")
+    st.subheader("Export Report")
     
     pdf_data = generate_pdf_report(image, top1_cls, float(top1_conf * 100), info, guidance_points)
     
     if pdf_data:
         st.download_button(
-            label="📄 Download PDF Report",
+            label="📄Download PDF Report",
             data=pdf_data,
             file_name=f"EcoSort_Report_{top1_cls}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
             mime="application/pdf",
