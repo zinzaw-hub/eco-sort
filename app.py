@@ -16,6 +16,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# ---------------- Global Persistent Stats (JSON) ----------------
 STATS_FILE = "global_stats.json"
 
 def load_global_stats():
@@ -35,6 +36,7 @@ def save_global_stats(stats):
 if "global_stats" not in st.session_state:
     st.session_state.global_stats = load_global_stats()
 
+# ---------------- Theme CSS ----------------
 def apply_theme(dark):
     if dark:
         bg        = "#14213D"
@@ -100,6 +102,20 @@ def apply_theme(dark):
         background-color: {uploader_bg} !important;
     }}
     [data-testid="stFileUploader"] * {{
+        color: {text} !important;
+    }}
+    [data-testid="stFileUploader"] small {{
+        color: {muted} !important;
+    }}
+    [data-testid="stFileUploadDropzone"] {{
+        background-color: {uploader_bg} !important;
+    }}
+    [data-testid="stFileUploaderFile"] {{
+        background-color: {card_bg} !important;
+        border: 1px solid {border} !important;
+        border-radius: 14px !important;
+    }}
+    [data-testid="stFileUploaderFile"] * {{
         color: {text} !important;
         fill: {text} !important;
     }}
@@ -202,7 +218,7 @@ def apply_theme(dark):
         overflow: hidden;
     }}
     .examples-text {{
-        font-size: 0.9rem;
+        font-size: 0.78rem;
         color: {muted} !important;
         margin-top: 0.5rem;
     }}
@@ -398,6 +414,8 @@ def apply_theme(dark):
         margin: 1rem 0;
         overflow-y: visible;
     }}
+
+#pdf download button
     [data-testid="stDownloadButton"] button {{
         background: transparent !important;
         color: {text} !important;
@@ -422,6 +440,7 @@ def apply_theme(dark):
     </style>
     """, unsafe_allow_html=True)
 
+# ---------------- State ----------------
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 if "page" not in st.session_state:
@@ -431,85 +450,23 @@ if "last_file_key" not in st.session_state:
 
 apply_theme(st.session_state.dark_mode)
 
+# ---------------- Data ----------------
 RESIN_SYMBOLS = {
     "PET": "♳", "HDPE": "♴", "LDPE": "♶",
     "PP": "♷", "PS": "♸", "Others": "♹",
 }
-
 RECYCLABILITY = {
-    "PET": {
-        "recyclable": True, "code": "1", "name_en": "Polyethylene Terephthalate", 
-        "examples": "Water bottles, soda bottles, food jars",
-        "description": "PET (Polyethylene Terephthalate) is a clear, strong, and lightweight plastic widely used for packaging foods and beverages because it helps prevent oxygen from spoiling the product inside.",
-        "properties": [
-            "Clear and transparent — high optical clarity",
-            "Strong and shatter-resistant — handles impact well",
-            "Good gas and moisture barrier — preserves freshness",
-            "100% recyclable — highly demanded by recycling facilities"
-        ]
-    },
-    "HDPE": {
-        "recyclable": True, "code": "2", "name_en": "High-Density Polyethylene", 
-        "examples": "Milk jugs, detergent bottles, shampoo bottles",
-        "description": "HDPE (High-Density Polyethylene) is a robust, stiff plastic known for its high tensile strength and resistance to various solvents, making it ideal for rigid containers.",
-        "properties": [
-            "Rigid and strong — withstands heavy stacking",
-            "Chemical resistant — handles household cleaners safely",
-            "Weather resistant — durable against environmental exposure",
-            "Widely recyclable — accepted in almost all curbside programs"
-        ]
-    },
-    "LDPE": {
-        "recyclable": True, "code": "4", "name_en": "Low-Density Polyethylene", 
-        "examples": "Bread bags, squeeze bottles, shrink wrap",
-        "description": "LDPE (Low-Density Polyethylene) is a flexible, soft plastic with good chemical resistance. It is less rigid than HDPE and commonly used for films and flexible packaging.",
-        "properties": [
-            "Flexible and soft — bends without breaking",
-            "Lightweight — adds minimal weight to packaging",
-            "Moisture resistant — keeps contents dry",
-            "Partially recyclable — accepted at some drop-off points"
-        ]
-    },
-    "PP": {
-        "recyclable": True, "code": "5", "name_en": "Polypropylene", 
-        "examples": "Yogurt tubs, bottle caps, takeout containers",
-        "description": "PP (Polypropylene) is a tough, heat-resistant plastic that acts as a strong barrier against moisture, grease, and chemicals, making it great for hot-fill liquids and food storage.",
-        "properties": [
-            "High heat tolerance — safe for microwave and hot liquids",
-            "Tough and fatigue resistant — handles repeated flexing",
-            "Moisture and grease barrier — excellent for food packaging",
-            "Recyclable — increasingly accepted by local programs"
-        ]
-    },
-    "PS": {
-        "recyclable": False, "code": "6", "name_en": "Polystyrene", 
-        "examples": "Foam cups, takeout clamshells, packing peanuts",
-        "description": "PS (Polystyrene) can be rigid or foamed (Styrofoam). It is lightweight and provides great insulation, but it is fragile and notoriously difficult to recycle economically.",
-        "properties": [
-            "Lightweight and insulating — keeps temperature steady",
-            "Rigid or foamed variants — versatile for cheap packaging",
-            "Brittle and fragile — breaks or shatters easily",
-            "Generally non-recyclable — rarely accepted in standard curbside bins"
-        ]
-    },
-    "Others": {
-        "recyclable": False, "code": "7", "name_en": "Other / Mixed Plastics", 
-        "examples": "Multi-layer packaging, some bioplastics",
-        "description": "Others (Category 7) includes any plastic that does not fit into categories 1 through 6, often consisting of multi-layered combinations or polycarbonate plastics.",
-        "properties": [
-            "Mixed composition — often made of bonded layers",
-            "Customizable strength and durability",
-            "Hard to separate into base components",
-            "Non-recyclable — goes to general landfill or specialized processing"
-        ]
-    },
+    "PET":    {"recyclable": True,  "code": "1", "name_en": "Polyethylene Terephthalate",  "examples": "Water bottles, soda bottles, food jars"},
+    "HDPE":   {"recyclable": True,  "code": "2", "name_en": "High-Density Polyethylene",   "examples": "Milk jugs, detergent bottles, shampoo bottles"},
+    "LDPE":   {"recyclable": True,  "code": "4", "name_en": "Low-Density Polyethylene",    "examples": "Bread bags, squeeze bottles, shrink wrap"},
+    "PP":     {"recyclable": True,  "code": "5", "name_en": "Polypropylene",               "examples": "Yogurt tubs, bottle caps, takeout containers"},
+    "PS":     {"recyclable": False, "code": "6", "name_en": "Polystyrene",                 "examples": "Foam cups, takeout clamshells, packing peanuts"},
+    "Others": {"recyclable": False, "code": "7", "name_en": "Other / Mixed Plastics",      "examples": "Multi-layer packaging, some bioplastics"},
 }
-
 COLORS = {
     "PET": "#EF476F", "HDPE": "#06D6A0", "LDPE": "#FFD166",
     "PP": "#118AB2", "PS": "#7209B7", "Others": "#FF6B35",
 }
-
 LEARN_TIPS = {
     "PET": "Empty and rinse the bottle, leave the cap on (most facilities now recycle caps too), and flatten it to save space. Avoid tossing in food-contaminated PET like oily takeout containers without rinsing first.",
     "HDPE": "Rinse out any residue (milk, detergent, shampoo), remove pumps/spray tops if possible, and recycle with the cap on. HDPE is one of the most widely and easily recycled plastics.",
@@ -519,6 +476,7 @@ LEARN_TIPS = {
     "Others": "Mixed or multi-layer plastics (like chip bags and some pouches) can't be separated into a single material, so they're almost never recyclable through standard programs — dispose of them as general waste, and look for reduce/reuse alternatives where possible.",
 }
 
+# ---------------- Groq ----------------
 @st.cache_data(show_spinner=False)
 def get_guidance(plastic_type, recyclable):
     api_key = os.environ.get("GROQ_API_KEY")
@@ -548,6 +506,7 @@ def get_guidance(plastic_type, recyclable):
     except Exception as e:
         return [f"Guidance unavailable: {e}"]
 
+# ---------------- PDF Report Generator Function ----------------
 def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
     buffered = io.BytesIO()
     image.save(buffered, format="PNG")
@@ -606,12 +565,14 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
     except Exception as e:
         return None
 
+# ---------------- Model ----------------
 @st.cache_resource
 def load_model():
     return YOLO("best_model_yolov8_ft2.pt")
 
 model = load_model()
 
+# ---------------- Waste chart ----------------
 def render_waste_chart():
     th = st.session_state["_theme"]
     st.markdown('<div class="section-title">Global vs. Myanmar Plastic Recycling</div>', unsafe_allow_html=True)
@@ -664,6 +625,7 @@ def render_waste_chart():
     </div>
     """, unsafe_allow_html=True)
 
+# ---------------- About Us page ----------------
 def render_about_page():
     st.markdown("""
     <div class="eco-header">
@@ -698,6 +660,7 @@ def render_about_page():
 
     render_waste_chart()
 
+# ---------------- Dashboard page ----------------
 def render_dashboard_page():
     th = st.session_state["_theme"]
     st.markdown("""
@@ -809,6 +772,7 @@ def render_dashboard_page():
         st.session_state.last_file_key = None
         st.rerun()
 
+# ---------------- Learn page ----------------
 def render_learn_page():
     st.markdown("""
     <div class="eco-header">
@@ -881,6 +845,7 @@ def render_learn_page():
     </div>
     """, unsafe_allow_html=True)
 
+# ---------------- Sidebar ----------------
 with st.sidebar:
     st.markdown('<div class="sidebar-logo">♻ EcoSort</div>', unsafe_allow_html=True)
     st.markdown("---")
@@ -916,6 +881,7 @@ with st.sidebar:
         st.session_state.dark_mode = dark
         st.rerun()
 
+# ---------------- Main ----------------
 if st.session_state.page == "About":
     render_about_page()
     st.stop()
@@ -1027,24 +993,6 @@ if uploaded_file is not None:
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">📊 Identified Plastic Details</div>', unsafe_allow_html=True)
-    
-    props_md = "".join(f"- {prop}\n" for prop in info.get("properties", []))
-    
-    st.markdown(f"""
-    <div class="result-card result-card-flex">
-        <div class="about-p">
-            <b>{top1_cls} ({info['name_en']})</b> — {info['description']} Identified by recycling number #{info['code']}.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown(f"**Key Properties**")
-    st.markdown(props_md)
-
-    st.markdown(f"**Common Uses**")
-    st.markdown(f"<div class='examples-text' style='margin-bottom:1rem;'>{info['examples']}.</div>", unsafe_allow_html=True)
-
     st.markdown('<div class="section-title">♻️ Recycling Guidance</div>', unsafe_allow_html=True)
     with st.spinner("Getting guidance..."):
         guidance_points = get_guidance(top1_cls, info["recyclable"])
@@ -1061,7 +1009,7 @@ if uploaded_file is not None:
     
     if pdf_data:
         st.download_button(
-            label="📄 Download PDF Report",
+            label="📄Download PDF Report",
             data=pdf_data,
             file_name=f"EcoSort_Report_{top1_cls}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
             mime="application/pdf",
