@@ -777,13 +777,17 @@ def render_dashboard_page():
 def render_learn_page():
     st.markdown("""
     <div class="eco-header">
-        <div class="eco-title">Learn</div>
+        <div class="eco-title">📚 Learn</div>
         <div class="eco-subtitle">Plastic Types &amp; Recycling Basics</div>
     </div>
     """, unsafe_allow_html=True)
 
+    # YouTube ဗီဒီယို ထည့်သွင်းထားသော Block
+    st.markdown('<div class="section-title">🎥 Featured Video</div>', unsafe_allow_html=True)
+    st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
+
     st.markdown("""
-    <div class="result-card result-card-flex">
+    <div class="result-card result-card-flex" style="margin-top: 1.5rem;">
         <div class="about-p">
             <b>Why it matters:</b> globally, less than 10% of plastic waste ever produced has been
             effectively recycled — most ends up in landfills, is incinerated, or leaks into the
@@ -799,7 +803,7 @@ def render_learn_page():
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">The Resin Types</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">🔢 The Resin Types</div>', unsafe_allow_html=True)
 
     for cls, info in RECYCLABILITY.items():
         sym = RESIN_SYMBOLS.get(cls, "♹")
@@ -815,11 +819,11 @@ def render_learn_page():
                 <div style="font-size:2.5rem; color:{color}">{sym}</div>
                 {badge}
             </div>
-            <div class="examples-text" style="margin-bottom:0.6rem;"><b>Common items:</b> {info['examples']}</div>
-            <div class="guidance-box">{LEARN_TIPS.get(cls, "")}</div>
+            <div class="examples-text" style="margin-bottom:0.6rem;">📦 <b>Common items:</b> {info['examples']}</div>
+            <div class="guidance-box">💡 {LEARN_TIPS.get(cls, "")}</div>
             """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">General Tips</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">🌱 General Tips</div>', unsafe_allow_html=True)
     st.markdown("""
     <div class="result-card result-card-flex">
         <div class="about-p">
