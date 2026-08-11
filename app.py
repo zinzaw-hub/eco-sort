@@ -103,20 +103,6 @@ def apply_theme(dark):
     }}
     [data-testid="stFileUploader"] * {{
         color: {text} !important;
-    }}
-    [data-testid="stFileUploader"] small {{
-        color: {muted} !important;
-    }}
-    [data-testid="stFileUploadDropzone"] {{
-        background-color: {uploader_bg} !important;
-    }}
-    [data-testid="stFileUploaderFile"] {{
-        background-color: {card_bg} !important;
-        border: 1px solid {border} !important;
-        border-radius: 14px !important;
-    }}
-    [data-testid="stFileUploaderFile"] * {{
-        color: {text} !important;
         fill: {text} !important;
     }}
     [data-testid="stFileUploaderFileName"] {{
@@ -415,7 +401,6 @@ def apply_theme(dark):
         overflow-y: visible;
     }}
 
-#pdf download button
     [data-testid="stDownloadButton"] button {{
         background: transparent !important;
         color: {text} !important;
@@ -450,23 +435,86 @@ if "last_file_key" not in st.session_state:
 
 apply_theme(st.session_state.dark_mode)
 
-# ---------------- Data ----------------
+# ---------------- Data & Detailed Descriptions ----------------
 RESIN_SYMBOLS = {
     "PET": "♳", "HDPE": "♴", "LDPE": "♶",
     "PP": "♷", "PS": "♸", "Others": "♹",
 }
+
 RECYCLABILITY = {
-    "PET":    {"recyclable": True,  "code": "1", "name_en": "Polyethylene Terephthalate",  "examples": "Water bottles, soda bottles, food jars"},
-    "HDPE":   {"recyclable": True,  "code": "2", "name_en": "High-Density Polyethylene",   "examples": "Milk jugs, detergent bottles, shampoo bottles"},
-    "LDPE":   {"recyclable": True,  "code": "4", "name_en": "Low-Density Polyethylene",    "examples": "Bread bags, squeeze bottles, shrink wrap"},
-    "PP":     {"recyclable": True,  "code": "5", "name_en": "Polypropylene",               "examples": "Yogurt tubs, bottle caps, takeout containers"},
-    "PS":     {"recyclable": False, "code": "6", "name_en": "Polystyrene",                 "examples": "Foam cups, takeout clamshells, packing peanuts"},
-    "Others": {"recyclable": False, "code": "7", "name_en": "Other / Mixed Plastics",      "examples": "Multi-layer packaging, some bioplastics"},
+    "PET": {
+        "recyclable": True, "code": "1", "name_en": "Polyethylene Terephthalate", 
+        "examples": "Water bottles, soda bottles, food jars",
+        "description": "PET (Polyethylene Terephthalate) is a clear, strong, and lightweight plastic widely used for packaging foods and beverages because it helps prevent oxygen from spoiling the product inside.",
+        "properties": [
+            "Clear and transparent — high optical clarity",
+            "Strong and shatter-resistant — handles impact well",
+            "Good gas and moisture barrier — preserves freshness",
+            "100% recyclable — highly demanded by recycling facilities"
+        ]
+    },
+    "HDPE": {
+        "recyclable": True, "code": "2", "name_en": "High-Density Polyethylene", 
+        "examples": "Milk jugs, detergent bottles, shampoo bottles",
+        "description": "HDPE (High-Density Polyethylene) is a robust, stiff plastic known for its high tensile strength and resistance to various solvents, making it ideal for rigid containers.",
+        "properties": [
+            "Rigid and strong — withstands heavy stacking",
+            "Chemical resistant — handles household cleaners safely",
+            "Weather resistant — durable against environmental exposure",
+            "Widely recyclable — accepted in almost all curbside programs"
+        ]
+    },
+    "LDPE": {
+        "recyclable": True, "code": "4", "name_en": "Low-Density Polyethylene", 
+        "examples": "Bread bags, squeeze bottles, shrink wrap",
+        "description": "LDPE (Low-Density Polyethylene) is a flexible, soft plastic with good chemical resistance. It is less rigid than HDPE and commonly used for films and flexible packaging.",
+        "properties": [
+            "Flexible and soft — bends without breaking",
+            "Lightweight — adds minimal weight to packaging",
+            "Moisture resistant — keeps contents dry",
+            "Partially recyclable — accepted at some drop-off points"
+        ]
+    },
+    "PP": {
+        "recyclable": True, "code": "5", "name_en": "Polypropylene", 
+        "examples": "Yogurt tubs, bottle caps, takeout containers",
+        "description": "PP (Polypropylene) is a tough, heat-resistant plastic that acts as a strong barrier against moisture, grease, and chemicals, making it great for hot-fill liquids and food storage.",
+        "properties": [
+            "High heat tolerance — safe for microwave and hot liquids",
+            "Tough and fatigue resistant — handles repeated flexing",
+            "Moisture and grease barrier — excellent for food packaging",
+            "Recyclable — increasingly accepted by local programs"
+        ]
+    },
+    "PS": {
+        "recyclable": False, "code": "6", "name_en": "Polystyrene", 
+        "examples": "Foam cups, takeout clamshells, packing peanuts",
+        "description": "PS (Polystyrene) can be rigid or foamed (Styrofoam). It is lightweight and provides great insulation, but it is fragile and notoriously difficult to recycle economically.",
+        "properties": [
+            "Lightweight and insulating — keeps temperature steady",
+            "Rigid or foamed variants — versatile for cheap packaging",
+            "Brittle and fragile — breaks or shatters easily",
+            "Generally non-recyclable — rarely accepted in standard curbside bins"
+        ]
+    },
+    "Others": {
+        "recyclable": False, "code": "7", "name_en": "Other / Mixed Plastics", 
+        "examples": "Multi-layer packaging, some bioplastics",
+        "description": "Others (Category 7) includes any plastic that does not fit into categories 1 through 6, often consisting of multi-layered combinations or polycarbonate plastics.",
+        "properties": [
+            "Mixed composition — often made of bonded layers",
+            "Customizable strength and durability",
+            "Hard to separate into base components",
+            "Non-recyclable — goes to general landfill or specialized processing"
+        ]
+    },
 }
+
 COLORS = {
     "PET": "#EF476F", "HDPE": "#06D6A0", "LDPE": "#FFD166",
     "PP": "#118AB2", "PS": "#7209B7", "Others": "#FF6B35",
 }
+
 LEARN_TIPS = {
     "PET": "Empty and rinse the bottle, leave the cap on (most facilities now recycle caps too), and flatten it to save space. Avoid tossing in food-contaminated PET like oily takeout containers without rinsing first.",
     "HDPE": "Rinse out any residue (milk, detergent, shampoo), remove pumps/spray tops if possible, and recycle with the cap on. HDPE is one of the most widely and easily recycled plastics.",
@@ -993,6 +1041,33 @@ if uploaded_file is not None:
         </div>
         """, unsafe_allow_html=True)
 
+    # Detailed Description & Key Properties Section
+    st.markdown('<div class="section-title">📊 Identified Plastic Details</div>', unsafe_allow_html=True)
+    
+    props_html = "".join(f"<li>{prop}</li>" for prop in info.get("properties", []))
+    
+    st.markdown(f"""
+    <div class="result-card result-card-flex">
+        <div class="about-p">
+            <b>{top1_cls} ({info['name_en']})</b> — {info['description']} Identified by recycling number #{info['code']}.
+        </div>
+        
+        <div style="margin-top: 1rem; font-weight: 700; color: {color};">
+            🔑 Key Properties
+        </div>
+        <ul class="guidance-list" style="margin-top: 0.5rem;">
+            {props_html}
+        </ul>
+        
+        <div style="margin-top: 1.2rem; font-weight: 700; color: {color};">
+            📦 Common Uses
+        </div>
+        <div class="examples-text" style="margin-top: 0.3rem; font-size: 0.9rem;">
+            {info['examples']}.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
     st.markdown('<div class="section-title">♻️ Recycling Guidance</div>', unsafe_allow_html=True)
     with st.spinner("Getting guidance..."):
         guidance_points = get_guidance(top1_cls, info["recyclable"])
@@ -1009,7 +1084,7 @@ if uploaded_file is not None:
     
     if pdf_data:
         st.download_button(
-            label="📄Download PDF Report",
+            label="📄 Download PDF Report",
             data=pdf_data,
             file_name=f"EcoSort_Report_{top1_cls}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
             mime="application/pdf",
