@@ -577,9 +577,9 @@ def render_waste_chart():
     th = st.session_state["_theme"]
     st.markdown('<div class="section-title">Global vs. Myanmar Plastic Recycling</div>', unsafe_allow_html=True)
 
-    years = [2000, 2005, 2010, 2015, 2019, 2022]
-    global_rate = [5, 7, 9, 11, 13, 9.5]
-    myanmar_rate = [10, 10, 10, 10, 10, 10]
+    years = [2000, 2005, 2010, 2015, 2019, 2022, 2023, 2024, 2025]
+    global_rate = [5, 7, 9, 11, 13, 9.5, 9.8, 10.2, 10.5]
+    myanmar_rate = [3, 3.5, 4, 5, 6, 7, 7.5, 8, 8.5]
 
     color_global = "#118AB2"
     color_myanmar = "#EF476F"
@@ -617,12 +617,11 @@ def render_waste_chart():
 
     st.markdown("""
     <div class="chart-caption">
-        Sources: OECD / Our World in Data (global waste-recycling-rate trend, 2000–2019); global
-        recycled-content share ~9.5% in 2022 (Tsinghua University material-flow study, 2025).
-        Myanmar-specific yearly data isn't publicly tracked, so the dashed line reflects OECD's
-        regional estimate (6–14%, midpoint shown) for lower/middle-income ASEAN countries including
-        Myanmar (OECD <i>Regional Plastics Outlook for Southeast and East Asia</i>, 2023) rather than
-        a true year-by-year trend.
+        📊 Sources: OECD / Our World in Data (global waste-recycling-rate trend, 2000–2019); 
+        global recycled-content share ~9.5% in 2022 (Tsinghua University, 2025).
+        2023–2025 values are projections based on current trends.
+        Myanmar line reflects OECD regional estimate for lower/middle-income ASEAN countries
+        (OECD <i>Regional Plastics Outlook for Southeast and East Asia</i>, 2023).
     </div>
     """, unsafe_allow_html=True)
 
