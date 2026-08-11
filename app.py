@@ -16,7 +16,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ---------------- Global Persistent Stats (JSON) ----------------
 STATS_FILE = "global_stats.json"
 
 def load_global_stats():
@@ -36,7 +35,6 @@ def save_global_stats(stats):
 if "global_stats" not in st.session_state:
     st.session_state.global_stats = load_global_stats()
 
-# ---------------- Theme CSS ----------------
 def apply_theme(dark):
     if dark:
         bg        = "#14213D"
@@ -400,7 +398,6 @@ def apply_theme(dark):
         margin: 1rem 0;
         overflow-y: visible;
     }}
-
     [data-testid="stDownloadButton"] button {{
         background: transparent !important;
         color: {text} !important;
@@ -425,7 +422,6 @@ def apply_theme(dark):
     </style>
     """, unsafe_allow_html=True)
 
-# ---------------- State ----------------
 if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 if "page" not in st.session_state:
@@ -435,7 +431,6 @@ if "last_file_key" not in st.session_state:
 
 apply_theme(st.session_state.dark_mode)
 
-# ---------------- Data & Detailed Descriptions ----------------
 RESIN_SYMBOLS = {
     "PET": "♳", "HDPE": "♴", "LDPE": "♶",
     "PP": "♷", "PS": "♸", "Others": "♹",
@@ -524,7 +519,6 @@ LEARN_TIPS = {
     "Others": "Mixed or multi-layer plastics (like chip bags and some pouches) can't be separated into a single material, so they're almost never recyclable through standard programs — dispose of them as general waste, and look for reduce/reuse alternatives where possible.",
 }
 
-# ---------------- Groq ----------------
 @st.cache_data(show_spinner=False)
 def get_guidance(plastic_type, recyclable):
     api_key = os.environ.get("GROQ_API_KEY")
@@ -554,7 +548,6 @@ def get_guidance(plastic_type, recyclable):
     except Exception as e:
         return [f"Guidance unavailable: {e}"]
 
-# ---------------- PDF Report Generator Function ----------------
 def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
     buffered = io.BytesIO()
     image.save(buffered, format="PNG")
@@ -613,14 +606,12 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
     except Exception as e:
         return None
 
-# ---------------- Model ----------------
 @st.cache_resource
 def load_model():
     return YOLO("best_model_yolov8_ft2.pt")
 
 model = load_model()
 
-# ---------------- Waste chart ----------------
 def render_waste_chart():
     th = st.session_state["_theme"]
     st.markdown('<div class="section-title">Global vs. Myanmar Plastic Recycling</div>', unsafe_allow_html=True)
@@ -673,7 +664,6 @@ def render_waste_chart():
     </div>
     """, unsafe_allow_html=True)
 
-# ---------------- About Us page ----------------
 def render_about_page():
     st.markdown("""
     <div class="eco-header">
@@ -708,7 +698,6 @@ def render_about_page():
 
     render_waste_chart()
 
-# ---------------- Dashboard page ----------------
 def render_dashboard_page():
     th = st.session_state["_theme"]
     st.markdown("""
@@ -820,7 +809,6 @@ def render_dashboard_page():
         st.session_state.last_file_key = None
         st.rerun()
 
-# ---------------- Learn page ----------------
 def render_learn_page():
     st.markdown("""
     <div class="eco-header">
@@ -893,7 +881,6 @@ def render_learn_page():
     </div>
     """, unsafe_allow_html=True)
 
-# ---------------- Sidebar ----------------
 with st.sidebar:
     st.markdown('<div class="sidebar-logo">♻ EcoSort</div>', unsafe_allow_html=True)
     st.markdown("---")
@@ -929,7 +916,6 @@ with st.sidebar:
         st.session_state.dark_mode = dark
         st.rerun()
 
-# ---------------- Main ----------------
 if st.session_state.page == "About":
     render_about_page()
     st.stop()
@@ -1041,32 +1027,23 @@ if uploaded_file is not None:
         </div>
         """, unsafe_allow_html=True)
 
-    # Detailed Description & Key Properties Section
     st.markdown('<div class="section-title">📊 Identified Plastic Details</div>', unsafe_allow_html=True)
     
-    props_html = "".join(f"<li>{prop}</li>" for prop in info.get("properties", []))
+    props_md = "".join(f"- {prop}\n" for prop in info.get("properties", []))
     
     st.markdown(f"""
     <div class="result-card result-card-flex">
         <div class="about-p">
             <b>{top1_cls} ({info['name_en']})</b> — {info['description']} Identified by recycling number #{info['code']}.
         </div>
-        
-        <div style="margin-top: 1rem; font-weight: 700; color: {color};">
-            🔑 Key Properties
-        </div>
-        <ul class="guidance-list" style="margin-top: 0.5rem;">
-            {props_html}
-        </ul>
-        
-        <div style="margin-top: 1.2rem; font-weight: 700; color: {color};">
-            📦 Common Uses
-        </div>
-        <div class="examples-text" style="margin-top: 0.3rem; font-size: 0.9rem;">
-            {info['examples']}.
-        </div>
     </div>
     """, unsafe_allow_html=True)
+
+    st.markdown(f"**🔑 Key Properties**")
+    st.markdown(props_md)
+
+    st.markdown(f"**📦 Common Uses**")
+    st.markdown(f"<div class='examples-text' style='margin-bottom:1rem;'>{info['examples']}.</div>", unsafe_allow_html=True)
 
     st.markdown('<div class="section-title">♻️ Recycling Guidance</div>', unsafe_allow_html=True)
     with st.spinner("Getting guidance..."):
