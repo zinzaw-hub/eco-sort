@@ -582,14 +582,14 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
     <meta charset="utf-8">
     <style>
         @page {{ size: A4; margin: 10mm; background-color: #fdfbf7; }}
-        body {{ font-family: 'Arial', sans-serif; color: #333; font-size: 15px; line-height: 1.7; }}
+        body {{ font-family: 'Arial', sans-serif; color: #333; font-size: 13px; line-height: 2.5; }}
         .header {{ border-bottom: 1.5px solid #06D6A0; padding-bottom: 4px; margin-bottom: 8px; }}
         .title {{ color: #06D6A0; font-size: 16px; font-weight: bold; }}
         .img-container {{ text-align: center; margin-bottom: 8px; }}
         .img-container img {{ max-width: 250px; height: auto; border-radius: 6px; border: 2px solid #ddd; }}
         .card {{ background: #ffffff; padding: 8px 10px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 8px; }}
         .info-box {{ background-color: #e8f5e9; padding: 8px 10px; border-radius: 6px; border-left: 4px solid #06D6A0; margin-bottom: 8px; }}
-        h3 {{ font-size: 11px; margin: 0 0 4px 0; color: #1B4332; }}
+        h3 {{ font-size: 13px; margin: 0 0 4px 0; color: #1B4332; }}
         p {{ margin: 0 0 3px 0; }}
         ul {{ margin: 0; padding-left: 15px; }}
         li {{ margin-bottom: 2px; }}
