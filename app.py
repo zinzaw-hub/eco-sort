@@ -565,7 +565,7 @@ def get_guidance(plastic_type, recyclable):
 # ---------------- Model ----------------
 @st.cache_resource
 def load_model():
-    return YOLO("best_model_finetune.pt")
+    return YOLO("best_model_yolov8_ft2.pt")
 
 model = load_model()
 
