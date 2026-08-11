@@ -5,9 +5,6 @@ import os
 from datetime import datetime
 import plotly.graph_objects as go
 from groq import Groq
-import base64
-import io
-import json
 
 st.set_page_config(
     page_title="EcoSort",
@@ -15,26 +12,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# ---------------- Global Persistent Stats (JSON) ----------------
-STATS_FILE = "global_stats.json"
-
-def load_global_stats():
-    if os.path.exists(STATS_FILE):
-        try:
-            with open(STATS_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return {"total_scans": 0, "plastic_types": {}, "history": []}
-    else:
-        return {"total_scans": 0, "plastic_types": {}, "history": []}
-
-def save_global_stats(stats):
-    with open(STATS_FILE, "w", encoding="utf-8") as f:
-        json.dump(stats, f, ensure_ascii=False, indent=4)
-
-if "global_stats" not in st.session_state:
-    st.session_state.global_stats = load_global_stats()
 
 # ---------------- Theme CSS ----------------
 def apply_theme(dark):
@@ -69,6 +46,7 @@ def apply_theme(dark):
         uploader_bg = "#FFFFFF"
         uploader_border = "#C8F0D9"
 
+    # stash for chart theming outside this function
     st.session_state["_theme"] = dict(
         bg=bg, card_bg=card_bg, text=text, muted=muted,
         accent=accent, accent2=accent2, border=border,
@@ -92,6 +70,8 @@ def apply_theme(dark):
     section[data-testid="stSidebar"] * {{
         color: {text} !important;
     }}
+
+    /* File uploader fix (dropzone) */
     [data-testid="stFileUploader"] {{
         background-color: {uploader_bg} !important;
         border: 3px dashed {accent} !important;
@@ -110,6 +90,8 @@ def apply_theme(dark):
     [data-testid="stFileUploadDropzone"] {{
         background-color: {uploader_bg} !important;
     }}
+
+    /* File uploader fix (uploaded file row - was a hardcoded dark box) */
     [data-testid="stFileUploaderFile"] {{
         background-color: {card_bg} !important;
         border: 1px solid {border} !important;
@@ -130,6 +112,7 @@ def apply_theme(dark):
         color: {text} !important;
         border: 1px solid {border} !important;
     }}
+
     .eco-header {{
         text-align: center;
         padding: 1.5rem 0 1rem;
@@ -168,6 +151,16 @@ def apply_theme(dark):
         height: 6px;
         background: linear-gradient(90deg, {accent}, {accent2});
         border-radius: 28px 28px 0 0;
+    }}
+    .plastic-symbol {{
+        font-size: 3.5rem;
+        line-height: 1;
+    }}
+    .plastic-code {{
+        font-family: 'Baloo 2', sans-serif;
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1;
     }}
     .plastic-name {{
         font-size: 1.5rem;
@@ -251,6 +244,23 @@ def apply_theme(dark):
         flex-shrink: 0;
         color: {accent};
         font-weight: 700;
+    }}
+    .pred-card {{
+        background: {card_bg};
+        border: 2px solid {border};
+        border-radius: 18px;
+        padding: 1rem;
+        text-align: center;
+    }}
+    .pred-cls {{
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: {text} !important;
+        margin: 0.3rem 0;
+    }}
+    .pred-pct {{
+        font-size: 1.4rem;
+        font-weight: 800;
     }}
     .divider {{
         border: none;
@@ -400,6 +410,11 @@ def apply_theme(dark):
         display: block;
     }}
     .result-card {{
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 1rem auto;
+    }}
+    .result-card-fixed {{
         width: 480px;
         height: 480px;
         max-width: 100%;
@@ -407,35 +422,12 @@ def apply_theme(dark):
         margin: 1rem auto;
         overflow-y: auto;
     }}
-    .result-card.result-card-flex {{
-        width: 100%;
-        height: auto;
-        max-width: none;
-        margin: 1rem 0;
-        overflow-y: visible;
-    }}
-
-#pdf download button
-    [data-testid="stDownloadButton"] button {{
-        background: transparent !important;
-        color: {text} !important;
-        border: 2px solid {border} !important;
-        border-radius: 14px !important;
-        font-weight: 600 !important;
-        box-shadow: none !important;
+   .result-card.result-card-flex {{
         width: 100% !important;
-        transition: all 0.15s ease !important;
-    }}
-    [data-testid="stDownloadButton"] button:hover {{
-        background: {accent}22 !important;
-        border-color: {accent} !important;
-        color: {accent} !important;
-    }}
-    [data-testid="stDownloadButton"] button p {{
-        color: {text} !important;
-    }}
-    [data-testid="stDownloadButton"] button:hover p {{
-        color: {accent} !important;
+        height: auto !important;
+        max-width: none !important;
+        margin: 1rem 0 !important;
+        overflow-y: visible !important;
     }}
     </style>
     """, unsafe_allow_html=True)
@@ -445,6 +437,8 @@ if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 if "page" not in st.session_state:
     st.session_state.page = "Classifier"
+if "history" not in st.session_state:
+    st.session_state.history = []
 if "last_file_key" not in st.session_state:
     st.session_state.last_file_key = None
 
@@ -476,6 +470,68 @@ LEARN_TIPS = {
     "Others": "Mixed or multi-layer plastics (like chip bags and some pouches) can't be separated into a single material, so they're almost never recyclable through standard programs — dispose of them as general waste, and look for reduce/reuse alternatives where possible.",
 }
 
+PLASTIC_INFO = {
+    "PET": {
+        "description": "PET (Polyethylene Terephthalate) is a strong, lightweight, clear synthetic material from the polyester family, widely used for food and liquid packaging. Identified by recycling number #1.",
+        "properties": [
+            "Clear and safe — food and drink approved",
+            "Tough and light — doesn't break easily",
+            "Gas barrier — keeps sodas fizzy",
+            "Recyclable — can be made into new bottles or fabric",
+        ],
+        "uses": "Water bottles, soda bottles, juice containers, peanut butter jars, salad dressing containers, polyester clothing fabric.",
+    },
+    "HDPE": {
+        "description": "HDPE (High-Density Polyethylene) is one of the most versatile and widely recycled plastics. It is strong, rigid, and resistant to chemicals and moisture. Identified by recycling number #2.",
+        "properties": [
+            "Strong and rigid — holds heavy liquids",
+            "Chemical resistant — safe for detergents and cleaners",
+            "Moisture barrier — keeps contents dry",
+            "Widely recyclable — accepted almost everywhere",
+        ],
+        "uses": "Milk jugs, detergent bottles, shampoo bottles, plastic bags, pipes, plastic lumber.",
+    },
+    "LDPE": {
+        "description": "LDPE (Low-Density Polyethylene) is a flexible, soft plastic with good chemical resistance. It is less rigid than HDPE and commonly used for films and flexible packaging. Identified by recycling number #4.",
+        "properties": [
+            "Flexible and soft — bends without breaking",
+            "Lightweight — adds minimal weight to packaging",
+            "Moisture resistant — keeps contents dry",
+            "Partially recyclable — accepted at some drop-off points",
+        ],
+        "uses": "Bread bags, squeeze bottles, shrink wrap, plastic grocery bags, food storage bags.",
+    },
+    "PP": {
+        "description": "PP (Polypropylene) is a tough, heat-resistant plastic widely used for food containers and automotive parts. It has a high melting point, making it microwave-safe. Identified by recycling number #5.",
+        "properties": [
+            "Heat resistant — safe for microwave use",
+            "Tough and fatigue resistant — hinges flex repeatedly",
+            "Chemical resistant — safe for food storage",
+            "Recyclable — increasingly accepted curbside",
+        ],
+        "uses": "Yogurt tubs, bottle caps, takeout containers, straws, car parts, reusable food containers.",
+    },
+    "PS": {
+        "description": "PS (Polystyrene) is a lightweight, rigid or foamable plastic. In foam form (Styrofoam), it is used for insulation and packaging. It is one of the hardest plastics to recycle. Identified by recycling number #6.",
+        "properties": [
+            "Lightweight — very low density, especially as foam",
+            "Insulating — keeps food hot or cold",
+            "Brittle — breaks easily when rigid",
+            "Rarely recyclable — most facilities do not accept it",
+        ],
+        "uses": "Foam cups, takeout clamshells, packing peanuts, disposable cutlery, CD cases.",
+    },
+    "Others": {
+        "description": "Code #7 covers all plastics not classified under codes 1–6, including multi-layer materials, polycarbonate (PC), and bioplastics. These are generally the hardest to recycle.",
+        "properties": [
+            "Mixed composition — often multiple resin types",
+            "Variable properties — depends on specific material",
+            "Hard to recycle — not accepted in standard programs",
+            "Includes bioplastics — some are compostable",
+        ],
+        "uses": "Multi-layer food packaging, large water cooler bottles, some sunglasses, DVDs, nylon.",
+    },
+}
 # ---------------- Groq ----------------
 @st.cache_data(show_spinner=False)
 def get_guidance(plastic_type, recyclable):
@@ -506,83 +562,24 @@ def get_guidance(plastic_type, recyclable):
     except Exception as e:
         return [f"Guidance unavailable: {e}"]
 
-# ---------------- PDF Report Generator Function ----------------
-def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
-    buffered = io.BytesIO()
-    image.save(buffered, format="PNG")
-    img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
-
-    recyclable_text = "Recyclable" if info["recyclable"] else "Non-recyclable"
-    
-    html_content = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <meta charset="utf-8">
-    <style>
-        @page {{ size: A4; margin: 15mm; background-color: #fdfbf7; }}
-        body {{ font-family: 'Arial', sans-serif; color: #333; line-height: 1.6; }}
-        .header {{ border-bottom: 2px solid #06D6A0; padding-bottom: 10px; margin-bottom: 20px; }}
-        .title {{ color: #06D6A0; font-size: 22px; font-weight: bold; }}
-        .img-container {{ text-align: center; margin-bottom: 20px; }}
-        .img-container img {{ max-width: 220px; height: auto; border-radius: 8px; border: 3px solid #ddd; }}
-        .card {{ background: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px; }}
-        .info-box {{ background-color: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #06D6A0; }}
-        ul {{ margin: 0; padding-left: 20px; }}
-    </style>
-    </head>
-    <body>
-        <div class="header">
-            <div class="title">♻️ EcoSort - Plastic Recycling Report</div>
-            <p style="font-size: 12px; color: #666;">Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
-        </div>
-
-        <div class="img-container">
-            <img src="data:image/png;base64,{img_str}" alt="Scanned Plastic">
-        </div>
-
-        <div class="card">
-            <h3>Analysis Results</h3>
-            <p><strong>Plastic Type:</strong> {plastic_type} ({info['name_en']})</p>
-            <p><strong>Resin Code:</strong> #{info['code']}</p>
-            <p><strong>Confidence:</strong> {confidence:.1f}%</p>
-            <p><strong>Status:</strong> {recyclable_text}</p>
-        </div>
-
-        <div class="info-box">
-            <h3>Recycling Guidance</h3>
-            <ul>
-                {"".join([f"<li>{point}</li>" for point in guidance_points])}
-            </ul>
-        </div>
-    </body>
-    </html>
-    """
-    try:
-        from weasyprint import HTML
-        pdf_bytes = HTML(string=html_content).write_pdf()
-        return pdf_bytes
-    except Exception as e:
-        return None
-
 # ---------------- Model ----------------
 @st.cache_resource
 def load_model():
-    return YOLO("best_model_yolov8_ft2.pt")
+    return YOLO("best_model_finetune.pt")
 
 model = load_model()
 
 # ---------------- Waste chart ----------------
 def render_waste_chart():
     th = st.session_state["_theme"]
-    st.markdown('<div class="section-title">Global vs. Myanmar Plastic Recycling</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">🌍 Global vs. Myanmar Plastic Recycling</div>', unsafe_allow_html=True)
 
-    years = [2000, 2005, 2010, 2015, 2019, 2022, 2023, 2024, 2025]
-    global_rate = [5, 7, 9, 11, 13, 9.5, 9.8, 10.2, 10.5]
-    myanmar_rate = [3, 3.5, 4, 5, 6, 7, 7.5, 8, 8.5]
+    years = [2000, 2005, 2010, 2015, 2019, 2022]
+    global_rate = [5, 7, 9, 11, 13, 9.5]
+    myanmar_rate = [10, 10, 10, 10, 10, 10]  # regional LMIC-ASEAN estimate, held flat (see caption)
 
-    color_global = "#118AB2"
-    color_myanmar = "#EF476F"
+    color_global = "#118AB2"    # deep sky blue
+    color_myanmar = "#EF476F"   # coral red — high contrast against blue and the mint background
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(
@@ -617,11 +614,12 @@ def render_waste_chart():
 
     st.markdown("""
     <div class="chart-caption">
-        Sources: OECD / Our World in Data (global waste-recycling-rate trend, 2000–2019); 
-        global recycled-content share ~9.5% in 2022 (Tsinghua University, 2025).
-        2023–2025 values are projections based on current trends.
-        Myanmar line reflects OECD regional estimate for lower/middle-income ASEAN countries
-        (OECD <i>Regional Plastics Outlook for Southeast and East Asia</i>, 2023).
+        📊 Sources: OECD / Our World in Data (global waste-recycling-rate trend, 2000–2019); global
+        recycled-content share ~9.5% in 2022 (Tsinghua University material-flow study, 2025).
+        Myanmar-specific yearly data isn't publicly tracked, so the dashed line reflects OECD's
+        regional estimate (6–14%, midpoint shown) for lower/middle-income ASEAN countries including
+        Myanmar (OECD <i>Regional Plastics Outlook for Southeast and East Asia</i>, 2023) rather than
+        a true year-by-year trend.
     </div>
     """, unsafe_allow_html=True)
 
@@ -665,36 +663,33 @@ def render_dashboard_page():
     th = st.session_state["_theme"]
     st.markdown("""
     <div class="eco-header">
-        <div class="eco-title">Dashboard</div>
-        <div class="eco-subtitle">Global Scan History &amp; Stats</div>
+        <div class="eco-title">📊 Dashboard</div>
+        <div class="eco-subtitle">Your Scan History &amp; Stats</div>
     </div>
     """, unsafe_allow_html=True)
 
-    stats = st.session_state.global_stats
-    history = stats.get("history", [])
-    total = stats.get("total_scans", 0)
-    type_counts = stats.get("plastic_types", {})
+    history = st.session_state.history
 
-    if total == 0:
+    if not history:
         st.markdown("""
         <div class="empty-state">
-            <div style="font-size:4rem; margin-bottom:1rem"></div>
+            <div style="font-size:4rem; margin-bottom:1rem">📊</div>
             <div style="font-size:1.1rem; font-weight:500; margin-bottom:0.5rem">No scans yet</div>
             <div style="font-size:0.85rem; opacity:0.7">Classify a plastic item on the Classifier page to see stats here.</div>
         </div>
         """, unsafe_allow_html=True)
         return
 
-    recyclable_count = sum(
-        type_counts.get(k, 0) for k, info in RECYCLABILITY.items() if info["recyclable"]
-    )
-    recyclable_pct = round(recyclable_count / total * 100) if total > 0 else 0
-    most_common = max(type_counts, key=type_counts.get) if type_counts else "N/A"
-    
-    avg_conf = 0
-    if history:
-        avg_conf = round(sum(h["confidence"] for h in history) / len(history))
+    total = len(history)
+    recyclable_count = sum(1 for h in history if h["recyclable"])
+    recyclable_pct = round(recyclable_count / total * 100)
+    type_counts = {}
+    for h in history:
+        type_counts[h["type"]] = type_counts.get(h["type"], 0) + 1
+    most_common = max(type_counts, key=type_counts.get)
+    avg_conf = round(sum(h["confidence"] for h in history) / total)
 
+    # Metric row
     m1, m2, m3, m4 = st.columns(4)
     for col, value, label in [
         (m1, total, "Total Scans"),
@@ -710,7 +705,7 @@ def render_dashboard_page():
             </div>
             """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">Scans by Plastic Type</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">🧴 Scans by Plastic Type</div>', unsafe_allow_html=True)
     bar_fig = go.Figure(go.Bar(
         x=list(type_counts.keys()),
         y=list(type_counts.values()),
@@ -737,7 +732,7 @@ def render_dashboard_page():
         st.markdown('<div class="section-title">♻️ Recyclable Split</div>', unsafe_allow_html=True)
         pie_fig = go.Figure(go.Pie(
             labels=["Recyclable", "Non-recyclable"],
-            values=[recyclable_count, max(0, total - recyclable_count)],
+            values=[recyclable_count, total - recyclable_count],
             hole=0.55,
             marker=dict(colors=["#06D6A0", "#EF476F"]),
             textfont=dict(color="#FFFFFF", size=13),
@@ -754,7 +749,7 @@ def render_dashboard_page():
         st.plotly_chart(pie_fig, use_container_width=True, config={"displayModeBar": False})
 
     with col_b:
-        st.markdown('<div class="section-title">Recent Scans</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">🕓 Recent Scans</div>', unsafe_allow_html=True)
         rows = "".join(
             f"""<div style="display:flex; justify-content:space-between; align-items:center;
                      padding:0.6rem 0; border-bottom:1px solid {th['border']}; font-size:0.85rem;">
@@ -766,9 +761,8 @@ def render_dashboard_page():
         )
         st.markdown(f'<div class="result-card result-card-flex" style="max-height:280px; overflow-y:auto;">{rows}</div>', unsafe_allow_html=True)
 
-    if st.button("🗑️ Clear global stats"):
-        st.session_state.global_stats = {"total_scans": 0, "plastic_types": {}, "history": []}
-        save_global_stats(st.session_state.global_stats)
+    if st.button("🗑️ Clear history"):
+        st.session_state.history = []
         st.session_state.last_file_key = None
         st.rerun()
 
@@ -776,16 +770,13 @@ def render_dashboard_page():
 def render_learn_page():
     st.markdown("""
     <div class="eco-header">
-        <div class="eco-title">Learn</div>
+        <div class="eco-title">📚 Learn</div>
         <div class="eco-subtitle">Plastic Types &amp; Recycling Basics</div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">Recycling Example Video</div>', unsafe_allow_html=True)
-    st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
-
     st.markdown("""
-    <div class="result-card result-card-flex" style="margin-top: 1.5rem;">
+    <div class="result-card result-card-flex">
         <div class="about-p">
             <b>Why it matters:</b> globally, less than 10% of plastic waste ever produced has been
             effectively recycled — most ends up in landfills, is incinerated, or leaks into the
@@ -801,7 +792,7 @@ def render_learn_page():
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">The Resin Types</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">🔢 The Resin Types</div>', unsafe_allow_html=True)
 
     for cls, info in RECYCLABILITY.items():
         sym = RESIN_SYMBOLS.get(cls, "♹")
@@ -817,7 +808,7 @@ def render_learn_page():
                 <div style="font-size:2.5rem; color:{color}">{sym}</div>
                 {badge}
             </div>
-            <div class="examples-text" style="margin-bottom:0.6rem;">📦 <b>Common items:</b> {info['examples']}</div>
+            <div class="examples-text">📦 <b>Common items:</b> {info['examples']}</div>
             <div class="guidance-box">💡 {LEARN_TIPS.get(cls, "")}</div>
             """, unsafe_allow_html=True)
 
@@ -851,10 +842,10 @@ with st.sidebar:
     st.markdown("---")
 
     _pages = [
-        ("Classifier", "", "Classifier"),
-        ("Dashboard", "", "Dashboard"),
-        ("Learn", "", "Learn"),
-        ("About", "", "About Us"),
+        ("Classifier", "🏠", "Classifier"),
+        ("Dashboard", "📊", "Dashboard"),
+        ("Learn", "📚", "Learn"),
+        ("About", "ℹ️", "About Us"),
     ]
     _nav_placeholders = []
     _clicked_key = None
@@ -881,6 +872,8 @@ with st.sidebar:
         st.session_state.dark_mode = dark
         st.rerun()
 
+
+
 # ---------------- Main ----------------
 if st.session_state.page == "About":
     render_about_page()
@@ -901,7 +894,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-with st.expander("Supported Classes & How to Use", expanded=False):
+with st.expander("📋 Supported Classes & How to Use", expanded=False):
     chip_html = "".join(
         f'<span class="class-chip">{RESIN_SYMBOLS.get(cls, "♹")} {cls}</span>'
         for cls in RECYCLABILITY.keys()
@@ -949,74 +942,13 @@ if uploaded_file is not None:
 
     file_key = f"{uploaded_file.name}_{uploaded_file.size}"
     if st.session_state.last_file_key != file_key:
-        stats = st.session_state.global_stats
-        stats["total_scans"] += 1
-        stats["plastic_types"][top1_cls] = stats["plastic_types"].get(top1_cls, 0) + 1
-        
-        if "history" not in stats:
-            stats["history"] = []
-            
-        stats["history"].append({
+        st.session_state.history.append({
             "time": datetime.now().strftime("%Y-%m-%d %H:%M"),
             "type": top1_cls,
             "confidence": conf_pct,
             "recyclable": info["recyclable"],
         })
-        save_global_stats(stats)
         st.session_state.last_file_key = file_key
-
-    # with col2:
-    #     badge = (
-    #         '<span class="badge-recyclable">✓ Recyclable</span>'
-    #         if info["recyclable"]
-    #         else '<span class="badge-non">✗ Non-recyclable</span>'
-    #     )
-    #     st.markdown(f"""
-    #     <div class="result-card">
-    #         <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
-    #             <div style="font-size:3.5rem; color:{color}">{symbol}</div>
-    #             <div>
-    #                 <div style="font-family:'Baloo 2',sans-serif; font-size:3rem; font-weight:800; color:{color}; line-height:1">#{info['code']}</div>
-    #                 <div class="plastic-name">{top1_cls}</div>
-    #                 <div class="plastic-fullname">{info['name_en']}</div>
-    #                 {badge}
-    #             </div>
-    #         </div>
-    #         <div class="conf-label">Confidence Level</div>
-    #         <div style="display:flex; align-items:center; gap:1rem;">
-    #             <div class="conf-bar-bg" style="flex:1">
-    #                 <div style="height:10px; width:{conf_pct}%; background:linear-gradient(90deg,{color},{color}99); border-radius:8px;"></div>
-    #             </div>
-    #             <div style="font-weight:800; color:{color}; min-width:48px; font-size:1rem">{conf_pct}%</div>
-    #         </div>
-    #         <div class="examples-text">📦 Common items: {info['examples']}</div>
-    #     </div>
-    #     """, unsafe_allow_html=True)
-
-    # st.markdown('<div class="section-title">♻️ Recycling Guidance</div>', unsafe_allow_html=True)
-    # with st.spinner("Getting guidance..."):
-    #     guidance_points = get_guidance(top1_cls, info["recyclable"])
-    # guidance_html = "".join(f"<li>{point}</li>" for point in guidance_points)
-    # st.markdown(
-    #     f'<div class="guidance-box"><ul class="guidance-list">{guidance_html}</ul></div>',
-    #     unsafe_allow_html=True,
-    # )
-
-    # st.markdown("---")
-    # st.subheader("Export Report")
-    
-    # pdf_data = generate_pdf_report(image, top1_cls, float(top1_conf * 100), info, guidance_points)
-    
-    # if pdf_data:
-    #     st.download_button(
-    #         label="📄Download PDF Report",
-    #         data=pdf_data,
-    #         file_name=f"EcoSort_Report_{top1_cls}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
-    #         mime="application/pdf",
-    #         use_container_width=True
-    #     )
-    # else:
-    #     st.error("Failed to generate PDF. WeasyPrint dependencies might be missing.")
 
     with col2:
         badge = (
@@ -1099,6 +1031,16 @@ if uploaded_file is not None:
 
         st.markdown("**📦 Common Uses**")
         st.markdown(pinfo["uses"])
+    # Guidance
+    st.markdown('<div class="section-title">♻️ Recycling Guidance</div>', unsafe_allow_html=True)
+    with st.spinner("Getting guidance..."):
+        guidance_points = get_guidance(top1_cls, info["recyclable"])
+    guidance_html = "".join(f"<li>{point}</li>" for point in guidance_points)
+    st.markdown(
+        f'<div class="guidance-box"><ul class="guidance-list">{guidance_html}</ul></div>',
+        unsafe_allow_html=True,
+    )
+
 else:
     st.markdown("""
     <div class="empty-state">
