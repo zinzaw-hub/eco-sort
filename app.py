@@ -436,7 +436,7 @@ def apply_theme(dark):
     }}
     [data-testid="stDownloadButton"] button:hover p {{
         color: {accent} !important;
-    }}}
+    }}
     </style>
     """, unsafe_allow_html=True)
 
