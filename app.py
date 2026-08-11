@@ -572,30 +572,33 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
 
     recyclable_text = "Recyclable" if info["recyclable"] else "Non-recyclable"
-    
     properties_list = info.get("properties", [])
     
+    # ---------------- PDF  ----------------
     html_content = f"""
     <!DOCTYPE html>
     <html>
     <head>
     <meta charset="utf-8">
     <style>
-        @page {{ size: A4; margin: 15mm; background-color: #fdfbf7; }}
-        body {{ font-family: 'Arial', sans-serif; color: #333; line-height: 1.6; }}
-        .header {{ border-bottom: 2px solid #06D6A0; padding-bottom: 10px; margin-bottom: 20px; }}
-        .title {{ color: #06D6A0; font-size: 22px; font-weight: bold; }}
-        .img-container {{ text-align: center; margin-bottom: 20px; }}
-        .img-container img {{ max-width: 220px; height: auto; border-radius: 8px; border: 3px solid #ddd; }}
-        .card {{ background: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px; }}
-        .info-box {{ background-color: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #06D6A0; margin-bottom: 15px; }}
-        ul {{ margin: 0; padding-left: 20px; }}
+        @page {{ size: A4; margin: 10mm; background-color: #fdfbf7; }}
+        body {{ font-family: 'Arial', sans-serif; color: #333; font-size: 10px; line-height: 1.3; }}
+        .header {{ border-bottom: 1.5px solid #06D6A0; padding-bottom: 4px; margin-bottom: 8px; }}
+        .title {{ color: #06D6A0; font-size: 16px; font-weight: bold; }}
+        .img-container {{ text-align: center; margin-bottom: 8px; }}
+        .img-container img {{ max-width: 110px; height: auto; border-radius: 6px; border: 2px solid #ddd; }}
+        .card {{ background: #ffffff; padding: 8px 10px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 8px; }}
+        .info-box {{ background-color: #e8f5e9; padding: 8px 10px; border-radius: 6px; border-left: 4px solid #06D6A0; margin-bottom: 8px; }}
+        h3 {{ font-size: 11px; margin: 0 0 4px 0; color: #1B4332; }}
+        p {{ margin: 0 0 3px 0; }}
+        ul {{ margin: 0; padding-left: 15px; }}
+        li {{ margin-bottom: 2px; }}
     </style>
     </head>
     <body>
         <div class="header">
             <div class="title">♻️ EcoSort - Plastic Recycling Report</div>
-            <p style="font-size: 12px; color: #666;">Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+            <p style="font-size: 9px; color: #666;">Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
         </div>
 
         <div class="img-container">
@@ -604,20 +607,16 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
 
         <div class="card">
             <h3>Analysis Results & Identified Plastic Details</h3>
-            <p><strong>Plastic Type:</strong> {plastic_type} ({info['name_en']})</p>
-            <p><strong>Resin Code:</strong> #{info['code']}</p>
-            <p><strong>Confidence:</strong> {confidence:.1f}%</p>
-            <p><strong>Status:</strong> {recyclable_text}</p>
+            <p><strong>Plastic Type:</strong> {plastic_type} ({info['name_en']}) | <strong>Resin Code:</strong> #{info['code']} | <strong>Confidence:</strong> {confidence:.1f}% | <strong>Status:</strong> {recyclable_text}</p>
             <p><strong>Description:</strong> {info['description']}</p>
         </div>
 
         <div class="card">
-            <h3>Key Properties</h3>
+            <h3>Key Properties & Common Uses</h3>
             <ul>
                 {"".join([f"<li>{prop}</li>" for prop in properties_list])}
             </ul>
-            <h3 style="margin-top: 15px;">📦 Common Uses</h3>
-            <p>{info['examples']}.</p>
+            <p style="margin-top: 4px;"><strong>📦 Common Uses:</strong> {info['examples']}.</p>
         </div>
 
         <div class="info-box">
@@ -1082,7 +1081,6 @@ if uploaded_file is not None:
     
     props_md = "".join(f"- {prop}\n" for prop in info.get("properties", []))
     
-    # ---------------- Identified Plastic Details (Box မပါတော့ဘဲ ရိုးရိုးစာသားအဖြစ် ပြင်ထားသည်) ----------------
     st.markdown(f"""
     <div style="margin: 1rem 0; line-height: 1.8;">
         <b>{top1_cls} ({info['name_en']})</b> — {info['description']} Identified by recycling number #{info['code']}.
