@@ -417,18 +417,24 @@ def apply_theme(dark):
 
 #pdf download button
     [data-testid="stDownloadButton"] button {{
-        background: {card_bg} !important;
+        background: {accent}15 !important;
         color: {text} !important;
-        border: 2px solid {border} !important;
+        border: 2px solid {accent} !important;
         border-radius: 14px !important;
         font-weight: 600 !important;
         box-shadow: none !important;
         transition: all 0.15s ease !important;
     }}
     [data-testid="stDownloadButton"] button:hover {{
-        background: {accent}22 !important;
+        background: {accent} !important;
         border-color: {accent} !important;
-        color: {accent} !important;
+        color: #FFFFFF !important;
+    }}
+    [data-testid="stDownloadButton"] button p {{
+        color: {text} !important;
+    }}
+    [data-testid="stDownloadButton"] button:hover p {{
+        color: #FFFFFF !important;
     }}
     </style>
     """, unsafe_allow_html=True)
