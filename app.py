@@ -616,7 +616,7 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
             <ul>
                 {"".join([f"<li>{prop}</li>" for prop in properties_list])}
             </ul>
-            <p style="margin-top: 4px;"><strong>📦 Common Uses:</strong> {info['examples']}.</p>
+            <p style="margin-top: 4px;"><strong>Common Uses:</strong> {info['examples']}.</p>
         </div>
 
         <div class="info-box">
