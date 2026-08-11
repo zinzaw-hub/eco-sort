@@ -202,7 +202,7 @@ def apply_theme(dark):
         overflow: hidden;
     }}
     .examples-text {{
-        font-size: 0.78rem;
+        font-size: 0.9rem;
         color: {muted} !important;
         margin-top: 0.5rem;
     }}
@@ -1039,10 +1039,10 @@ if uploaded_file is not None:
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown(f"**🔑 Key Properties**")
+    st.markdown(f"**Key Properties**")
     st.markdown(props_md)
 
-    st.markdown(f"**📦 Common Uses**")
+    st.markdown(f"**Common Uses**")
     st.markdown(f"<div class='examples-text' style='margin-bottom:1rem;'>{info['examples']}.</div>", unsafe_allow_html=True)
 
     st.markdown('<div class="section-title">♻️ Recycling Guidance</div>', unsafe_allow_html=True)
