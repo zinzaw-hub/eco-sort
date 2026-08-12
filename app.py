@@ -881,7 +881,7 @@ def render_learn_page():
     """, unsafe_allow_html=True)
 
     # ---------- VIDEO SECTION ----------
-    st.markdown('<div class="section-title">🎬 Recycling Example Video</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Recycling Example Video</div>', unsafe_allow_html=True)
     st.video("https://youtu.be/MwL8kgyOzFA?si=13bvQnmQG3AunDIh")
 
     # ---------- RECYCLING PROCESS ----------
