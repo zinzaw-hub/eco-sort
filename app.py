@@ -847,7 +847,7 @@ def render_dashboard_page():
         st.rerun()
 
 # ==========================================
-# PAGE VIEW: LEARN SECTION (WITH EXTERNAL IMAGES - FIXED ALIGNMENT)
+# PAGE VIEW: LEARN SECTION (FIXED - IMAGE & CARD ALIGNED)
 # ==========================================
 def render_learn_page():
     th = st.session_state["_theme"]
@@ -863,128 +863,140 @@ def render_learn_page():
     st.markdown('<div class="section-title">🎬 Recycling Example Video</div>', unsafe_allow_html=True)
     st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
 
-    # ---------- RECYCLING PROCESS (STEP BY STEP WITH EXTERNAL IMAGES) ----------
+    # ---------- RECYCLING PROCESS ----------
     st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
 
-    # Free stock images from Unsplash (recycling related) - all same size
+    # All images same size: 300x200
     step_images = {
-        "step1": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=300&h=200&fit=crop",
-        "step2": "https://images.unsplash.com/photo-1611273426858-450e5a3f0f7c?w=300&h=200&fit=crop",
-        "step3": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=300&h=200&fit=crop",
-        "step4": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=300&h=200&fit=crop",
-        "step5": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=300&h=200&fit=crop",
+        "step1": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&h=300&fit=crop",
+        "step2": "https://images.unsplash.com/photo-1611273426858-450e5a3f0f7c?w=400&h=300&fit=crop",
+        "step3": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop",
+        "step4": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop",
+        "step5": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&h=300&fit=crop",
     }
 
-    # Step 1: Collection
-    with st.container():
-        col1, col2 = st.columns([1, 2], gap="medium")
-        with col1:
-            st.image(step_images["step1"], caption="🗑️ Step 1: Collection", use_container_width=True)
-        with col2:
-            st.markdown(f"""
-            <div style="background:{th['card_bg']}; border:2px solid {th['border']}; border-radius:20px; padding:1.5rem; height:100%;">
-                <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 1: Collection</div>
-                <div style="margin-top:0.5rem; line-height:1.7;">
-                    <b>What happens:</b> Plastic waste is collected from households, businesses, 
-                    and recycling drop-off points. This is the first and most important step — 
-                    without proper collection, recycling can't happen.
-                </div>
-                <div style="margin-top:0.8rem; color:{th['muted']}; font-size:0.85rem; background:{th['bg']}; padding:0.5rem 1rem; border-radius:12px;">
-                    📌 <b>Tip:</b> Separate your plastics by type (bottles, containers, bags) 
-                    before putting them in the recycling bin.
-                </div>
+    # ===== STEP 1 =====
+    st.markdown(f"""
+    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-bottom:1.5rem; flex-wrap:wrap;">
+        <div style="flex:0 0 300px; min-width:200px;">
+            <img src="{step_images['step1']}" 
+                 style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
+            <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
+                🗑️ Step 1: Collection
             </div>
-            """, unsafe_allow_html=True)
-
-    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
-
-    # Step 2: Sorting
-    with st.container():
-        col1, col2 = st.columns([1, 2], gap="medium")
-        with col1:
-            st.image(step_images["step2"], caption="🔄 Step 2: Sorting", use_container_width=True)
-        with col2:
-            st.markdown(f"""
-            <div style="background:{th['card_bg']}; border:2px solid {th['border']}; border-radius:20px; padding:1.5rem; height:100%;">
-                <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 2: Sorting</div>
-                <div style="margin-top:0.5rem; line-height:1.7;">
-                    <b>What happens:</b> Plastics are sorted by resin type (PET, HDPE, PP, etc.) 
-                    using advanced optical sorters and manual labor. Different types can't be 
-                    recycled together.
-                </div>
-                <div style="margin-top:0.8rem; color:{th['muted']}; font-size:0.85rem; background:{th['bg']}; padding:0.5rem 1rem; border-radius:12px;">
-                    📌 <b>Tip:</b> Check the resin code (♳-♹) on the bottom of your plastic 
-                    items — this is how they're sorted!
-                </div>
+        </div>
+        <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 1: Collection</div>
+            <div style="margin-top:0.8rem; line-height:1.8;">
+                <b>What happens:</b> Plastic waste is collected from households, businesses, 
+                and recycling drop-off points. This is the first and most important step — 
+                without proper collection, recycling can't happen.
             </div>
-            """, unsafe_allow_html=True)
-
-    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
-
-    # Step 3: Cleaning
-    with st.container():
-        col1, col2 = st.columns([1, 2], gap="medium")
-        with col1:
-            st.image(step_images["step3"], caption="🧼 Step 3: Cleaning", use_container_width=True)
-        with col2:
-            st.markdown(f"""
-            <div style="background:{th['card_bg']}; border:2px solid {th['border']}; border-radius:20px; padding:1.5rem; height:100%;">
-                <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 3: Cleaning</div>
-                <div style="margin-top:0.5rem; line-height:1.7;">
-                    <b>What happens:</b> Plastics are washed to remove labels, glue, food residue, 
-                    and dirt. This is critical — contaminated plastics can ruin an entire batch.
-                </div>
-                <div style="margin-top:0.8rem; color:{th['muted']}; font-size:0.85rem; background:{th['bg']}; padding:0.5rem 1rem; border-radius:12px;">
-                    📌 <b>Tip:</b> Rinse your plastic items before recycling! A quick rinse 
-                    makes a huge difference at the cleaning facility.
-                </div>
+            <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
+                💡 <b>Tip:</b> Separate your plastics by type (bottles, containers, bags) 
+                before putting them in the recycling bin.
             </div>
-            """, unsafe_allow_html=True)
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
-
-    # Step 4: Shredding
-    with st.container():
-        col1, col2 = st.columns([1, 2], gap="medium")
-        with col1:
-            st.image(step_images["step4"], caption="⚙️ Step 4: Shredding", use_container_width=True)
-        with col2:
-            st.markdown(f"""
-            <div style="background:{th['card_bg']}; border:2px solid {th['border']}; border-radius:20px; padding:1.5rem; height:100%;">
-                <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 4: Shredding</div>
-                <div style="margin-top:0.5rem; line-height:1.7;">
-                    <b>What happens:</b> Clean plastic is shredded into small flakes or pellets. 
-                    This increases the surface area and makes it easier to melt and reform.
-                </div>
-                <div style="margin-top:0.8rem; color:{th['muted']}; font-size:0.85rem; background:{th['bg']}; padding:0.5rem 1rem; border-radius:12px;">
-                    📌 <b>Tip:</b> Shredded plastic flakes are the raw material for making 
-                    new plastic products — from bottles to clothing!
-                </div>
+    # ===== STEP 2 =====
+    st.markdown(f"""
+    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-bottom:1.5rem; flex-wrap:wrap;">
+        <div style="flex:0 0 300px; min-width:200px;">
+            <img src="{step_images['step2']}" 
+                 style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
+            <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
+                🔄 Step 2: Sorting
             </div>
-            """, unsafe_allow_html=True)
-
-    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
-
-    # Step 5: Pelletizing
-    with st.container():
-        col1, col2 = st.columns([1, 2], gap="medium")
-        with col1:
-            st.image(step_images["step5"], caption="♻️ Step 5: Pelletizing", use_container_width=True)
-        with col2:
-            st.markdown(f"""
-            <div style="background:{th['card_bg']}; border:2px solid {th['border']}; border-radius:20px; padding:1.5rem; height:100%;">
-                <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 5: Pelletizing</div>
-                <div style="margin-top:0.5rem; line-height:1.7;">
-                    <b>What happens:</b> Shredded plastic is melted and formed into small pellets 
-                    (nurdles). These pellets are then sold to manufacturers to make new plastic 
-                    products — closing the recycling loop!
-                </div>
-                <div style="margin-top:0.8rem; color:{th['muted']}; font-size:0.85rem; background:{th['bg']}; padding:0.5rem 1rem; border-radius:12px;">
-                    📌 <b>Tip:</b> Look for products made from recycled plastic (often labeled 
-                    "Post-Consumer Recycled" or "PCR") to support the circular economy.
-                </div>
+        </div>
+        <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 2: Sorting</div>
+            <div style="margin-top:0.8rem; line-height:1.8;">
+                <b>What happens:</b> Plastics are sorted by resin type (PET, HDPE, PP, etc.) 
+                using advanced optical sorters and manual labor. Different types can't be 
+                recycled together.
             </div>
-            """, unsafe_allow_html=True)
+            <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
+                💡 <b>Tip:</b> Check the resin code (♳-♹) on the bottom of your plastic 
+                items — this is how they're sorted!
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ===== STEP 3 =====
+    st.markdown(f"""
+    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-bottom:1.5rem; flex-wrap:wrap;">
+        <div style="flex:0 0 300px; min-width:200px;">
+            <img src="{step_images['step3']}" 
+                 style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
+            <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
+                🧼 Step 3: Cleaning
+            </div>
+        </div>
+        <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 3: Cleaning</div>
+            <div style="margin-top:0.8rem; line-height:1.8;">
+                <b>What happens:</b> Plastics are washed to remove labels, glue, food residue, 
+                and dirt. This is critical — contaminated plastics can ruin an entire batch.
+            </div>
+            <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
+                💡 <b>Tip:</b> Rinse your plastic items before recycling! A quick rinse 
+                makes a huge difference at the cleaning facility.
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ===== STEP 4 =====
+    st.markdown(f"""
+    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-bottom:1.5rem; flex-wrap:wrap;">
+        <div style="flex:0 0 300px; min-width:200px;">
+            <img src="{step_images['step4']}" 
+                 style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
+            <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
+                ⚙️ Step 4: Shredding
+            </div>
+        </div>
+        <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 4: Shredding</div>
+            <div style="margin-top:0.8rem; line-height:1.8;">
+                <b>What happens:</b> Clean plastic is shredded into small flakes or pellets. 
+                This increases the surface area and makes it easier to melt and reform.
+            </div>
+            <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
+                💡 <b>Tip:</b> Shredded plastic flakes are the raw material for making 
+                new plastic products — from bottles to clothing!
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ===== STEP 5 =====
+    st.markdown(f"""
+    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-bottom:1.5rem; flex-wrap:wrap;">
+        <div style="flex:0 0 300px; min-width:200px;">
+            <img src="{step_images['step5']}" 
+                 style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
+            <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
+                ♻️ Step 5: Pelletizing
+            </div>
+        </div>
+        <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 5: Pelletizing</div>
+            <div style="margin-top:0.8rem; line-height:1.8;">
+                <b>What happens:</b> Shredded plastic is melted and formed into small pellets 
+                (nurdles). These pellets are then sold to manufacturers to make new plastic 
+                products — closing the recycling loop!
+            </div>
+            <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
+                💡 <b>Tip:</b> Look for products made from recycled plastic (often labeled 
+                "Post-Consumer Recycled" or "PCR") to support the circular economy.
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown(f'<hr style="border-color:{th["border"]}; margin:2rem 0;">', unsafe_allow_html=True)
 
@@ -1009,7 +1021,7 @@ def render_learn_page():
             <div class="guidance-box">💡 {LEARN_TIPS.get(cls, "")}</div>
             """, unsafe_allow_html=True)
 
-    # ---------- GENERAL TIPS (Original) ----------
+    # ---------- GENERAL TIPS ----------
     st.markdown('<div class="section-title">🌱 General Tips</div>', unsafe_allow_html=True)
     st.markdown("""
     <div class="result-card result-card-flex">
