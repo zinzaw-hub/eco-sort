@@ -861,7 +861,7 @@ def render_learn_page():
 
     # ---------- VIDEO SECTION ----------
     st.markdown('<div class="section-title">🎬 Recycling Example Video</div>', unsafe_allow_html=True)
-    st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
+    st.video("https://drive.google.com/file/d/1lDlYJQ7ZwCcjRTyHn4-0V-7MnW_7pT7d/view?usp=sharing")
 
     # ---------- RECYCLING PROCESS ----------
     st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
@@ -882,7 +882,7 @@ def render_learn_page():
             <img src="{step_images['step1']}" 
                  style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
             <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
-                🗑️ Step 1: Collection
+                Step 1: Collection
             </div>
         </div>
         <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
@@ -907,7 +907,7 @@ def render_learn_page():
             <img src="{step_images['step2']}" 
                  style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
             <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
-                🔄 Step 2: Sorting
+                Step 2: Sorting
             </div>
         </div>
         <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
@@ -932,7 +932,7 @@ def render_learn_page():
             <img src="{step_images['step3']}" 
                  style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
             <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
-                🧼 Step 3: Cleaning
+                Step 3: Cleaning
             </div>
         </div>
         <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
