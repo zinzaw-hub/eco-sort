@@ -883,7 +883,7 @@ def render_learn_page():
 
     # ---------- VIDEO SECTION ----------
     st.markdown('<div class="section-title">🎬 Recycling Example Video</div>', unsafe_allow_html=True)
-    st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
+    st.video("https://youtu.be/MwL8kgyOzFA?si=13bvQnmQG3AunDIh")
 
     # ---------- RECYCLING PROCESS ----------
     st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
@@ -893,8 +893,8 @@ def render_learn_page():
         "step1": "ds2pe_image_239.jpg",
         "step2": "plastic-recycling-sorting-image.jpg",
         "step3": "close-hands.jpg",
-        "step4": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop",
-        "step5": "ds2pe_image_239.jpg",
+        "step4": "T8200219.jpg",
+        "step5": "AdobeStock_759704272-1.jpeg",
     }
 
     # ===== STEP 1 =====
