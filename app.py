@@ -863,14 +863,9 @@ def render_learn_page():
     # st.markdown('<div class="section-title">🎬 Recycling Example Video</div>', unsafe_allow_html=True)
     # st.video("https://youtu.be/cNPEH0GOhRw?si=tRo2Ova9xcnoMTNz")
 
-    # HTML5 Video Tag 
-video_html = """
-<video width="100%" controls>
-    <source src="https://drive.google.com/uc?export=download&id=1lDlYJQ7ZwCcjRTyHn4-0V-7MnW_7pT7d" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-"""
-st.markdown(video_html, unsafe_allow_html=True)
+    # drive vd
+    video_url = "https://drive.google.com/uc?export=download&id=1lDlYJQ7ZwCcjRTyHn4-0V-7MnW_7pT7d"
+    st.video(video_url)
 
     # ---------- RECYCLING PROCESS ----------
     st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
