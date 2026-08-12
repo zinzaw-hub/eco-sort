@@ -868,11 +868,11 @@ def render_learn_page():
 
     # All images same size: 300x200
     step_images = {
-        "step1": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&h=300&fit=crop",
-        "step2": "https://images.unsplash.com/photo-1611273426858-450e5a3f0f7c?w=400&h=300&fit=crop",
-        "step3": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop",
+        "step1": "ds2pe_image_239.jpg",
+        "step2": "plastic-recycling-sorting-image.jpg",
+        "step3": "close-hands.jpg",
         "step4": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop",
-        "step5": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&h=300&fit=crop",
+        "step5": "ds2pe_image_239.jpg",
     }
 
     # ===== STEP 1 =====
