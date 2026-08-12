@@ -867,30 +867,43 @@ def render_learn_page():
     st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
 
     # All images same size: 300x200
-    # ==========================================
-# LEARN PAGE — RECYCLING PROCESS (GitHub Images)
 # ==========================================
+# PAGE VIEW: LEARN SECTION (FIXED)
+# ==========================================
+def render_learn_page():
+    # 🔥 ဒီစာကြောင်းကို ထည့်ပါ
+    th = st.session_state["_theme"]
+    
+    st.markdown("""
+    <div class="eco-header">
+        <div class="eco-title">Learn</div>
+        <div class="eco-subtitle">Plastic Types &amp; Recycling Basics</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-# img
-step_images = {
-    "step1": "ds2pe_image_239.jpg",
-    "step2": "plastic-recycling-sorting-image.jpg",
-    "step3": "close-hands.jpg",
-    "step4": "T8200219.jpg",
-    "step5": "AdobeStock_759704272-1.jpeg",
-}
+    # ---------- VIDEO SECTION ----------
+    st.markdown('<div class="section-title">🎬 Recycling Example Video</div>', unsafe_allow_html=True)
+    st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
+
+    # ---------- RECYCLING PROCESS ----------
+    st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
+
+    # ပုံတွေကို သတ်မှတ်ပါ (Root မှာရှိတယ်ဆိုရင်)
+    step_images = {
+        "step1": "ds2pe_image_239.jpg",
+        "step2": "plastic-recycling-sorting-image.jpg",
+        "step3": "close-hands.jpg",
+        "step4": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop",
+        "step5": "ds2pe_image_239.jpg",
+    }
 
     # ===== STEP 1 =====
-    st.markdown(f"""
-    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-bottom:1.5rem; flex-wrap:wrap;">
-        <div style="flex:0 0 300px; min-width:200px;">
-            <img src="{step_images['step1']}" 
-                 style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
-            <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
-                Step 1: Collection
-            </div>
-        </div>
-        <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
+    col1, col2 = st.columns([1, 2], gap="medium")
+    with col1:
+        st.image(step_images["step1"], caption="🗑️ Step 1: Collection", use_container_width=True)
+    with col2:
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%;">
             <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 1: Collection</div>
             <div style="margin-top:0.8rem; line-height:1.8;">
                 <b>What happens:</b> Plastic waste is collected from households, businesses, 
@@ -902,20 +915,17 @@ step_images = {
                 before putting them in the recycling bin.
             </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+
+    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
 
     # ===== STEP 2 =====
-    st.markdown(f"""
-    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-bottom:1.5rem; flex-wrap:wrap;">
-        <div style="flex:0 0 300px; min-width:200px;">
-            <img src="{step_images['step2']}" 
-                 style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
-            <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
-                Step 2: Sorting
-            </div>
-        </div>
-        <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
+    col1, col2 = st.columns([1, 2], gap="medium")
+    with col1:
+        st.image(step_images["step2"], caption="🔄 Step 2: Sorting", use_container_width=True)
+    with col2:
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%;">
             <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 2: Sorting</div>
             <div style="margin-top:0.8rem; line-height:1.8;">
                 <b>What happens:</b> Plastics are sorted by resin type (PET, HDPE, PP, etc.) 
@@ -927,20 +937,17 @@ step_images = {
                 items — this is how they're sorted!
             </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+
+    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
 
     # ===== STEP 3 =====
-    st.markdown(f"""
-    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-bottom:1.5rem; flex-wrap:wrap;">
-        <div style="flex:0 0 300px; min-width:200px;">
-            <img src="{step_images['step3']}" 
-                 style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
-            <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
-                Step 3: Cleaning
-            </div>
-        </div>
-        <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
+    col1, col2 = st.columns([1, 2], gap="medium")
+    with col1:
+        st.image(step_images["step3"], caption="🧼 Step 3: Cleaning", use_container_width=True)
+    with col2:
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%;">
             <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 3: Cleaning</div>
             <div style="margin-top:0.8rem; line-height:1.8;">
                 <b>What happens:</b> Plastics are washed to remove labels, glue, food residue, 
@@ -951,20 +958,17 @@ step_images = {
                 makes a huge difference at the cleaning facility.
             </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+
+    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
 
     # ===== STEP 4 =====
-    st.markdown(f"""
-    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-bottom:1.5rem; flex-wrap:wrap;">
-        <div style="flex:0 0 300px; min-width:200px;">
-            <img src="{step_images['step4']}" 
-                 style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
-            <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
-                ⚙️ Step 4: Shredding
-            </div>
-        </div>
-        <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
+    col1, col2 = st.columns([1, 2], gap="medium")
+    with col1:
+        st.image(step_images["step4"], caption="⚙️ Step 4: Shredding", use_container_width=True)
+    with col2:
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%;">
             <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 4: Shredding</div>
             <div style="margin-top:0.8rem; line-height:1.8;">
                 <b>What happens:</b> Clean plastic is shredded into small flakes or pellets. 
@@ -975,20 +979,17 @@ step_images = {
                 new plastic products — from bottles to clothing!
             </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+
+    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
 
     # ===== STEP 5 =====
-    st.markdown(f"""
-    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-bottom:1.5rem; flex-wrap:wrap;">
-        <div style="flex:0 0 300px; min-width:200px;">
-            <img src="{step_images['step5']}" 
-                 style="width:100%; height:auto; border-radius:20px; border:3px solid {th['border']};">
-            <div style="text-align:center; margin-top:0.5rem; color:{th['muted']}; font-size:0.8rem;">
-                ♻️ Step 5: Pelletizing
-            </div>
-        </div>
-        <div style="flex:1; min-width:250px; background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem;">
+    col1, col2 = st.columns([1, 2], gap="medium")
+    with col1:
+        st.image(step_images["step5"], caption="♻️ Step 5: Pelletizing", use_container_width=True)
+    with col2:
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%;">
             <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 5: Pelletizing</div>
             <div style="margin-top:0.8rem; line-height:1.8;">
                 <b>What happens:</b> Shredded plastic is melted and formed into small pellets 
@@ -1000,12 +1001,11 @@ step_images = {
                 "Post-Consumer Recycled" or "PCR") to support the circular economy.
             </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
     st.markdown(f'<hr style="border-color:{th["border"]}; margin:2rem 0;">', unsafe_allow_html=True)
 
-    # ---------- RESIN TYPES SECTION (Original) ----------
+    # ---------- RESIN TYPES SECTION ----------
     st.markdown('<div class="section-title">The Resin Types</div>', unsafe_allow_html=True)
 
     for cls, info in RECYCLABILITY.items():
