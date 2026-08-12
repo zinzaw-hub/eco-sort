@@ -867,13 +867,38 @@ def render_learn_page():
     st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
 
     # All images same size: 300x200
-    step_images = {
-        "step1": "ds2pe_image_239.jpg",
-        "step2": "plastic-recycling-sorting-image.jpg",
-        "step3": "close-hands.jpg",
-        "step4": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop",
-        "step5": "ds2pe_image_239.jpg",
-    }
+    # ==========================================
+# LEARN PAGE — RECYCLING PROCESS (GitHub Images)
+# ==========================================
+
+# ပုံတွေကို သတ်မှတ်ပါ (Root မှာရှိတယ်ဆိုရင်)
+step_images = {
+    "step1": "ds2pe_image_239.jpg",
+    "step2": "plastic-recycling-sorting-image.jpg",
+    "step3": "close-hands.jpg",
+    "step4": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop",
+    "step5": "ds2pe_image_239.jpg",
+}
+
+# ===== STEP 1 =====
+col1, col2 = st.columns([1, 2], gap="medium")
+with col1:
+    st.image(step_images["step1"], caption="🗑️ Step 1: Collection", use_container_width=True)
+with col2:
+    st.markdown(f"""
+    <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%;">
+        <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 1: Collection</div>
+        <div style="margin-top:0.8rem; line-height:1.8;">
+            <b>What happens:</b> Plastic waste is collected from households, businesses, 
+            and recycling drop-off points. This is the first and most important step — 
+            without proper collection, recycling can't happen.
+        </div>
+        <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
+            💡 <b>Tip:</b> Separate your plastics by type (bottles, containers, bags) 
+            before putting them in the recycling bin.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     # ===== STEP 1 =====
     st.markdown(f"""
