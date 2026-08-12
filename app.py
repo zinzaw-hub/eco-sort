@@ -860,12 +860,8 @@ def render_learn_page():
     """, unsafe_allow_html=True)
 
     # ---------- VIDEO SECTION ----------
-    # st.markdown('<div class="section-title">🎬 Recycling Example Video</div>', unsafe_allow_html=True)
-    # st.video("https://youtu.be/cNPEH0GOhRw?si=tRo2Ova9xcnoMTNz")
-
-    # drive vd
-    video_url = "https://drive.google.com/uc?export=download&id=1lDlYJQ7ZwCcjRTyHn4-0V-7MnW_7pT7d"
-    st.video(video_url)
+    st.markdown('<div class="section-title">Recycling Example Video</div>', unsafe_allow_html=True)
+    st.video("https://youtu.be/MwL8kgyOzFA")
 
     # ---------- RECYCLING PROCESS ----------
     st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
