@@ -904,7 +904,7 @@ def render_learn_page():
             <img src="{step_images['step1']}" 
                  style="width:100%; height:auto; display:block; object-fit:cover;">
             <div style="text-align:center; padding:0.5rem; color:{th['muted']}; font-size:0.8rem; background:{th['card_bg']};">
-                🗑️ Step 1: Collection
+                Step 1: Collection
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -913,12 +913,12 @@ def render_learn_page():
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
             <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 1: Collection</div>
             <div style="margin-top:0.8rem; line-height:1.8;">
-                <b>What happens:</b> Plastic waste is collected from households, businesses, 
+                <b></b> Plastic waste is collected from households, businesses, 
                 and recycling drop-off points. This is the first and most important step — 
                 without proper collection, recycling can't happen.
             </div>
             <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
-                💡 <b>Tip:</b> Separate your plastics by type (bottles, containers, bags) 
+                <b>Tip:</b> Separate your plastics by type (bottles, containers, bags) 
                 before putting them in the recycling bin.
             </div>
         </div>
@@ -934,7 +934,7 @@ def render_learn_page():
             <img src="{step_images['step2']}" 
                  style="width:100%; height:auto; display:block; object-fit:cover;">
             <div style="text-align:center; padding:0.5rem; color:{th['muted']}; font-size:0.8rem; background:{th['card_bg']};">
-                🔄 Step 2: Sorting
+                Step 2: Sorting
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -943,12 +943,12 @@ def render_learn_page():
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
             <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 2: Sorting</div>
             <div style="margin-top:0.8rem; line-height:1.8;">
-                <b>What happens:</b> Plastics are sorted by resin type (PET, HDPE, PP, etc.) 
+                <b></b> Plastics are sorted by resin type (PET, HDPE, PP, etc.) 
                 using advanced optical sorters and manual labor. Different types can't be 
                 recycled together.
             </div>
             <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
-                💡 <b>Tip:</b> Check the resin code (♳-♹) on the bottom of your plastic 
+                <b>Tip:</b> Check the resin code (♳-♹) on the bottom of your plastic 
                 items — this is how they're sorted!
             </div>
         </div>
@@ -964,7 +964,7 @@ def render_learn_page():
             <img src="{step_images['step3']}" 
                  style="width:100%; height:auto; display:block; object-fit:cover;">
             <div style="text-align:center; padding:0.5rem; color:{th['muted']}; font-size:0.8rem; background:{th['card_bg']};">
-                🧼 Step 3: Cleaning
+                Step 3: Cleaning
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -973,11 +973,11 @@ def render_learn_page():
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
             <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 3: Cleaning</div>
             <div style="margin-top:0.8rem; line-height:1.8;">
-                <b>What happens:</b> Plastics are washed to remove labels, glue, food residue, 
+                <b></b> Plastics are washed to remove labels, glue, food residue, 
                 and dirt. This is critical — contaminated plastics can ruin an entire batch.
             </div>
             <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
-                💡 <b>Tip:</b> Rinse your plastic items before recycling! A quick rinse 
+                <b>Tip:</b> Rinse your plastic items before recycling! A quick rinse 
                 makes a huge difference at the cleaning facility.
             </div>
         </div>
@@ -993,7 +993,7 @@ def render_learn_page():
             <img src="{step_images['step4']}" 
                  style="width:100%; height:auto; display:block; object-fit:cover;">
             <div style="text-align:center; padding:0.5rem; color:{th['muted']}; font-size:0.8rem; background:{th['card_bg']};">
-                ⚙️ Step 4: Shredding
+                Step 4: Shredding
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -1002,11 +1002,11 @@ def render_learn_page():
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
             <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 4: Shredding</div>
             <div style="margin-top:0.8rem; line-height:1.8;">
-                <b>What happens:</b> Clean plastic is shredded into small flakes or pellets. 
+                <b></b> Clean plastic is shredded into small flakes or pellets. 
                 This increases the surface area and makes it easier to melt and reform.
             </div>
             <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
-                💡 <b>Tip:</b> Shredded plastic flakes are the raw material for making 
+                <b>Tip:</b> Shredded plastic flakes are the raw material for making 
                 new plastic products — from bottles to clothing!
             </div>
         </div>
@@ -1022,7 +1022,7 @@ def render_learn_page():
             <img src="{step_images['step5']}" 
                  style="width:100%; height:auto; display:block; object-fit:cover;">
             <div style="text-align:center; padding:0.5rem; color:{th['muted']}; font-size:0.8rem; background:{th['card_bg']};">
-                ♻️ Step 5: Pelletizing
+                Step 5: Pelletizing
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -1031,12 +1031,12 @@ def render_learn_page():
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
             <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 5: Pelletizing</div>
             <div style="margin-top:0.8rem; line-height:1.8;">
-                <b>What happens:</b> Shredded plastic is melted and formed into small pellets 
+                <b></b> Shredded plastic is melted and formed into small pellets 
                 (nurdles). These pellets are then sold to manufacturers to make new plastic 
                 products — closing the recycling loop!
             </div>
             <div style="margin-top:1rem; background:{th['bg']}; padding:0.8rem 1.2rem; border-radius:14px; border-left:4px solid {th['accent']};">
-                💡 <b>Tip:</b> Look for products made from recycled plastic (often labeled 
+                <b>Tip:</b> Look for products made from recycled plastic (often labeled 
                 "Post-Consumer Recycled" or "PCR") to support the circular economy.
             </div>
         </div>
@@ -1061,8 +1061,8 @@ def render_learn_page():
                 <div style="font-size:2.5rem; color:{color}">{sym}</div>
                 {badge}
             </div>
-            <div class="examples-text" style="margin-bottom:0.6rem;">📦 <b>Common items:</b> {info['examples']}</div>
-            <div class="guidance-box">💡 {LEARN_TIPS.get(cls, "")}</div>
+            <div class="examples-text" style="margin-bottom:0.6rem;"><b>Common items:</b> {info['examples']}</div>
+            <div class="guidance-box">{LEARN_TIPS.get(cls, "")}</div>
             """, unsafe_allow_html=True)
 
     # ---------- GENERAL TIPS ----------
