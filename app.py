@@ -1,5 +1,5 @@
 # ==========================================
-# PAGE VIEW: LEARN SECTION (UPDATED WITH GOOGLE DRIVE VIDEO & FIXED ALIGNMENT)
+# PAGE VIEW: LEARN SECTION (FIXED - IMAGE & CARD ALIGNED)
 # ==========================================
 def render_learn_page():
     th = st.session_state["_theme"]
@@ -11,18 +11,9 @@ def render_learn_page():
     </div>
     """, unsafe_allow_html=True)
 
-    # ---------- VIDEO SECTION (Google Drive) ----------
+    # ---------- VIDEO SECTION ----------
     st.markdown('<div class="section-title">🎬 Recycling Example Video</div>', unsafe_allow_html=True)
-    
-    # ခင်ဗျားရဲ့ Google Drive Video Link
-    video_url = "https://drive.google.com/uc?export=download&id=1lDlYJQ7ZwCcjRTyHn4-0V-7MnW_7pT7d"
-    
-    try:
-        st.video(video_url)
-    except Exception as e:
-        st.warning(f"⚠️ Video ဖွင့်လို့မရပါ။ နောက်မှပြန်ကြည့်ပါ။ Error: {e}")
-        # Fallback Video (YouTube)
-        st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
+    st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
 
     # ---------- RECYCLING PROCESS ----------
     st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
