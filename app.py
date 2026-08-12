@@ -898,10 +898,16 @@ def render_learn_page():
 
     # ===== STEP 1 =====
     col1, col2 = st.columns([1, 2], gap="medium")
-    
     with col1:
-        st.image(step_images["step1"], caption="🗑️ Step 1: Collection", use_container_width=True)
-    
+        st.markdown(f"""
+        <div style="border:3px solid {th['border']}; border-radius:20px; overflow:hidden; background:{th['card_bg']};">
+            <img src="{step_images['step1']}" 
+                 style="width:100%; height:auto; display:block; object-fit:cover;">
+            <div style="text-align:center; padding:0.5rem; color:{th['muted']}; font-size:0.8rem; background:{th['card_bg']};">
+                🗑️ Step 1: Collection
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     with col2:
         st.markdown(f"""
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
@@ -923,7 +929,15 @@ def render_learn_page():
     # ===== STEP 2 =====
     col1, col2 = st.columns([1, 2], gap="medium")
     with col1:
-        st.image(step_images["step2"], caption="🔄 Step 2: Sorting", use_container_width=True)
+        st.markdown(f"""
+        <div style="border:3px solid {th['border']}; border-radius:20px; overflow:hidden; background:{th['card_bg']};">
+            <img src="{step_images['step2']}" 
+                 style="width:100%; height:auto; display:block; object-fit:cover;">
+            <div style="text-align:center; padding:0.5rem; color:{th['muted']}; font-size:0.8rem; background:{th['card_bg']};">
+                🔄 Step 2: Sorting
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     with col2:
         st.markdown(f"""
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
@@ -945,7 +959,15 @@ def render_learn_page():
     # ===== STEP 3 =====
     col1, col2 = st.columns([1, 2], gap="medium")
     with col1:
-        st.image(step_images["step3"], caption="🧼 Step 3: Cleaning", use_container_width=True)
+        st.markdown(f"""
+        <div style="border:3px solid {th['border']}; border-radius:20px; overflow:hidden; background:{th['card_bg']};">
+            <img src="{step_images['step3']}" 
+                 style="width:100%; height:auto; display:block; object-fit:cover;">
+            <div style="text-align:center; padding:0.5rem; color:{th['muted']}; font-size:0.8rem; background:{th['card_bg']};">
+                🧼 Step 3: Cleaning
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     with col2:
         st.markdown(f"""
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
@@ -966,7 +988,15 @@ def render_learn_page():
     # ===== STEP 4 =====
     col1, col2 = st.columns([1, 2], gap="medium")
     with col1:
-        st.image(step_images["step4"], caption="⚙️ Step 4: Shredding", use_container_width=True)
+        st.markdown(f"""
+        <div style="border:3px solid {th['border']}; border-radius:20px; overflow:hidden; background:{th['card_bg']};">
+            <img src="{step_images['step4']}" 
+                 style="width:100%; height:auto; display:block; object-fit:cover;">
+            <div style="text-align:center; padding:0.5rem; color:{th['muted']}; font-size:0.8rem; background:{th['card_bg']};">
+                ⚙️ Step 4: Shredding
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     with col2:
         st.markdown(f"""
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
@@ -987,7 +1017,15 @@ def render_learn_page():
     # ===== STEP 5 =====
     col1, col2 = st.columns([1, 2], gap="medium")
     with col1:
-        st.image(step_images["step5"], caption="♻️ Step 5: Pelletizing", use_container_width=True)
+        st.markdown(f"""
+        <div style="border:3px solid {th['border']}; border-radius:20px; overflow:hidden; background:{th['card_bg']};">
+            <img src="{step_images['step5']}" 
+                 style="width:100%; height:auto; display:block; object-fit:cover;">
+            <div style="text-align:center; padding:0.5rem; color:{th['muted']}; font-size:0.8rem; background:{th['card_bg']};">
+                ♻️ Step 5: Pelletizing
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     with col2:
         st.markdown(f"""
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
