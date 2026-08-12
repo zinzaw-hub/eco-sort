@@ -889,11 +889,11 @@ def render_learn_page():
 
    
     step_images = {
-        "step1": "ds2pe_image_239.jpg",
-        "step2": "plastic-recycling-sorting-image.jpg",
-        "step3": "close-hands.jpg",
-        "step4": "T8200219.jpg",
-        "step5": "AdobeStock_759704272-1.jpeg",
+        "step1": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/ds2pe_image_239.jpg",
+        "step2": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/plastic-recycling-sorting-image.jpg",
+        "step3": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/close-hands.jpg",
+        "step4": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/T8200219.jpg",
+        "step5": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/AdobeStock_759704272-1.jpeg",
     }
 
     # ===== STEP 1 =====
