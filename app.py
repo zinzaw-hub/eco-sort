@@ -725,7 +725,7 @@ def render_about_page():
             and an LLM (via Groq) for generating plain-language disposal guidance.
         </div>
         <div class="about-p">
-            <b>Author:</b> Zin Wut Yee Zaw, UCSPyay, Computer Science Department.<br>
+            <b>Author:</b> Zin Wut Yee Zaw, UCSPyay, Computer Science Student.<br>
             <b>Contact:</b> wyee659@gmail.com.
         </div>
     </div>
