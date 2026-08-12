@@ -847,7 +847,7 @@ def render_dashboard_page():
         st.rerun()
 
 # ==========================================
-# PAGE VIEW: LEARN SECTION (UPDATED)
+# PAGE VIEW: LEARN SECTION (WITH EXTERNAL IMAGES)
 # ==========================================
 def render_learn_page():
     th = st.session_state["_theme"]
@@ -863,22 +863,26 @@ def render_learn_page():
     st.markdown('<div class="section-title">🎬 Recycling Example Video</div>', unsafe_allow_html=True)
     st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
 
-    # ---------- RECYCLING PROCESS (STEP BY STEP WITH IMAGES) ----------
+    # ---------- RECYCLING PROCESS (STEP BY STEP WITH EXTERNAL IMAGES) ----------
     st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
+
+    # Free stock images from Unsplash (recycling related)
+    step_images = {
+        "step1": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&h=300&fit=crop",
+        "step2": "https://images.unsplash.com/photo-1611273426858-450e5a3f0f7c?w=400&h=300&fit=crop",
+        "step3": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop",
+        "step4": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop",
+        "step5": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&h=300&fit=crop",
+    }
 
     # Step 1: Collection
     col1, col2 = st.columns([1, 2])
     with col1:
-        st.markdown(f"""
-        <div style="background:{th['card_bg']}; border-radius:20px; padding:1.5rem; text-align:center; border:2px solid {th['border']};">
-            <div style="font-size:4rem;">🗑️</div>
-            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 1</div>
-            <div style="font-size:1rem; font-weight:600;">Collection</div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.image(step_images["step1"], caption="🗑️ Step 1: Collection", use_container_width=True)
     with col2:
         st.markdown(f"""
         <div class="result-card result-card-flex" style="margin:0;">
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 1: Collection</div>
             <div class="about-p">
                 <b>What happens:</b> Plastic waste is collected from households, businesses, 
                 and recycling drop-off points. This is the first and most important step — 
@@ -891,22 +895,16 @@ def render_learn_page():
         </div>
         """, unsafe_allow_html=True)
 
-    # Divider
     st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
 
     # Step 2: Sorting
     col1, col2 = st.columns([1, 2])
     with col1:
-        st.markdown(f"""
-        <div style="background:{th['card_bg']}; border-radius:20px; padding:1.5rem; text-align:center; border:2px solid {th['border']};">
-            <div style="font-size:4rem;">🔄</div>
-            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 2</div>
-            <div style="font-size:1rem; font-weight:600;">Sorting</div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.image(step_images["step2"], caption="🔄 Step 2: Sorting", use_container_width=True)
     with col2:
         st.markdown(f"""
         <div class="result-card result-card-flex" style="margin:0;">
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 2: Sorting</div>
             <div class="about-p">
                 <b>What happens:</b> Plastics are sorted by resin type (PET, HDPE, PP, etc.) 
                 using advanced optical sorters and manual labor. Different types can't be 
@@ -924,16 +922,11 @@ def render_learn_page():
     # Step 3: Cleaning
     col1, col2 = st.columns([1, 2])
     with col1:
-        st.markdown(f"""
-        <div style="background:{th['card_bg']}; border-radius:20px; padding:1.5rem; text-align:center; border:2px solid {th['border']};">
-            <div style="font-size:4rem;">🧼</div>
-            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 3</div>
-            <div style="font-size:1rem; font-weight:600;">Cleaning</div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.image(step_images["step3"], caption="🧼 Step 3: Cleaning", use_container_width=True)
     with col2:
         st.markdown(f"""
         <div class="result-card result-card-flex" style="margin:0;">
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 3: Cleaning</div>
             <div class="about-p">
                 <b>What happens:</b> Plastics are washed to remove labels, glue, food residue, 
                 and dirt. This is critical — contaminated plastics can ruin an entire batch.
@@ -950,16 +943,11 @@ def render_learn_page():
     # Step 4: Shredding
     col1, col2 = st.columns([1, 2])
     with col1:
-        st.markdown(f"""
-        <div style="background:{th['card_bg']}; border-radius:20px; padding:1.5rem; text-align:center; border:2px solid {th['border']};">
-            <div style="font-size:4rem;">⚙️</div>
-            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 4</div>
-            <div style="font-size:1rem; font-weight:600;">Shredding</div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.image(step_images["step4"], caption="⚙️ Step 4: Shredding", use_container_width=True)
     with col2:
         st.markdown(f"""
         <div class="result-card result-card-flex" style="margin:0;">
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 4: Shredding</div>
             <div class="about-p">
                 <b>What happens:</b> Clean plastic is shredded into small flakes or pellets. 
                 This increases the surface area and makes it easier to melt and reform.
@@ -973,19 +961,14 @@ def render_learn_page():
 
     st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
 
-    # Step 5: Pelletizing (New Life)
+    # Step 5: Pelletizing
     col1, col2 = st.columns([1, 2])
     with col1:
-        st.markdown(f"""
-        <div style="background:{th['card_bg']}; border-radius:20px; padding:1.5rem; text-align:center; border:2px solid {th['border']};">
-            <div style="font-size:4rem;">♻️</div>
-            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 5</div>
-            <div style="font-size:1rem; font-weight:600;">Pelletizing</div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.image(step_images["step5"], caption="♻️ Step 5: Pelletizing", use_container_width=True)
     with col2:
         st.markdown(f"""
         <div class="result-card result-card-flex" style="margin:0;">
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 5: Pelletizing</div>
             <div class="about-p">
                 <b>What happens:</b> Shredded plastic is melted and formed into small pellets 
                 (nurdles). These pellets are then sold to manufacturers to make new plastic 
