@@ -574,7 +574,6 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points):
     recyclable_text = "Recyclable" if info["recyclable"] else "Non-recyclable"
     properties_list = info.get("properties", [])
     
-    # ---------------- PDF  ----------------
     html_content = f"""
     <!DOCTYPE html>
     <html>
@@ -848,18 +847,50 @@ def render_dashboard_page():
         st.rerun()
 
 # ==========================================
-# PAGE VIEW: LEARN SECTION
+# PAGE VIEW: LEARN SECTION (UPDATED WITH STEP-BY-STEP IMAGES)
 # ==========================================
 def render_learn_page():
     st.markdown("""
     <div class="eco-header">
         <div class="eco-title">Learn</div>
-        <div class="eco-subtitle">Plastic Types &amp; Recycling Basics</div>
+        <div class="eco-subtitle">Plastic Types &amp; Recycling Process Guide</div>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown('<div class="section-title">Recycling Example Video</div>', unsafe_allow_html=True)
     st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
+
+    # --- Recycling Step-by-Step with Pictures ---
+    st.markdown('<div class="section-title">♻️ Plastic Recycling Process (အဆင့်ဆင့်ပြုပြင်ပုံ)</div>', unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns(3, gap="medium")
+    
+    with col1:
+        st.markdown("""
+        <div class="result-card result-card-flex" style="text-align: center; padding: 1.2rem;">
+            <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=400&q=80" style="width:100%; height:150px; object-fit:cover; border-radius:12px; margin-bottom:0.8rem;">
+            <h4 style="color: #06D6A0; margin-bottom:0.3rem;">Step 1: စုဆောင်းခြင်း & ခွဲခြားခြင်း</h4>
+            <p style="font-size: 0.85rem; color: #8D99AE;">ပလတ်စတစ်အမျိုးအစားအလိုက် (PET, HDPE စသည်ဖြင့်) စနစ်တကျ ခွဲထုတ်စုဆောင်းခြင်း။</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    with col2:
+        st.markdown("""
+        <div class="result-card result-card-flex" style="text-align: center; padding: 1.2rem;">
+            <img src="https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=400&q=80" style="width:100%; height:150px; object-fit:cover; border-radius:12px; margin-bottom:0.8rem;">
+            <h4 style="color: #06D6A0; margin-bottom:0.3rem;">Step 2: ဆေးကြောသန့်စင်ခြင်း</h4>
+            <p style="font-size: 0.85rem; color: #8D99AE;">အညစ်အကြေးများ၊ ဆီများနှင့် စတစ်ကာများကို ဖယ်ရှားရန် ရေစင်စင်ဆေးကြောခြင်း။</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    with col3:
+        st.markdown("""
+        <div class="result-card result-card-flex" style="text-align: center; padding: 1.2rem;">
+            <img src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&w=400&q=80" style="width:100%; height:150px; object-fit:cover; border-radius:12px; margin-bottom:0.8rem;">
+            <h4 style="color: #06D6A0; margin-bottom:0.3rem;">Step 3: အပိုင်းပိုင်းဖြတ်ခြင်း & အရည်ကျိုခြင်း</h4>
+            <p style="font-size: 0.85rem; color: #8D99AE;">ပလတ်စတစ်များကို အစအနသေးသေးလေးများ (Flakes) အဖြစ်ကြိတ်ချေပြီး ပြန်လည်ပုံဖော်ခြင်း။</p>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("""
     <div class="result-card result-card-flex" style="margin-top: 1.5rem;">
