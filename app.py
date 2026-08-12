@@ -847,68 +847,160 @@ def render_dashboard_page():
         st.rerun()
 
 # ==========================================
-# PAGE VIEW: LEARN SECTION (UPDATED WITH STEP-BY-STEP IMAGES)
+# PAGE VIEW: LEARN SECTION (UPDATED)
 # ==========================================
 def render_learn_page():
+    th = st.session_state["_theme"]
+    
     st.markdown("""
     <div class="eco-header">
         <div class="eco-title">Learn</div>
-        <div class="eco-subtitle">Plastic Types &amp; Recycling Process Guide</div>
+        <div class="eco-subtitle">Plastic Types &amp; Recycling Basics</div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">Recycling Example Video</div>', unsafe_allow_html=True)
+    # ---------- VIDEO SECTION ----------
+    st.markdown('<div class="section-title">🎬 Recycling Example Video</div>', unsafe_allow_html=True)
     st.video("https://www.youtube.com/watch?v=6jQ7y_qQYUA")
 
-    # --- Recycling Step-by-Step with Pictures ---
-    st.markdown('<div class="section-title">♻️ Plastic Recycling Process (အဆင့်ဆင့်ပြုပြင်ပုံ)</div>', unsafe_allow_html=True)
-    
-    col1, col2, col3 = st.columns(3, gap="medium")
-    
+    # ---------- RECYCLING PROCESS (STEP BY STEP WITH IMAGES) ----------
+    st.markdown('<div class="section-title">♻️ How Plastic Recycling Works (Step by Step)</div>', unsafe_allow_html=True)
+
+    # Step 1: Collection
+    col1, col2 = st.columns([1, 2])
     with col1:
-        st.markdown("""
-        <div class="result-card result-card-flex" style="text-align: center; padding: 1.2rem;">
-            <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=400&q=80" style="width:100%; height:150px; object-fit:cover; border-radius:12px; margin-bottom:0.8rem;">
-            <h4 style="color: #06D6A0; margin-bottom:0.3rem;">Step 1: စုဆောင်းခြင်း & ခွဲခြားခြင်း</h4>
-            <p style="font-size: 0.85rem; color: #8D99AE;">ပလတ်စတစ်အမျိုးအစားအလိုက် (PET, HDPE စသည်ဖြင့်) စနစ်တကျ ခွဲထုတ်စုဆောင်းခြင်း။</p>
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border-radius:20px; padding:1.5rem; text-align:center; border:2px solid {th['border']};">
+            <div style="font-size:4rem;">🗑️</div>
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 1</div>
+            <div style="font-size:1rem; font-weight:600;">Collection</div>
         </div>
         """, unsafe_allow_html=True)
-        
     with col2:
-        st.markdown("""
-        <div class="result-card result-card-flex" style="text-align: center; padding: 1.2rem;">
-            <img src="https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=400&q=80" style="width:100%; height:150px; object-fit:cover; border-radius:12px; margin-bottom:0.8rem;">
-            <h4 style="color: #06D6A0; margin-bottom:0.3rem;">Step 2: ဆေးကြောသန့်စင်ခြင်း</h4>
-            <p style="font-size: 0.85rem; color: #8D99AE;">အညစ်အကြေးများ၊ ဆီများနှင့် စတစ်ကာများကို ဖယ်ရှားရန် ရေစင်စင်ဆေးကြောခြင်း။</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-    with col3:
-        st.markdown("""
-        <div class="result-card result-card-flex" style="text-align: center; padding: 1.2rem;">
-            <img src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&w=400&q=80" style="width:100%; height:150px; object-fit:cover; border-radius:12px; margin-bottom:0.8rem;">
-            <h4 style="color: #06D6A0; margin-bottom:0.3rem;">Step 3: အပိုင်းပိုင်းဖြတ်ခြင်း & အရည်ကျိုခြင်း</h4>
-            <p style="font-size: 0.85rem; color: #8D99AE;">ပလတ်စတစ်များကို အစအနသေးသေးလေးများ (Flakes) အဖြစ်ကြိတ်ချေပြီး ပြန်လည်ပုံဖော်ခြင်း။</p>
+        st.markdown(f"""
+        <div class="result-card result-card-flex" style="margin:0;">
+            <div class="about-p">
+                <b>What happens:</b> Plastic waste is collected from households, businesses, 
+                and recycling drop-off points. This is the first and most important step — 
+                without proper collection, recycling can't happen.
+            </div>
+            <div class="about-p" style="color:{th['muted']}; font-size:0.85rem;">
+                📌 <b>Tip:</b> Separate your plastics by type (bottles, containers, bags) 
+                before putting them in the recycling bin.
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="result-card result-card-flex" style="margin-top: 1.5rem;">
-        <div class="about-p">
-            <b>Why it matters:</b> globally, less than 10% of plastic waste ever produced has been
-            effectively recycled — most ends up in landfills, is incinerated, or leaks into the
-            environment. A big part of the problem is that different plastics can't be recycled
-            together: each resin type needs its own collection and reprocessing stream. Knowing
-            what you're holding is the first step to sorting it correctly.
-        </div>
-        <div class="about-p">
-            Every plastic item is stamped with a small triangular <b>resin identification code</b>
-            (usually on the bottom) — a number 1 through 7 that tells you what it's made of. Tap
-            through the types below to learn what each one means.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    # Divider
+    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
 
+    # Step 2: Sorting
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border-radius:20px; padding:1.5rem; text-align:center; border:2px solid {th['border']};">
+            <div style="font-size:4rem;">🔄</div>
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 2</div>
+            <div style="font-size:1rem; font-weight:600;">Sorting</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col2:
+        st.markdown(f"""
+        <div class="result-card result-card-flex" style="margin:0;">
+            <div class="about-p">
+                <b>What happens:</b> Plastics are sorted by resin type (PET, HDPE, PP, etc.) 
+                using advanced optical sorters and manual labor. Different types can't be 
+                recycled together.
+            </div>
+            <div class="about-p" style="color:{th['muted']}; font-size:0.85rem;">
+                📌 <b>Tip:</b> Check the resin code (♳-♹) on the bottom of your plastic 
+                items — this is how they're sorted!
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
+
+    # Step 3: Cleaning
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border-radius:20px; padding:1.5rem; text-align:center; border:2px solid {th['border']};">
+            <div style="font-size:4rem;">🧼</div>
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 3</div>
+            <div style="font-size:1rem; font-weight:600;">Cleaning</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col2:
+        st.markdown(f"""
+        <div class="result-card result-card-flex" style="margin:0;">
+            <div class="about-p">
+                <b>What happens:</b> Plastics are washed to remove labels, glue, food residue, 
+                and dirt. This is critical — contaminated plastics can ruin an entire batch.
+            </div>
+            <div class="about-p" style="color:{th['muted']}; font-size:0.85rem;">
+                📌 <b>Tip:</b> Rinse your plastic items before recycling! A quick rinse 
+                makes a huge difference at the cleaning facility.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
+
+    # Step 4: Shredding
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border-radius:20px; padding:1.5rem; text-align:center; border:2px solid {th['border']};">
+            <div style="font-size:4rem;">⚙️</div>
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 4</div>
+            <div style="font-size:1rem; font-weight:600;">Shredding</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col2:
+        st.markdown(f"""
+        <div class="result-card result-card-flex" style="margin:0;">
+            <div class="about-p">
+                <b>What happens:</b> Clean plastic is shredded into small flakes or pellets. 
+                This increases the surface area and makes it easier to melt and reform.
+            </div>
+            <div class="about-p" style="color:{th['muted']}; font-size:0.85rem;">
+                📌 <b>Tip:</b> Shredded plastic flakes are the raw material for making 
+                new plastic products — from bottles to clothing!
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown(f'<hr style="border-color:{th["border"]}; margin:1.5rem 0;">', unsafe_allow_html=True)
+
+    # Step 5: Pelletizing (New Life)
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border-radius:20px; padding:1.5rem; text-align:center; border:2px solid {th['border']};">
+            <div style="font-size:4rem;">♻️</div>
+            <div style="font-size:1.2rem; font-weight:700; color:{th['accent']};">Step 5</div>
+            <div style="font-size:1rem; font-weight:600;">Pelletizing</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with col2:
+        st.markdown(f"""
+        <div class="result-card result-card-flex" style="margin:0;">
+            <div class="about-p">
+                <b>What happens:</b> Shredded plastic is melted and formed into small pellets 
+                (nurdles). These pellets are then sold to manufacturers to make new plastic 
+                products — closing the recycling loop!
+            </div>
+            <div class="about-p" style="color:{th['muted']}; font-size:0.85rem;">
+                📌 <b>Tip:</b> Look for products made from recycled plastic (often labeled 
+                "Post-Consumer Recycled" or "PCR") to support the circular economy.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown(f'<hr style="border-color:{th["border"]}; margin:2rem 0;">', unsafe_allow_html=True)
+
+    # ---------- RESIN TYPES SECTION (Original) ----------
     st.markdown('<div class="section-title">The Resin Types</div>', unsafe_allow_html=True)
 
     for cls, info in RECYCLABILITY.items():
@@ -929,6 +1021,7 @@ def render_learn_page():
             <div class="guidance-box">💡 {LEARN_TIPS.get(cls, "")}</div>
             """, unsafe_allow_html=True)
 
+    # ---------- GENERAL TIPS (Original) ----------
     st.markdown('<div class="section-title">🌱 General Tips</div>', unsafe_allow_html=True)
     st.markdown("""
     <div class="result-card result-card-flex">
@@ -952,7 +1045,6 @@ def render_learn_page():
         </div>
     </div>
     """, unsafe_allow_html=True)
-
 # ==========================================
 # SIDEBAR NAVIGATION
 # ==========================================
