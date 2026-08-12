@@ -898,9 +898,10 @@ def render_learn_page():
 
     # ===== STEP 1 =====
     col1, col2 = st.columns([1, 2], gap="medium")
+    
     with col1:
-        
         st.image(step_images["step1"], caption="🗑️ Step 1: Collection", use_container_width=True)
+    
     with col2:
         st.markdown(f"""
         <div style="background:{th['card_bg']}; border:3px solid {th['accent']}; border-radius:20px; padding:1.5rem; height:100%; display:flex; flex-direction:column; justify-content:center;">
