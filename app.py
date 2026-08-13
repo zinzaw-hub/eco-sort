@@ -650,42 +650,112 @@ LEARN_TIPS = LEARN_TIPS_MM if is_mm else LEARN_TIPS_EN
 # AI GUIDANCE & REPORT GENERATION FUNCTIONS
 # ==========================================
 @st.cache_data(show_spinner=False)
+
+# ==========================================
+# STATIC RECYCLING GUIDANCE (No API)
+# ==========================================
 def get_guidance(plastic_type, recyclable, lang="en"):
-    api_key = os.environ.get("GROQ_API_KEY")
-    if not api_key:
-        return ["လမ်းညွှန်ချက် မရနိုင်ပါ: GROQ_API_KEY ထည့်သွင်းထားခြင်း မရှိပါ။"] if lang == "mm" else ["Guidance unavailable: GROQ_API_KEY not configured."]
-    try:
-        client = Groq(api_key=api_key)
-        if lang == "mm":
-            prompt = (
-                f"Give exactly 5 short, practical bullet points in Myanmar (Burmese) language on how to properly "
-                f"{'recycle' if recyclable else 'dispose of'} {plastic_type} plastic. "
-                f"Each bullet must be a single short actionable sentence in Myanmar language. "
-                f"Reply with ONLY the bullet points in Myanmar, one per line, each starting with '- '. "
-                f"No intro, no summary, no extra text."
-            )
-        else:
-            prompt = (
-                f"Give exactly 5 short, practical bullet points on how to properly "
-                f"{'recycle' if recyclable else 'dispose of'} {plastic_type} plastic. "
-                f"Each bullet must be a single short actionable sentence (under 15 words). "
-                f"Reply with ONLY the bullet points, one per line, each starting with '- '. "
-                f"No intro, no summary, no extra text."
-            )
-        resp = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=350,
-        )
-        raw = resp.choices[0].message.content.strip()
-        points = [
-            line.lstrip("-•* ").strip()
-            for line in raw.splitlines()
-            if line.strip()
+    """
+    Return static recycling/disposal guidance for each plastic type.
+    No API call needed — works offline and always consistent.
+    """
+    # ---- Myanmar Guidance ----
+    guidance_mm = {
+        "PET": [
+            "ဗူးကို ရေဆေးပြီး အဖုံးကို ပိတ်ထားပါ (ယခုအခါ စက်ရုံအများစုသည် အဖုံးများကိုပါ ပြန်လည်အသုံးပြုပါသည်)",
+            "နေရာလွတ်သက်သာစေရန် ဗူးကို ပြားအောင် ဖိပေးပါ",
+            "ဆီပေကျံနေသော ဗူးများကို ရေမဆေးဘဲ မစွန့်ပစ်ပါနှင့်",
+            "PET ဗူးများကို စက်ရုံများတွင် အများဆုံး လက်ခံပါသည်",
+            "အခြား ပလတ်စတစ်များနှင့် မရောနှောပါနှင့် — သီးခြားခွဲထားပါ"
+        ],
+        "HDPE": [
+            "ပါဝင်ပစ္စည်းများကို ရေဆေးထုတ်ပါ (နို့၊ ဆပ်ပြာဆီ၊ ခေါင်းလျှော်ရည်)",
+            "ရနိုင်ပါက ပန်းကန်ဆေးဆီ/စပရေးခေါင်းများကို ဖြုတ်ပါ",
+            "အဖုံးတပ်လျက် ပြန်လည်အသုံးပြုပါ",
+            "HDPE သည် စက်ရုံများတွင် အလွယ်ကူဆုံးနှင့် အကျယ်ပြန့်ဆုံး ပြန်လည်အသုံးပြုနိုင်သည့် ပလတ်စတစ်ဖြစ်သည်",
+            "အရောင်အမျိုးမျိုး ရောနှောခြင်းကို ရှောင်ပါ — ကြည်လင်သော HDPE က ပိုမိုကောင်းမွန်စွာ ပြန်လည်အသုံးပြုနိုင်သည်"
+        ],
+        "LDPE": [
+            "အိတ်များ၊ အုပ်အိတ်များကို ပုံမှန် အိမ်သုံး အမှိုက်ပုံးများတွင် မထည့်ပါနှင့်",
+            "ကုန်စုံဆိုင် သို့မဟုတ် စူပါမားကတ်များရှိ သီးသန့် ပလတ်စတစ်အိတ် စွန့်ပစ်နိုင်သည့် နေရာများကို ရှာပါ",
+            "မာကျောသော LDPE ပစ္စည်းများကိုမူ ပုံမှန် ပြန်လည်အသုံးပြုပုံးများတွင် ထည့်နိုင်ပါသည်",
+            "အိတ်များကို သန့်ရှင်းခြောက်သွေ့အောင် ထားပါ — စိုစွတ်နေပါက ပြန်လည်အသုံးပြု၍ မရနိုင်ပါ",
+            "ပြန်လည်အသုံးပြုရန် မသေချာပါက စွန့်ပစ်ခြင်းထက် ပြန်လည်အသုံးပြုရန် ကြိုးစားပါ"
+        ],
+        "PP": [
+            "အစားအသောက် ထည့်သည့်ဗူးများနှင့် ဒိန်ချဉ်ခွက်များကို သေချာ ရေဆေးပါ",
+            "PP ကို ပြန်လည်အသုံးပြုနိုင်သော်လည်း PET/HDPE လောက် စက်ရုံများတွင် လက်ခံလေ့မရှိပါ",
+            "ဒေသတွင်း ပြန်လည်အသုံးပြုရေး သတ်မှတ်ချက်များကို စစ်ဆေးပါ",
+            "အဖုံးများကို ဗူးနှင့်အတူ ပြန်လည်အသုံးပြုနိုင်ပါသည် (အမျိုးအစားတူပါက)",
+            "PP သည် အပူဒဏ်ခံနိုင်သောကြောင့် မိုက်ခရိုဝေ့ဖ်သုံး ကွန်တိန်းနားများတွင် အသုံးပြုလေ့ရှိသည် — သန့်ရှင်းပါက ပြန်လည်အသုံးပြုနိုင်သည်"
+        ],
+        "PS": [
+            "ဖော့ပလတ်စတစ်များ (ပစ္စည်းထုပ်သုံး ဖော့စေ့များနှင့် ဖော့ခွက်များ) ကို ပုံမှန် ပြန်လည်အသုံးပြုပုံးများတွင် မထည့်ပါနှင့်",
+            "PS ကို အထွေထွေ အမှိုက်အဖြစ်သာ စွန့်ပစ်ရမည်",
+            "သန့်ရှင်းသော မာကျောသည့် PS များကို အထူး စွန့်ပစ်စခန်းများတွင် လက်ခံလေ့ရှိသည်",
+            "PS သည် ပေါ့ပါးပြီး ကျိုးပဲ့လွယ်သောကြောင့် ပြန်လည်အသုံးပြုရန် ခက်ခဲသည်",
+            "ဖော့စေ့များကို အိမ်မွေးတိရစ္ဆာန် အိပ်ယာအဖြစ် ပြန်လည်အသုံးပြုနိုင်သည် (စစ်ဆေးပါ)"
+        ],
+        "Others": [
+            "အလွှာပေါင်းစုံ ရောနှောထားသော ပလတ်စတစ်များ (အာလူးကြော်အိတ်များကဲ့သို့) ကို သီးခြားခွဲထုတ်၍ မရနိုင်ပါ",
+            "ပုံမှန် ပြန်လည်အသုံးပြုခြင်း ပြုလုပ်၍မရဘဲ အထွေထွေ အမှိုက်အဖြစ်သာ စွန့်ပစ်ရမည်",
+            "ပလတ်စတစ်သုံးစွဲမှုကို လျှော့ချရန် ပြန်လည်အသုံးပြုနိုင်သော ထုပ်ပိုးမှုများကို ရှာဖွေပါ",
+            "ဇီဝပလတ်စတစ်များသည် အထူးအခြေအနေများတွင်မှ ပြန်လည်အသုံးပြုနိုင်သည် — ဒေသတွင်း စစ်ဆေးပါ",
+            "ဖြစ်နိုင်ပါက ဤပစ္စည်းအမျိုးအစားကို လုံးဝ ရှောင်ကြဉ်ပါ"
         ]
-        return points if points else [raw]
-    except Exception as e:
-        return [f"လမ်းညွှန်ချက် မရနိုင်ပါ: {e}"] if lang == "mm" else [f"Guidance unavailable: {e}"]
+    }
+    
+    # ---- English Guidance ----
+    guidance_en = {
+        "PET": [
+            "Empty and rinse the bottle, leave the cap on (most facilities now recycle caps too)",
+            "Flatten the bottle to save space in your recycling bin",
+            "Don't toss in food-contaminated PET (like oily takeout containers) without rinsing first",
+            "PET bottles are highly demanded by recycling facilities — keep them clean",
+            "Keep PET separate from other plastics for better recycling efficiency"
+        ],
+        "HDPE": [
+            "Rinse out any residue (milk, detergent, shampoo) before recycling",
+            "Remove pumps/spray tops if possible, and recycle with the cap on",
+            "HDPE is one of the most widely and easily recycled plastics",
+            "Keep HDPE items clean and dry for best recycling results",
+            "Avoid mixing different colors of HDPE — clear HDPE is more valuable"
+        ],
+        "LDPE": [
+            "Bags, wraps, and film plastic usually can't go in regular household recycling bins",
+            "Check for a store drop-off point (many supermarkets collect plastic bags separately)",
+            "Rigid LDPE items can often go in standard recycling",
+            "Keep LDPE bags clean and dry — wet plastic is harder to recycle",
+            "When in doubt, reuse LDPE bags instead of throwing them away"
+        ],
+        "PP": [
+            "Rinse thoroughly, especially food containers and yogurt tubs",
+            "PP is recyclable but is accepted less often than PET/HDPE — check your local program",
+            "Remove any food residue before recycling PP containers",
+            "PP lids can often be recycled with the container if they are the same type",
+            "PP is heat-resistant and commonly used for microwavable containers — recycle if clean"
+        ],
+        "PS": [
+            "Foam polystyrene (packing peanuts, foam cups) is rarely accepted by curbside recycling",
+            "PS generally goes in general waste — not recyclable in most areas",
+            "Some specialized drop-off centers accept clean rigid PS",
+            "PS is lightweight and fragile, making it difficult to recycle economically",
+            "Reuse packing peanuts for shipping, or check if local craft stores accept them"
+        ],
+        "Others": [
+            "Mixed or multi-layer plastics (like chip bags and some pouches) can't be separated",
+            "They are almost never recyclable through standard programs — dispose as general waste",
+            "Look for reduce/reuse alternatives where possible",
+            "Bioplastics may require special conditions to be recyclable — check local facilities",
+            "Avoid purchasing items with 'Other' plastic labeling when possible"
+        ]
+    }
+
+    # Select language
+    guidance_dict = guidance_mm if lang == "mm" else guidance_en
+    
+    # Return guidance for the given plastic type, fallback to "Others"
+    return guidance_dict.get(plastic_type, guidance_dict["Others"])
 
 def generate_pdf_report(image, plastic_type, confidence, info, guidance_points, lang="en"):
     buffered = io.BytesIO()
