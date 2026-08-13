@@ -1301,15 +1301,6 @@ render_waste_chart()
 # FOOTER 
 # ==========================================
 
-# Streamlit Default Footer delete
-hide_streamlit_style = """
-<style>
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-</style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
 # own footer
 st.markdown("""
 <footer style="text-align: center; padding: 2rem 0; color: #8D99AE; font-size: 0.8rem;">
