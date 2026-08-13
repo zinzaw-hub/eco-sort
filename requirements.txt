@@ -1,7 +1,9 @@
 streamlit
 ultralytics
+torch
+torchvision
 pillow
 plotly
 groq
-httpx==0.27.2
 weasyprint
+opencv-python-headless
