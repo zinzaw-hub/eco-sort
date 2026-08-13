@@ -18,7 +18,7 @@ if "lang" not in st.session_state:
 is_mm = (st.session_state.lang == "mm")
 
 st.set_page_config(
-    page_title="EcoSort - ပလတ်စတစ် ခွဲခြားစစ်ဆေးစနစ်" if is_mm else "EcoSort - Plastic Recycling Assistant",
+    page_title="EcoSort" if is_mm else "EcoSort",
     page_icon="♻️",
     layout="wide",
     initial_sidebar_state="expanded"
