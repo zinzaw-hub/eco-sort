@@ -952,11 +952,11 @@ def render_about_page(lang="en"):
                 <b>အရေးပါမှု:</b> ကမ္ဘာပေါ်တွင် စွန့်ပစ် ပလတ်စတစ်၏ ၁၀% အောက်သာ ပြန်လည်အသုံးပြုနိုင်သေးပြီး ပလတ်စတစ် အမျိုးအစားအလိုက် ခွဲခြားခြင်းသည် ပြန်လည်အသုံးပြုရေး လုပ်ငန်းစဉ်၏ အဓိက အခက်အခဲ ဖြစ်ပါသည်။ EcoSort သည် ကွန်ပျူတာ ဗီဇရှင် နည်းပညာဖြင့် ပြည်သူများ လွယ်ကူစွာ သေချာစွာ ခွဲခြားနိုင်စေရန် ရည်ရွယ်ပါသည်။
             </div>
             <div class="about-p">
-                <b>အသုံးပြုထားသော နည်းပညာများ:</b> ခွဲခြားစစ်ဆေးရန် YOLOv8 (Ultralytics)၊ အသုံးပြုသူ အင်တာဖေ့စ်အတွက် Streamlit နှင့် လွယ်ကူသော လမ်းညွှန်ချက်များ ထုတ်ပေးရန် Groq LLM API ကို အသုံးပြုထားပါသည်။
+                <b>အသုံးပြုထားသော နည်းပညာများ:</b> ခွဲခြားစစ်ဆေးရန် YOLOv8 (Ultralytics)၊ အသုံးပြုသူ အင်တာဖေ့စ်အတွက် Streamlit နှင့် လွယ်ကူသော လမ်းညွှန်ချက်များ ထုတ်ပေးနိုင်ရန် develop လုပ်ထားပါသည်။
             </div>
             <div class="about-p">
                 <b>ရေးသားသူ:</b> ဇင်ဝတ်ရည်ဇော်၊ ပြည်ကွန်ပျူတာတက္ကသိုလ် (UCSPyay)၊ ကွန်ပျူတာသိပ္ပံ ကျောင်းသူ။<br>
-                <b>ဆက်သွယ်ရန်:</b> wyee659@gmail.com။
+                <b>ဆက်သွယ်ရန်:</b> wyee659@gmail.com
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -983,7 +983,7 @@ def render_about_page(lang="en"):
             </div>
             <div class="about-p">
                 <b>Tech stack:</b> YOLOv8 (Ultralytics) for classification, Streamlit for the interface,
-                and an LLM (via Groq) for generating plain-language disposal guidance.
+                and disposal guidance.
             </div>
             <div class="about-p">
                 <b>Author:</b> Zin Wut Yee Zaw, UCSPyay, Computer Science Student.<br>
@@ -1142,7 +1142,7 @@ def render_learn_page(lang="en"):
     </div>
     """, unsafe_allow_html=True)
 
-    vid_title = "ပြန်လည်အသုံးပြုခြင်း နမူနာ ဗီဒီယို" if is_mm else "Recycling Example Video"
+    vid_title = "ပြန်လည်အသုံးပြုခြင်းစနစ်သရုပ်ပြ ဗီဒီယို" if is_mm else "Recycling Process Video"
     st.markdown(f'<div class="section-title">{vid_title}</div>', unsafe_allow_html=True)
     st.video("https://youtu.be/MwL8kgyOzFA?si=13bvQnmQG3AunDIh")
 
@@ -1323,7 +1323,7 @@ with st.sidebar:
             _ph.markdown('<div class="nav-active-marker"></div>', unsafe_allow_html=True)
 
     st.markdown("---")
-    dark_label = "🌙 အမှောင်မုဒ် (Dark mode)" if is_mm else "🌙 Dark mode"
+    dark_label = "🌙 Dark mode" if is_mm else "🌙 Dark mode"
     dark = st.toggle(dark_label, value=st.session_state.dark_mode)
     if dark != st.session_state.dark_mode:
         st.session_state.dark_mode = dark
@@ -1331,15 +1331,15 @@ with st.sidebar:
 
     # ===== LANGUAGE SWITCHER =====
     st.markdown("---")
-    lang_header = "🌐 ဘာသာစကား" if is_mm else "🌐 Language"
+    lang_header = "ဘာသာစကား" if is_mm else "Language"
     st.markdown(f"<div style='font-weight:600; font-size:0.85rem; margin-bottom:0.4rem;'>{lang_header}</div>", unsafe_allow_html=True)
     _col_l1, _col_l2 = st.columns(2)
     with _col_l1:
-        if st.button("GB English", key="btn_lang_en", use_container_width=True, type="primary" if st.session_state.lang == "en" else "secondary"):
+        if st.button("English", key="btn_lang_en", use_container_width=True, type="primary" if st.session_state.lang == "en" else "secondary"):
             st.session_state.lang = "en"
             st.rerun()
     with _col_l2:
-        if st.button("MM မြန်မာ", key="btn_lang_mm", use_container_width=True, type="primary" if st.session_state.lang == "mm" else "secondary"):
+        if st.button("မြန်မာ", key="btn_lang_mm", use_container_width=True, type="primary" if st.session_state.lang == "mm" else "secondary"):
             st.session_state.lang = "mm"
             st.rerun()
         
@@ -1348,9 +1348,9 @@ with st.sidebar:
     if is_mm:
         st.markdown("""
         <div style="text-align: center; padding: 0.5rem 0; color: #8D99AE; font-size: 0.65rem; opacity: 0.7;">
-            ♻️ EcoSort · အေအိုင်သုံး ပလတ်စတစ် ပြန်လည်အသုံးပြုမှု ကူညီရေးစနစ်<br>
-            © 2026 ရေးသားသူ ဇင်ဝတ်ရည်ဇော် (UCSPyay)<br>
-            ကြီးကြပ်သူ: ဒေါ်ခင်အေးဆန်း
+            ♻️ EcoSort · AI-Powered Plastic Recycling Assistant<br>
+            © 2026 Developed by Zin Wut Yee Zaw (UCSPyay)<br>
+            Supervisor: Daw Khin Aye San
         </div>
         """, unsafe_allow_html=True)
     else:
@@ -1406,7 +1406,7 @@ with st.expander(expander_hdr, expanded=False):
             ၃။ ပြန်လည်အသုံးပြုမှု လမ်းညွှန်ချက်များကို လိုက်နာပါ<br><br>
             <b>အကောင်းဆုံး ရလဒ်အတွက် အကြံပြုချက်:</b><br>
             • ကြည်လင်ပြတ်သားပြီး အလင်းရောင်ကောင်းသော ဓာတ်ပုံများ<br>
-            • ပြန်လည်အသုံးပြုမှု သင်္ကေတ ပါဝင်ပါက ပေါ်လွင်အောင် ရိုက်ပါ<br>
+            • ပလတ်စတစ်ပစ္စည်းကို ဓာတ်ပုံ၏ အလယ်ဗဟိုတွင် ထားပါ။ အနီးကပ် ရိုက်ပါ<br>
             • တစ်ပုံလျှင် ပစ္စည်းတစ်ခုသာ ရိုက်ပါ
         </div>
         """, unsafe_allow_html=True)
@@ -1418,9 +1418,9 @@ with st.expander(expander_hdr, expanded=False):
             2. Get instant AI classification<br>
             3. Follow recycling guidance<br><br>
             <b>Tips for best results:</b><br>
-            • Clear, well-lit photos<br>
-            • Show the recycling symbol if visible<br>
-            • Single item per photo
+            • Clear, sharp, high-quality images with good brightness.<br>
+            • Place the plastic object in the center of the photo. Take a close-up shot.<br>
+            • Single item per photo.
         </div>
         """, unsafe_allow_html=True)
 
@@ -1482,11 +1482,11 @@ if uploaded_file is not None:
         if is_mm:
             badge = '<span class="badge-recyclable">✓ ပြန်လည်အသုံးပြုနိုင်သည်</span>' if info["recyclable"] else '<span class="badge-non">✗ ပြန်လည်အသုံးပြု၍မရပါ</span>'
             conf_lbl = "ယုံကြည်စိတ်ချရမှု အဆင့် (Confidence)"
-            common_txt = "📦 အသုံးများသည့် ပစ္စည်းများ:"
+            common_txt = "အသုံးများသည့် ပစ္စည်းများ:"
         else:
             badge = '<span class="badge-recyclable">✓ Recyclable</span>' if info["recyclable"] else '<span class="badge-non">✗ Non-recyclable</span>'
             conf_lbl = "Confidence Level"
-            common_txt = "📦 Common items:"
+            common_txt = "Common items:"
 
         st.markdown(f"""
         <div class="result-card">
@@ -1523,7 +1523,7 @@ if uploaded_file is not None:
         """, unsafe_allow_html=True)
         st.markdown(f"**အဓိက ဂုဏ်သတ္တိများ**")
         st.markdown(props_md)
-        st.markdown(f"**📦 အသုံးများသည့် ပစ္စည်းများ**")
+        st.markdown(f"**အသုံးများသည့် ပစ္စည်းများ**")
         st.markdown(f"<div class='examples-text' style='margin-bottom:1rem;'>{info['examples']}။</div>", unsafe_allow_html=True)
     else:
         st.markdown(f"""
@@ -1533,7 +1533,7 @@ if uploaded_file is not None:
         """, unsafe_allow_html=True)
         st.markdown(f"**Key Properties**")
         st.markdown(props_md)
-        st.markdown(f"**📦 Common Uses**")
+        st.markdown(f"**Common Uses**")
         st.markdown(f"<div class='examples-text' style='margin-bottom:1rem;'>{info['examples']}.</div>", unsafe_allow_html=True)
 
     sec_title_gd = "♻️ ပြန်လည်အသုံးပြုမှု လမ်းညွှန်ချက်များ" if is_mm else "♻️ Recycling Guidance"
@@ -1587,8 +1587,8 @@ render_waste_chart(st.session_state.lang)
 if is_mm:
     st.markdown("""
     <footer style="text-align: center; padding: 2rem 0; color: #8D99AE; font-size: 0.8rem;">
-        ♻️ EcoSort · အေအိုင်သုံး ပလတ်စတစ် ပြန်လည်အသုံးပြုမှု ကူညီရေးစနစ်<br>
-        © 2026 · ရေးသားသူ ဇင်ဝတ်ရည်ဇော်
+        ♻️ EcoSort · AI-Powered Plastic Recycling Assistant<br>
+        © 2026 · Developed by Zin Wut Yee Zaw
     </footer>
     """, unsafe_allow_html=True)
 else:
