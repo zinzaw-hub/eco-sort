@@ -1127,15 +1127,15 @@ with st.sidebar:
         st.session_state.dark_mode = dark
         st.rerun()
         
-    # =====  Sidebar Footer=====
-        st.markdown("---")
-        st.markdown("""
-        <div style="text-align: center; padding: 0.5rem 0; color: #8D99AE; font-size: 0.65rem; opacity: 0.7;">
-            ♻️ EcoSort♻️ EcoSort · AI-Powered Plastic Recycling Assistant<br>
-            © 2026 Developed by Zin Wut Yee Zaw (UCSPyay)<br/>
-            Supervisor Daw Khin Aye San
-        </div>
-        """, unsafe_allow_html=True)
+    # ===== Sidebar Footer =====
+    st.markdown("---")
+    st.markdown("""
+    <div style="text-align: center; padding: 0.5rem 0; color: #8D99AE; font-size: 0.65rem; opacity: 0.7;">
+        ♻️ EcoSort · AI-Powered Plastic Recycling Assistant<br>
+        © 2026 Developed by Zin Wut Yee Zaw (UCSPyay)<br>
+        Supervisor: Daw Khin Aye San
+    </div>
+    """, unsafe_allow_html=True)
 # ==========================================
 # PAGE ROUTING CONTROLLER
 # ==========================================
