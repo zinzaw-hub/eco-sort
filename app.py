@@ -647,11 +647,6 @@ LEARN_TIPS_MM = {
 LEARN_TIPS = LEARN_TIPS_MM if is_mm else LEARN_TIPS_EN
 
 # ==========================================
-# AI GUIDANCE & REPORT GENERATION FUNCTIONS
-# ==========================================
-@st.cache_data(show_spinner=False)
-
-# ==========================================
 # STATIC RECYCLING GUIDANCE (No API)
 # ==========================================
 def get_guidance(plastic_type, recyclable, lang="en"):
@@ -865,7 +860,9 @@ model = load_model()
 # ==========================================
 def render_waste_chart(lang="en"):
     th = st.session_state["_theme"]
-    title_text = "ကမ္ဘာ့နှင့် မြန်မာနိုင်ငံ၏ ပလတ်စတစ် ပြန်လည်အသုံးပြုနိုင်မှု နှုန်းထား" if lang == "mm" else "Global vs. Myanmar Plastic Recycling"
+    is_mm = (lang == "mm")
+    
+    title_text = "ကမ္ဘာ့နှင့် မြန်မာနိုင်ငံ၏ ပလတ်စတစ် ပြန်လည်အသုံးပြုနိုင်မှု နှုန်းထား" if is_mm else "Global vs. Myanmar Plastic Recycling"
     st.markdown(f'<div class="section-title">{title_text}</div>', unsafe_allow_html=True)
 
     years = [2000, 2005, 2010, 2015, 2019, 2022, 2023, 2024, 2025]
@@ -875,8 +872,8 @@ def render_waste_chart(lang="en"):
     color_global = "#118AB2"
     color_myanmar = "#EF476F"
 
-    name_g = "ကမ္ဘာ့နှုန်းထား" if lang == "mm" else "Global"
-    name_m = "မြန်မာနိုင်ငံ (ဒေသတွင်း ခန့်မှန်းချက်)" if lang == "mm" else "Myanmar (regional estimate)"
+    name_g = "ကမ္ဘာ့နှုန်းထား" if is_mm else "Global"
+    name_m = "မြန်မာနိုင်ငံ (ဒေသတွင်း ခန့်မှန်းချက်)" if is_mm else "Myanmar (regional estimate)"
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(
@@ -890,7 +887,7 @@ def render_waste_chart(lang="en"):
         marker=dict(size=9, color=color_myanmar),
     ))
     
-    y_title = "ပြန်လည်အသုံးပြုမှု နှုန်းထား (%)" if lang == "mm" else "Recycling rate (%)"
+    y_title = "ပြန်လည်အသုံးပြုမှု နှုန်းထား (%)" if is_mm else "Recycling rate (%)"
 
     fig.update_layout(
         template="plotly_white",
@@ -912,7 +909,7 @@ def render_waste_chart(lang="en"):
     )
     st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-    if lang == "mm":
+    if is_mm:
         caption_html = """
         <div class="chart-caption">
             အချက်အလက် အရင်းအမြစ်များ: OECD / Our World in Data (ကမ္ဘာ့ ပလတ်စတစ် ပြန်လည်အသုံးပြုမှု နှုန်းထား ၂၀၀၀-၂၀၁၉); 
@@ -935,7 +932,10 @@ def render_waste_chart(lang="en"):
     st.markdown(caption_html, unsafe_allow_html=True)
 
 def render_about_page(lang="en"):
-    if lang == "mm":
+    th = st.session_state["_theme"]
+    is_mm = (lang == "mm")
+    
+    if is_mm:
         st.markdown("""
         <div class="eco-header">
             <div class="eco-title">♻ EcoSort အကြောင်း</div>
@@ -999,8 +999,10 @@ def render_about_page(lang="en"):
 # ==========================================
 def render_dashboard_page(lang="en"):
     th = st.session_state["_theme"]
-    title_text = "ဒက်ရှ်ဘုတ် (Dashboard)" if lang == "mm" else "Dashboard"
-    sub_text = "စကင်ဖတ်မှု မှတ်တမ်းနှင့် ကိန်းဂဏန်းများ" if lang == "mm" else "Global Scan History & Stats"
+    is_mm = (lang == "mm")
+    
+    title_text = "ဒက်ရှ်ဘုတ် (Dashboard)" if is_mm else "Dashboard"
+    sub_text = "စကင်ဖတ်မှု မှတ်တမ်းနှင့် ကိန်းဂဏန်းများ" if is_mm else "Global Scan History & Stats"
     
     st.markdown(f"""
     <div class="eco-header">
@@ -1017,8 +1019,8 @@ def render_dashboard_page(lang="en"):
     type_counts = stats.get("plastic_types", {})
 
     if total == 0:
-        no_scan_title = "စကင်ဖတ်ထားမှုများ မရှိသေးပါ" if lang == "mm" else "No scans yet"
-        no_scan_sub = "ကိန်းဂဏန်းများကို ကြည့်ရှုရန် 'ခွဲခြားစစ်ဆေးရန်' စာမျက်နှာတွင် ပလတ်စတစ်ပုံ ပို့ပါ။" if lang == "mm" else "Classify a plastic item on the Classifier page to see stats here."
+        no_scan_title = "စကင်ဖတ်ထားမှုများ မရှိသေးပါ" if is_mm else "No scans yet"
+        no_scan_sub = "ကိန်းဂဏန်းများကို ကြည့်ရှုရန် 'ခွဲခြားစစ်ဆေးရန်' စာမျက်နှာတွင် ပလတ်စတစ်ပုံ ပို့ပါ။" if is_mm else "Classify a plastic item on the Classifier page to see stats here."
         st.markdown(f"""
         <div class="empty-state">
             <div style="font-size:4rem; margin-bottom:1rem">📊</div>
@@ -1040,10 +1042,10 @@ def render_dashboard_page(lang="en"):
 
     m1, m2, m3, m4 = st.columns(4)
     metric_labels = [
-        (m1, total, "စုစုပေါင်း စကင်ဖတ်မှု" if lang == "mm" else "Total Scans"),
-        (m2, f"{recyclable_pct}%", "ပြန်လည်အသုံးပြုနိုင်မှု" if lang == "mm" else "Recyclable"),
-        (m3, most_common, "အများဆုံး အမျိုးအစား" if lang == "mm" else "Most Common"),
-        (m4, f"{avg_conf}%", "ပျမ်းမျှ ယုံကြည်စိတ်ချရမှု" if lang == "mm" else "Avg. Confidence"),
+        (m1, total, "စုစုပေါင်း စကင်ဖတ်မှု" if is_mm else "Total Scans"),
+        (m2, f"{recyclable_pct}%", "ပြန်လည်အသုံးပြုနိုင်မှု" if is_mm else "Recyclable"),
+        (m3, most_common, "အများဆုံး အမျိုးအစား" if is_mm else "Most Common"),
+        (m4, f"{avg_conf}%", "ပျမ်းမျှ ယုံကြည်စိတ်ချရမှု" if is_mm else "Avg. Confidence"),
     ]
     for col, value, label in metric_labels:
         with col:
@@ -1054,7 +1056,7 @@ def render_dashboard_page(lang="en"):
             </div>
             """, unsafe_allow_html=True)
 
-    sec_title1 = "ပလတ်စတစ် အမျိုးအစားအလိုက် စကင်ဖတ်မှု" if lang == "mm" else "Scans by Plastic Type"
+    sec_title1 = "ပလတ်စတစ် အမျိုးအစားအလိုက် စကင်ဖတ်မှု" if is_mm else "Scans by Plastic Type"
     st.markdown(f'<div class="section-title">{sec_title1}</div>', unsafe_allow_html=True)
     
     bar_fig = go.Figure(go.Bar(
@@ -1064,7 +1066,7 @@ def render_dashboard_page(lang="en"):
         text=list(type_counts.values()),
         textposition="outside",
     ))
-    y_axis_lbl = "အရေအတွက်" if lang == "mm" else "Count"
+    y_axis_lbl = "အရေအတွက်" if is_mm else "Count"
     bar_fig.update_layout(
         template="plotly_white",
         plot_bgcolor="rgba(0,0,0,0)",
@@ -1081,10 +1083,10 @@ def render_dashboard_page(lang="en"):
 
     col_a, col_b = st.columns([1, 1.4], gap="large")
     with col_a:
-        sec_title2 = "♻️ ပြန်လည်အသုံးပြုနိုင်မှု အချိုးအစား" if lang == "mm" else "♻️ Recyclable Split"
+        sec_title2 = "♻️ ပြန်လည်အသုံးပြုနိုင်မှု အချိုးအစား" if is_mm else "♻️ Recyclable Split"
         st.markdown(f'<div class="section-title">{sec_title2}</div>', unsafe_allow_html=True)
         
-        pie_labels = ["ပြန်လည်အသုံးပြုနိုင်သည်", "ပြန်လည်အသုံးပြု၍မရပါ"] if lang == "mm" else ["Recyclable", "Non-recyclable"]
+        pie_labels = ["ပြန်လည်အသုံးပြုနိုင်သည်", "ပြန်လည်အသုံးပြု၍မရပါ"] if is_mm else ["Recyclable", "Non-recyclable"]
         pie_fig = go.Figure(go.Pie(
             labels=pie_labels,
             values=[recyclable_count, max(0, total - recyclable_count)],
@@ -1104,7 +1106,7 @@ def render_dashboard_page(lang="en"):
         st.plotly_chart(pie_fig, use_container_width=True, config={"displayModeBar": False})
 
     with col_b:
-        sec_title3 = "လတ်တလော စကင်ဖတ်မှုများ" if lang == "mm" else "Recent Scans"
+        sec_title3 = "လတ်တလော စကင်ဖတ်မှုများ" if is_mm else "Recent Scans"
         st.markdown(f'<div class="section-title">{sec_title3}</div>', unsafe_allow_html=True)
         rows = "".join(
             f"""<div style="display:flex; justify-content:space-between; align-items:center;
@@ -1117,7 +1119,7 @@ def render_dashboard_page(lang="en"):
         )
         st.markdown(f'<div class="result-card result-card-flex" style="max-height:280px; overflow-y:auto;">{rows}</div>', unsafe_allow_html=True)
 
-    clear_btn_text = "🗑️ မှတ်တမ်းများကို ရှင်းလင်းမည်" if lang == "mm" else "🗑️ Clear global stats"
+    clear_btn_text = "🗑️ မှတ်တမ်းများကို ရှင်းလင်းမည်" if is_mm else "🗑️ Clear global stats"
     if st.button(clear_btn_text):
         st.session_state.global_stats = {"total_scans": 0, "plastic_types": {}, "history": []}
         save_global_stats(st.session_state.global_stats)
@@ -1129,9 +1131,10 @@ def render_dashboard_page(lang="en"):
 # ==========================================
 def render_learn_page(lang="en"):
     th = st.session_state["_theme"]
+    is_mm = (lang == "mm")
     
-    title_text = "လေ့လာရန် (Learn)" if lang == "mm" else "Learn"
-    sub_text = "ပလတ်စတစ် အမျိုးအစားများနှင့် ပြန်လည်အသုံးပြုခြင်း အခြေခံများ" if lang == "mm" else "Plastic Types & Recycling Basics"
+    title_text = "လေ့လာရန် (Learn)" if is_mm else "Learn"
+    sub_text = "ပလတ်စတစ် အမျိုးအစားများနှင့် ပြန်လည်အသုံးပြုခြင်း အခြေခံများ" if is_mm else "Plastic Types & Recycling Basics"
     st.markdown(f"""
     <div class="eco-header">
         <div class="eco-title">{title_text}</div>
@@ -1139,11 +1142,11 @@ def render_learn_page(lang="en"):
     </div>
     """, unsafe_allow_html=True)
 
-    vid_title = "ပြန်လည်အသုံးပြုခြင်း နမူနာ ဗီဒီယို" if lang == "mm" else "Recycling Example Video"
+    vid_title = "ပြန်လည်အသုံးပြုခြင်း နမူနာ ဗီဒီယို" if is_mm else "Recycling Example Video"
     st.markdown(f'<div class="section-title">{vid_title}</div>', unsafe_allow_html=True)
     st.video("https://youtu.be/MwL8kgyOzFA?si=13bvQnmQG3AunDIh")
 
-    proc_title = "♻️ ပလတ်စတစ် ပြန်လည်အသုံးပြုပုံ အဆင့်ဆင့်" if lang == "mm" else "♻️ How Plastic Recycling Works (Step by Step)"
+    proc_title = "♻️ ပလတ်စတစ် ပြန်လည်အသုံးပြုပုံ အဆင့်ဆင့်" if is_mm else "♻️ How Plastic Recycling Works (Step by Step)"
     st.markdown(f'<div class="section-title">{proc_title}</div>', unsafe_allow_html=True)
 
     step_images = {
@@ -1157,33 +1160,33 @@ def render_learn_page(lang="en"):
     steps_data = [
         {
             "img": step_images["step1"],
-            "title": "အဆင့် ၁ - စုဆောင်းခြင်း (Collection)" if lang == "mm" else "Step 1: Collection",
-            "desc": "ပလတ်စတစ် စွန့်ပစ်ပစ္စည်းများကို နေအိမ်များ၊ လုပ်ငန်းများနှင့် ပြန်လည်အသုံးပြုမှု စွန့်ပစ်စခန်းများမှ စုဆောင်းပါသည်။ ဤသည်မှာ ပထမဆုံးနှင့် အရေးအကြီးဆုံး အဆင့်ဖြစ်ပြီး စနစ်တကျ စုဆောင်းမှု မရှိပါက ပြန်လည်အသုံးပြုခြင်း ပြုလုပ်နိုင်မည် မဟုတ်ပါ။" if lang == "mm" else "Plastic waste is collected from households, businesses, and recycling drop-off points. This is the first and most important step — without proper collection, recycling can't happen.",
-            "tip": "<b>အကြံပြုချက်:</b> အမှိုက်ပုံးထဲ မထည့်မီ သင့်ပလတ်စတစ်များကို အမျိုးအစားအလိုက် (ဗူးများ၊ ပုံးများ၊ အိတ်များ) သီးခြား ခွဲခြားထားပါ။" if lang == "mm" else "<b>Tip:</b> Separate your plastics by type (bottles, containers, bags) before putting them in the recycling bin."
+            "title": "အဆင့် ၁ - စုဆောင်းခြင်း (Collection)" if is_mm else "Step 1: Collection",
+            "desc": "ပလတ်စတစ် စွန့်ပစ်ပစ္စည်းများကို နေအိမ်များ၊ လုပ်ငန်းများနှင့် ပြန်လည်အသုံးပြုမှု စွန့်ပစ်စခန်းများမှ စုဆောင်းပါသည်။ ဤသည်မှာ ပထမဆုံးနှင့် အရေးအကြီးဆုံး အဆင့်ဖြစ်ပြီး စနစ်တကျ စုဆောင်းမှု မရှိပါက ပြန်လည်အသုံးပြုခြင်း ပြုလုပ်နိုင်မည် မဟုတ်ပါ။" if is_mm else "Plastic waste is collected from households, businesses, and recycling drop-off points. This is the first and most important step — without proper collection, recycling can't happen.",
+            "tip": "<b>အကြံပြုချက်:</b> အမှိုက်ပုံးထဲ မထည့်မီ သင့်ပလတ်စတစ်များကို အမျိုးအစားအလိုက် (ဗူးများ၊ ပုံးများ၊ အိတ်များ) သီးခြား ခွဲခြားထားပါ။" if is_mm else "<b>Tip:</b> Separate your plastics by type (bottles, containers, bags) before putting them in the recycling bin."
         },
         {
             "img": step_images["step2"],
-            "title": "အဆင့် ၂ - ခွဲခြားခြင်း (Sorting)" if lang == "mm" else "Step 2: Sorting",
-            "desc": "ပလတ်စတစ်များကို ၎င်းတို့၏ ရာဇင်အမျိုးအစားအလိုက် (PET, HDPE, PP စသည်ဖြင့်) အဆင့်မြင့် အလင်းစကင်ဖတ်စက်များ သို့မဟုတ် လူကိုယ်တိုင် ခွဲခြားကြပါသည်။ အမျိုးအစား မတူသော ပလတ်စတစ်များကို အတူတကွ ပြန်လည်အသုံးပြု၍ မရနိုင်ပါ။" if lang == "mm" else "Plastics are sorted by resin type (PET, HDPE, PP, etc.) using advanced optical sorters and manual labor. Different types can't be recycled together.",
-            "tip": "<b>အကြံပြုချက်:</b> သင့် ပလတ်စတစ် ပစ္စည်းများ၏ အောက်ခြေတွင် ပါရှိသော ရာဇင်ကုဒ် (♳-♹) သင်္ကေတကို စစ်ဆေးပါ — ဤသင်္ကေတအတိုင်း ခွဲခြားရခြင်း ဖြစ်သည်။" if lang == "mm" else "<b>Tip:</b> Check the resin code (♳-♹) on the bottom of your plastic items — this is how they're sorted!"
+            "title": "အဆင့် ၂ - ခွဲခြားခြင်း (Sorting)" if is_mm else "Step 2: Sorting",
+            "desc": "ပလတ်စတစ်များကို ၎င်းတို့၏ ရာဇင်အမျိုးအစားအလိုက် (PET, HDPE, PP စသည်ဖြင့်) အဆင့်မြင့် အလင်းစကင်ဖတ်စက်များ သို့မဟုတ် လူကိုယ်တိုင် ခွဲခြားကြပါသည်။ အမျိုးအစား မတူသော ပလတ်စတစ်များကို အတူတကွ ပြန်လည်အသုံးပြု၍ မရနိုင်ပါ။" if is_mm else "Plastics are sorted by resin type (PET, HDPE, PP, etc.) using advanced optical sorters and manual labor. Different types can't be recycled together.",
+            "tip": "<b>အကြံပြုချက်:</b> သင့် ပလတ်စတစ် ပစ္စည်းများ၏ အောက်ခြေတွင် ပါရှိသော ရာဇင်ကုဒ် (♳-♹) သင်္ကေတကို စစ်ဆေးပါ — ဤသင်္ကေတအတိုင်း ခွဲခြားရခြင်း ဖြစ်သည်။" if is_mm else "<b>Tip:</b> Check the resin code (♳-♹) on the bottom of your plastic items — this is how they're sorted!"
         },
         {
             "img": step_images["step3"],
-            "title": "အဆင့် ၃ - သန့်စင်ခြင်း (Cleaning)" if lang == "mm" else "Step 3: Cleaning",
-            "desc": "ပလတ်စတစ်များကို တံဆိပ်ကပ်များ၊ ကော်များ၊ အစားအသောက် အကြွင်းအကျန်များနှင့် ဖုန်မှုန့်များ ကင်းစင်စေရန် ဆေးကြောကြပါသည်။ ပေကျံနေသော ပလတ်စတစ်များသည် အသုတ်တစ်ခုလုံးကို ပျက်စီးစေနိုင်သဖြင့် ဤအဆင့်မှာ အလွန်အရေးပါသည်။" if lang == "mm" else "Plastics are washed to remove labels, glue, food residue, and dirt. This is critical — contaminated plastics can ruin an entire batch.",
-            "tip": "<b>အကြံပြုချက်:</b> စွန့်ပစ် မပြောင်းမီ သင့် ပလတ်စတစ် ပစ္စည်းများကို ရေဆေးလိုက်ပါ! အနည်းငယ် ဆေးကြောလိုက်ခြင်းသည် သန့်စင်ရေး စက်ရုံအတွက် အလွန် ကူညီရာရောက်ပါသည်။" if lang == "mm" else "<b>Tip:</b> Rinse your plastic items before recycling! A quick rinse makes a huge difference at the cleaning facility."
+            "title": "အဆင့် ၃ - သန့်စင်ခြင်း (Cleaning)" if is_mm else "Step 3: Cleaning",
+            "desc": "ပလတ်စတစ်များကို တံဆိပ်ကပ်များ၊ ကော်များ၊ အစားအသောက် အကြွင်းအကျန်များနှင့် ဖုန်မှုန့်များ ကင်းစင်စေရန် ဆေးကြောကြပါသည်။ ပေကျံနေသော ပလတ်စတစ်များသည် အသုတ်တစ်ခုလုံးကို ပျက်စီးစေနိုင်သဖြင့် ဤအဆင့်မှာ အလွန်အရေးပါသည်။" if is_mm else "Plastics are washed to remove labels, glue, food residue, and dirt. This is critical — contaminated plastics can ruin an entire batch.",
+            "tip": "<b>အကြံပြုချက်:</b> စွန့်ပစ် မပြောင်းမီ သင့် ပလတ်စတစ် ပစ္စည်းများကို ရေဆေးလိုက်ပါ! အနည်းငယ် ဆေးကြောလိုက်ခြင်းသည် သန့်စင်ရေး စက်ရုံအတွက် အလွန် ကူညီရာရောက်ပါသည်။" if is_mm else "<b>Tip:</b> Rinse your plastic items before recycling! A quick rinse makes a huge difference at the cleaning facility."
         },
         {
             "img": step_images["step4"],
-            "title": "အဆင့် ၄ - ကြိတ်စေ့ပြုလုပ်ခြင်း (Shredding)" if lang == "mm" else "Step 4: Shredding",
-            "desc": "သန့်စင်ပြီးသော ပလတ်စတစ်များကို သေးငယ်သော အစုတ်စုတ်အမြွှာမြွှာ ကြိတ်စေ့များအဖြစ် ကြိတ်ခွဲလိုက်ပါသည်။ ၎င်းသည် မျက်နှာပြင် အကျယ်အဝန်းကို တိုးတက်စေပြီး အရည်ကြိုရန်နှင့် ပုံသွင်းရန် လွယ်ကူစေပါသည်။" if lang == "mm" else "Clean plastic is shredded into small flakes or pellets. This increases the surface area and makes it easier to melt and reform.",
-            "tip": "<b>အကြံပြုချက်:</b> ပလတ်စတစ် ကြိတ်စေ့များသည် ဗူးများမှသည် အဝတ်အထည်များအထိ ပလတ်စတစ်သစ် ပစ္စည်းများ ပြုလုပ်ရန် ကုန်ကြမ်းဖြစ်ပါသည်။" if lang == "mm" else "<b>Tip:</b> Shredded plastic flakes are the raw material for making new plastic products — from bottles to clothing!"
+            "title": "အဆင့် ၄ - ကြိတ်စေ့ပြုလုပ်ခြင်း (Shredding)" if is_mm else "Step 4: Shredding",
+            "desc": "သန့်စင်ပြီးသော ပလတ်စတစ်များကို သေးငယ်သော အစုတ်စုတ်အမြွှာမြွှာ ကြိတ်စေ့များအဖြစ် ကြိတ်ခွဲလိုက်ပါသည်။ ၎င်းသည် မျက်နှာပြင် အကျယ်အဝန်းကို တိုးတက်စေပြီး အရည်ကြိုရန်နှင့် ပုံသွင်းရန် လွယ်ကူစေပါသည်။" if is_mm else "Clean plastic is shredded into small flakes or pellets. This increases the surface area and makes it easier to melt and reform.",
+            "tip": "<b>အကြံပြုချက်:</b> ပလတ်စတစ် ကြိတ်စေ့များသည် ဗူးများမှသည် အဝတ်အထည်များအထိ ပလတ်စတစ်သစ် ပစ္စည်းများ ပြုလုပ်ရန် ကုန်ကြမ်းဖြစ်ပါသည်။" if is_mm else "<b>Tip:</b> Shredded plastic flakes are the raw material for making new plastic products — from bottles to clothing!"
         },
         {
             "img": step_images["step5"],
-            "title": "အဆင့် ၅ - ပလတ်စတစ်စေ့ ပြုလုပ်ခြင်း (Pelletizing)" if lang == "mm" else "Step 5: Pelletizing",
-            "desc": "ကြိတ်ခွဲထားသော ပလတ်စတစ်များကို အရည်ကြိုပြီး သေးငယ်သော ပလတ်စတစ်စေ့များအဖြစ် ပုံသွင်းပါသည်။ ဤစေ့များကို စက်ရုံများသို့ ပြန်လည်ရောင်းချပြီး ပလတ်စတစ် သစ်များ ထုတ်လုပ်ကာ ပြန်လည်အသုံးပြုမှု သံသရာကို ပြည့်စုံစေပါသည်။" if lang == "mm" else "Shredded plastic is melted and formed into small pellets (nurdles). These pellets are then sold to manufacturers to make new plastic products — closing the recycling loop!",
-            "tip": "<b>အကြံပြုချက်:</b> ပတ်ဝန်းကျင် ထိန်းသိမ်းရေးကို အထောက်အကူပြုရန် ပြန်လည်အသုံးပြုထားသည့် ပလတ်စတစ် (\"Post-Consumer Recycled\" သို့မဟုတ် \"PCR\") ဖြင့် ပြုလုပ်ထားသော ပစ္စည်းများကို အသုံးပြုပါ။" if lang == "mm" else "<b>Tip:</b> Look for products made from recycled plastic (often labeled \"Post-Consumer Recycled\" or \"PCR\") to support the circular economy."
+            "title": "အဆင့် ၅ - ပလတ်စတစ်စေ့ ပြုလုပ်ခြင်း (Pelletizing)" if is_mm else "Step 5: Pelletizing",
+            "desc": "ကြိတ်ခွဲထားသော ပလတ်စတစ်များကို အရည်ကြိုပြီး သေးငယ်သော ပလတ်စတစ်စေ့များအဖြစ် ပုံသွင်းပါသည်။ ဤစေ့များကို စက်ရုံများသို့ ပြန်လည်ရောင်းချပြီး ပလတ်စတစ် သစ်များ ထုတ်လုပ်ကာ ပြန်လည်အသုံးပြုမှု သံသရာကို ပြည့်စုံစေပါသည်။" if is_mm else "Shredded plastic is melted and formed into small pellets (nurdles). These pellets are then sold to manufacturers to make new plastic products — closing the recycling loop!",
+            "tip": "<b>အကြံပြုချက်:</b> ပတ်ဝန်းကျင် ထိန်းသိမ်းရေးကို အထောက်အကူပြုရန် ပြန်လည်အသုံးပြုထားသည့် ပလတ်စတစ် (\"Post-Consumer Recycled\" သို့မဟုတ် \"PCR\") ဖြင့် ပြုလုပ်ထားသော ပစ္စည်းများကို အသုံးပြုပါ။" if is_mm else "<b>Tip:</b> Look for products made from recycled plastic (often labeled \"Post-Consumer Recycled\" or \"PCR\") to support the circular economy."
         },
     ]
 
@@ -1214,13 +1217,13 @@ def render_learn_page(lang="en"):
     st.markdown(f'<hr style="border-color:{th["border"]}; margin:2rem 0;">', unsafe_allow_html=True)
 
     # ---------- RESIN TYPES SECTION ----------
-    resin_sec_title = "ပလတ်စတစ် အမျိုးအစားများ" if lang == "mm" else "The Resin Types"
+    resin_sec_title = "ပလတ်စတစ် အမျိုးအစားများ" if is_mm else "The Resin Types"
     st.markdown(f'<div class="section-title">{resin_sec_title}</div>', unsafe_allow_html=True)
 
     for cls, info in RECYCLABILITY.items():
         sym = RESIN_SYMBOLS.get(cls, "♹")
         color = COLORS.get(cls, "#5C8374")
-        if lang == "mm":
+        if is_mm:
             badge = '<span class="badge-recyclable">✓ ပြန်လည်အသုံးပြုနိုင်သည်</span>' if info["recyclable"] else '<span class="badge-non">✗ ပြန်လည်အသုံးပြု၍မရပါ</span>'
             common_hdr = "အသုံးများသည့် ပစ္စည်းများ:"
         else:
@@ -1238,10 +1241,10 @@ def render_learn_page(lang="en"):
             """, unsafe_allow_html=True)
 
     # ---------- GENERAL TIPS ----------
-    gen_tips_title = "🌱 အထွေထွေ အကြံပြုချက်များ" if lang == "mm" else "🌱 General Tips"
+    gen_tips_title = "🌱 အထွေထွေ အကြံပြုချက်များ" if is_mm else "🌱 General Tips"
     st.markdown(f'<div class="section-title">{gen_tips_title}</div>', unsafe_allow_html=True)
     
-    if lang == "mm":
+    if is_mm:
         st.markdown("""
         <div class="result-card result-card-flex">
             <div class="about-p">
