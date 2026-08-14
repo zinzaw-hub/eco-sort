@@ -792,8 +792,11 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points, 
     <head>
     <meta charset="utf-8">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;500;600;700&family=Padauk:wght@400;700&display=swap');
+        @import url('https://mmwebfonts.com/css/pyidaungsu.css');
         @page {{ size: A4; margin: 10mm; background-color: #fdfbf7; }}
-        body {{ font-family: 'Pyidaungsu', 'Arial', sans-serif; color: #333; font-size: 13px; line-height: 2.2; }}
+        * {{ font-family: 'Pyidaungsu', 'Noto Sans Myanmar', 'Padauk', 'Myanmar3', sans-serif !important; }}
+        body {{ font-family: 'Pyidaungsu', 'Noto Sans Myanmar', 'Padauk', 'Myanmar3', sans-serif !important; color: #333; font-size: 13px; line-height: 2.2; }}
         .header {{ border-bottom: 1.5px solid #06D6A0; padding-bottom: 4px; margin-bottom: 8px; }}
         .title {{ color: #06D6A0; font-size: 16px; font-weight: bold; }}
         .img-container {{ text-align: center; margin-bottom: 8px; }}
