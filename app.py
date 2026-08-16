@@ -1157,7 +1157,10 @@ def render_learn_page(lang="en"):
         "step2": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/img/plastic-recycling-sorting-image.jpg",
         "step3": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/img/close-hands.jpg",
         "step4": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/img/T8200219.jpg",
-        "step5": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/img/AdobeStock_759704272-1.jpeg",
+        "step5": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/img/plastic-pellet.jpg",
+        "step6": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/img/AdobeStock_759704272-1.jpeg",
+        "step7": "https://raw.githubusercontent.com/zinzaw-hub/eco-sort/main/img/ppm.jpg",
+
     }
 
     steps_data = [
@@ -1190,6 +1193,18 @@ def render_learn_page(lang="en"):
             "title": "အဆင့် ၅ - ပလတ်စတစ်စေ့ ပြုလုပ်ခြင်း (Pelletizing)" if is_mm else "Step 5: Pelletizing",
             "desc": "ကြိတ်ခွဲထားသော ပလတ်စတစ်များကို အရည်ကြိုပြီး သေးငယ်သော ပလတ်စတစ်စေ့များအဖြစ် ပုံသွင်းပါသည်။ ဤစေ့များကို စက်ရုံများသို့ ပြန်လည်ရောင်းချပြီး ပလတ်စတစ် သစ်များ ထုတ်လုပ်ကာ ပြန်လည်အသုံးပြုမှု သံသရာကို ပြည့်စုံစေပါသည်။" if is_mm else "Shredded plastic is melted and formed into small pellets (nurdles). These pellets are then sold to manufacturers to make new plastic products — closing the recycling loop!",
             "tip": "<b>အကြံပြုချက်:</b> ပတ်ဝန်းကျင် ထိန်းသိမ်းရေးကို အထောက်အကူပြုရန် ပြန်လည်အသုံးပြုထားသည့် ပလတ်စတစ် (\"Post-Consumer Recycled\" သို့မဟုတ် \"PCR\") ဖြင့် ပြုလုပ်ထားသော ပစ္စည်းများကို အသုံးပြုပါ။" if is_mm else "<b>Tip:</b> Look for products made from recycled plastic (often labeled \"Post-Consumer Recycled\" or \"PCR\") to support the circular economy."
+        },
+        {
+            "img": step_images["step6"],
+            "title": "အဆင့် ၆ - ပလတ်စတစ်ထုတ်ကုန်သစ် တီထွင်ဖန်တီးခြင်း" if is_mm else "Step 6: Plastic new product development",
+            "desc": "ထုတ်ကုန်တစ်ခုအဖြစ် ပြောင်းလဲပေးသည့် စနစ်တကျရှိသော အင်ဂျင်နီယာလုပ်ငန်းစဉ်တစ်ခု ဖြစ်ပါသည်။ ၎င်းလုပ်ငန်းစဉ်တွင် စိတ်ကူးပုံစံရေးဆွဲခြင်း၊ ကုန်ကြမ်းပစ္စည်း ရွေးချယ်ခြင်း၊ ဒစ်ဂျစ်တယ်နည်းဖြင့် စမ်းသပ်ပုံဖော်ခြင်း (digital simulation)၊ လျင်မြန်စွာ ပုံစံငယ်ထုတ်လုပ်ခြင်း (rapid prototyping) နှင့် Injection Molding ကဲ့သို့သော တိကျသေချာသည့် ပုံစံခွက်ပြုလုပ်ခြင်း (precision tooling) စသည့် အဆင့်များအကြား ညှိနှိုင်းဆောင်ရွက်မှုများ လိုအပ်ပါသည်။" if is_mm else "Plastic new product development is a structured engineering process that transforms an initial concept into a mass-manufactured polymer item. It requires coordinated steps across concept design, material selection, digital simulation, rapid prototyping, and precision tooling like injection molding",
+            "tip": "<b>အကြံပြုချက်:</b> ပလတ်စတစ်များ ပတ်ဝန်းကျင်တွင် ပြန့်ကျဲကာ အသုံးမဝင်သည့် အမှိုက်များ အဖြစ်ရှိနေမည့်အစား အသုံးဝင်ပြီး အကျိုးပြုနိုင်စေမည့် အရာတစ်ခုအဖြစ် ပြန်လည်ထုတ်လုပ် အသုံးပြုကြပါစို့။" if is_mm else "<b>Tip:</b> Look for products made from recycled plastic (often labeled \"Post-Consumer Recycled\" or \"PCR\") to support the circular economy."
+        },
+        {
+            "img": step_images["step7"],
+            "title": "ပလတ်စတစ် အမှုန်ပြုလုပ်စက်" if is_mm else "Plastic Pelletizer",
+            "desc": "ကုန်ကြမ်းပလတ်စတစ် သို့မဟုတ် စွန့်ပစ်ပလတ်စတစ်အစအနများကို အရည်ပျော်စေပြီး အရွယ်အစားညီညာကာ ကိုင်တွယ်အသုံးပြုရလွယ်ကူသော အစေ့အဆန်ငယ်လေးများ (pellets) အဖြစ် ဖြတ်တောက်ထုတ်လုပ်ပေးသည့် စက်မှုလုပ်ငန်းသုံးစက်တစ်မျိုး ဖြစ်ပါသည်။" if is_mm else "An industrial machine that melts raw plastic or waste plastic scraps and cuts them into small, uniform, and manageable pellets.",
+            "tip": "<b></b>" if is_mm else ""
         },
     ]
 
@@ -1244,49 +1259,49 @@ def render_learn_page(lang="en"):
             """, unsafe_allow_html=True)
 
     # ---------- GENERAL TIPS ----------
-    gen_tips_title = "🌱 အထွေထွေ အကြံပြုချက်များ" if is_mm else "🌱 General Tips"
-    st.markdown(f'<div class="section-title">{gen_tips_title}</div>', unsafe_allow_html=True)
+    # gen_tips_title = "🌱 အထွေထွေ အကြံပြုချက်များ" if is_mm else "🌱 General Tips"
+    # st.markdown(f'<div class="section-title">{gen_tips_title}</div>', unsafe_allow_html=True)
     
-    if is_mm:
-        st.markdown("""
-        <div class="result-card result-card-flex">
-            <div class="about-p">
-                <b>၁။ မသုံးဘဲ လျှော့ချပါ။</b> အထိရောက်ဆုံး ပလတ်စတစ် စွန့်ပစ်မှု လျှော့ချခြင်းမှာ မထုတ်လုပ်မီ ထိန်းချုပ်ခြင်း ဖြစ်သည် — ထပ်မံ အသုံးပြုနိုင်သော ရေသန့်ဗူးများ၊ အိတ်များ၊ ကွန်တိန်းနားများသည် ပြန်လည်အသုံးပြုခြင်းထက် ပိုမို ထိရောက်ပါသည်။
-            </div>
-            <div class="about-p">
-                <b>၂။ မစွန့်ပစ်မီ ရေဆေးပါ။</b> အစားအသောက် သို့မဟုတ် အရည် ပေကျံနေခြင်းသည် ပြန်လည်အသုံးပြုရေး စက်ရုံများတွင် အခြား ပြန်လည်အသုံးပြုနိုင်သော ပစ္စည်းများကိုပါ ညစ်နွမ်းစေပြီး အမှိုက်ပုံသို့ ရောက်ရှိစေပါသည်။
-            </div>
-            <div class="about-p">
-                <b>၃။ မသေချာဘဲ မစွန့်ပစ်ပါနှင့်။</b> ပြန်လည်အသုံးပြု၍ မရနိုင်သော ပစ္စည်းများကို စွန့်ပစ်ပုံးထဲ ထည့်ခြင်းသည် ပိုမို ပျက်စီးစေနိုင်သည် — မသေချာပါက ဒေသတွင်း သတ်မှတ်ချက်များကို စစ်ဆေးပါ။
-            </div>
-            <div class="about-p">
-                <b>၄။ ဒေသတွင်း စည်းကမ်းများကို လိုက်နာပါ။</b> နေရာဒေသအလိုက် ပြန်လည်အသုံးပြုနိုင်မှု သတ်မှတ်ချက်များ ကွဲပြားနိုင်သည် — ဤဆော့ဖ်ဝဲကို အခြေခံအဖြစ် အသုံးပြုပြီး သင့်ဒေသရှိ အမှိုက်စွန့်ပစ်မှု စည်းကမ်းများနှင့် တိုက်ဆိုင်စစ်ဆေးပါ။
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown("""
-        <div class="result-card result-card-flex">
-            <div class="about-p">
-                <b>1. Reduce first.</b> The most effective plastic is the one never produced — reusable
-                bottles, bags, and containers beat recycling every time.
-            </div>
-            <div class="about-p">
-                <b>2. Rinse before you bin it.</b> Food or liquid residue can contaminate an entire batch
-                of recyclables at the sorting facility, sending otherwise-recyclable material to landfill.
-            </div>
-            <div class="about-p">
-                <b>3. Don't "wishcycle."</b> Tossing non-recyclable items into recycling bins hoping
-                they'll somehow get sorted usually does more harm than good — when in doubt, check your
-                local program's accepted materials list.
-            </div>
-            <div class="about-p">
-                <b>4. Know your local rules.</b> What's accepted varies a lot by city and country —
-                use the Classifier page here as a starting point, but always double-check against your
-                local waste authority's guidelines.
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+    # if is_mm:
+    #     st.markdown("""
+    #     <div class="result-card result-card-flex">
+    #         <div class="about-p">
+    #             <b>၁။ မသုံးဘဲ လျှော့ချပါ။</b> အထိရောက်ဆုံး ပလတ်စတစ် စွန့်ပစ်မှု လျှော့ချခြင်းမှာ မထုတ်လုပ်မီ ထိန်းချုပ်ခြင်း ဖြစ်သည် — ထပ်မံ အသုံးပြုနိုင်သော ရေသန့်ဗူးများ၊ အိတ်များ၊ ကွန်တိန်းနားများသည် ပြန်လည်အသုံးပြုခြင်းထက် ပိုမို ထိရောက်ပါသည်။
+    #         </div>
+    #         <div class="about-p">
+    #             <b>၂။ မစွန့်ပစ်မီ ရေဆေးပါ။</b> အစားအသောက် သို့မဟုတ် အရည် ပေကျံနေခြင်းသည် ပြန်လည်အသုံးပြုရေး စက်ရုံများတွင် အခြား ပြန်လည်အသုံးပြုနိုင်သော ပစ္စည်းများကိုပါ ညစ်နွမ်းစေပြီး အမှိုက်ပုံသို့ ရောက်ရှိစေပါသည်။
+    #         </div>
+    #         <div class="about-p">
+    #             <b>၃။ မသေချာဘဲ မစွန့်ပစ်ပါနှင့်။</b> ပြန်လည်အသုံးပြု၍ မရနိုင်သော ပစ္စည်းများကို စွန့်ပစ်ပုံးထဲ ထည့်ခြင်းသည် ပိုမို ပျက်စီးစေနိုင်သည် — မသေချာပါက ဒေသတွင်း သတ်မှတ်ချက်များကို စစ်ဆေးပါ။
+    #         </div>
+    #         <div class="about-p">
+    #             <b>၄။ ဒေသတွင်း စည်းကမ်းများကို လိုက်နာပါ။</b> နေရာဒေသအလိုက် ပြန်လည်အသုံးပြုနိုင်မှု သတ်မှတ်ချက်များ ကွဲပြားနိုင်သည် — ဤဆော့ဖ်ဝဲကို အခြေခံအဖြစ် အသုံးပြုပြီး သင့်ဒေသရှိ အမှိုက်စွန့်ပစ်မှု စည်းကမ်းများနှင့် တိုက်ဆိုင်စစ်ဆေးပါ။
+    #         </div>
+    #     </div>
+    #     """, unsafe_allow_html=True)
+    # else:
+    #     st.markdown("""
+    #     <div class="result-card result-card-flex">
+    #         <div class="about-p">
+    #             <b>1. Reduce first.</b> The most effective plastic is the one never produced — reusable
+    #             bottles, bags, and containers beat recycling every time.
+    #         </div>
+    #         <div class="about-p">
+    #             <b>2. Rinse before you bin it.</b> Food or liquid residue can contaminate an entire batch
+    #             of recyclables at the sorting facility, sending otherwise-recyclable material to landfill.
+    #         </div>
+    #         <div class="about-p">
+    #             <b>3. Don't "wishcycle."</b> Tossing non-recyclable items into recycling bins hoping
+    #             they'll somehow get sorted usually does more harm than good — when in doubt, check your
+    #             local program's accepted materials list.
+    #         </div>
+    #         <div class="about-p">
+    #             <b>4. Know your local rules.</b> What's accepted varies a lot by city and country —
+    #             use the Classifier page here as a starting point, but always double-check against your
+    #             local waste authority's guidelines.
+    #         </div>
+    #     </div>
+    #     """, unsafe_allow_html=True)
 
 # ==========================================
 # SIDEBAR NAVIGATION
