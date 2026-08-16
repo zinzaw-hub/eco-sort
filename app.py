@@ -854,7 +854,7 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points, 
 # ==========================================
 @st.cache_resource
 def load_model():
-    return YOLO("best_model_yolov8_ft2.pt")
+    return YOLO("ecosort_det_best.pt")
 
 model = load_model()
 
@@ -1438,21 +1438,28 @@ uploaded_file = st.file_uploader(
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
-    col1, col2 = st.columns([1, 1], gap="large")
-
-    with col1:
-        img_cap = "📷 တင်သွင်းထားသော ဓာတ်ပုံ" if is_mm else "📷 Uploaded Image"
-        st.image(image, caption=img_cap, use_container_width=False)
 
     spin_msg = "🔍 ဓာတ်ပုံအား စစ်ဆေးနေပါသည်..." if is_mm else "🔍 Analyzing..."
     with st.spinner(spin_msg):
         results = model(image)
 
     r = results[0]
-    probs = r.probs
-    top1_idx = probs.top1
-    top1_cls = model.names[top1_idx]
-    top1_conf = float(probs.top1conf)
+    if len(r.boxes) > 0:
+        annotated_img = Image.fromarray(r.plot()[..., ::-1])
+        best_box = r.boxes[r.boxes.conf.argmax()]
+        top1_idx = int(best_box.cls[0].item())
+        top1_cls = model.names[top1_idx]
+        top1_conf = float(best_box.conf[0].item())
+    else:
+        annotated_img = image
+        top1_cls = "Others"
+        top1_conf = 0.0
+
+    col1, col2 = st.columns([1, 1], gap="large")
+
+    with col1:
+        img_cap = "📷 တွေ့ရှိထားသော ပလတ်စတစ်" if is_mm else "📷 Detected Plastic"
+        st.image(annotated_img, caption=img_cap, use_container_width=False)
 
     info = RECYCLABILITY.get(top1_cls, RECYCLABILITY["Others"])
     symbol = RESIN_SYMBOLS.get(top1_cls, "♹")
