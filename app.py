@@ -484,7 +484,7 @@ RESIN_SYMBOLS = {
 RECYCLABILITY_EN = {
     "PET": {
         "recyclable": True, "code": "1", "name_en": "Polyethylene Terephthalate", 
-        "examples": "Water bottles, soda bottles, food jars",
+        "examples": "Water bottles, soda bottles, food jars, Cooking oil containers, fruit and food containers.",
         "description": "PET (Polyethylene Terephthalate) is a clear, strong, and lightweight plastic widely used for packaging foods and beverages because it helps prevent oxygen from spoiling the product inside.",
         "properties": [
             "Clear and transparent — high optical clarity",
@@ -495,7 +495,7 @@ RECYCLABILITY_EN = {
     },
     "HDPE": {
         "recyclable": True, "code": "2", "name_en": "High-Density Polyethylene", 
-        "examples": "Milk jugs, detergent bottles, shampoo bottles",
+        "examples": "Milk jugs, detergent bottles, shampoo bottles, cutting boards ",
         "description": "HDPE (High-Density Polyethylene) is a robust, stiff plastic known for its high tensile strength and resistance to various solvents, making it ideal for rigid containers.",
         "properties": [
             "Rigid and strong — withstands heavy stacking",
@@ -506,7 +506,7 @@ RECYCLABILITY_EN = {
     },
     "LDPE": {
         "recyclable": True, "code": "4", "name_en": "Low-Density Polyethylene", 
-        "examples": "Bread bags, squeeze bottles, shrink wrap",
+        "examples": "Bread bags, squeeze bottles, shrink wrap, cling wrap, food wrapping film, plastic shopping bags",
         "description": "LDPE (Low-Density Polyethylene) is a flexible, soft plastic with good chemical resistance. It is less rigid than HDPE and commonly used for films and flexible packaging.",
         "properties": [
             "Flexible and soft — bends without breaking",
@@ -517,7 +517,7 @@ RECYCLABILITY_EN = {
     },
     "PP": {
         "recyclable": True, "code": "5", "name_en": "Polypropylene", 
-        "examples": "Yogurt tubs, bottle caps, takeout containers",
+        "examples": "Yogurt tubs, bottle caps, takeout containers, food storage containers (microwave-safe food containers), plastic baskets and bowls, drinking cups, and plastic plates.",
         "description": "PP (Polypropylene) is a tough, heat-resistant plastic that acts as a strong barrier against moisture, grease, and chemicals, making it great for hot-fill liquids and food storage.",
         "properties": [
             "High heat tolerance — safe for microwave and hot liquids",
@@ -528,7 +528,7 @@ RECYCLABILITY_EN = {
     },
     "PS": {
         "recyclable": False, "code": "6", "name_en": "Polystyrene", 
-        "examples": "Foam cups, takeout clamshells, packing peanuts",
+        "examples": "Foam cups, takeout clamshells, packing peanuts, rigid disposable spoons used at parties and in shops, rigid and transparent CD cases, and brittle clear cups used for drinking juice or cold water,",
         "description": "PS (Polystyrene) can be rigid or foamed (Styrofoam). It is lightweight and provides great insulation, but it is fragile and notoriously difficult to recycle economically.",
         "properties": [
             "Lightweight and insulating — keeps temperature steady",
@@ -553,7 +553,7 @@ RECYCLABILITY_EN = {
 RECYCLABILITY_MM = {
     "PET": {
         "recyclable": True, "code": "1", "name_en": "Polyethylene Terephthalate (ပေါလီအက်သလင်း တာရက်သလိတ်)", 
-        "examples": "ရေသန့်ဗူး၊ အအေးဗူး၊ အစားအသောက်ထည့် ဘူးများ",
+        "examples": "ရေသန့်ဗူး၊ အအေးဗူး၊ စားသုံးဆီဗူးများ၊ သစ်သီးနှင့် အစားအစာထည့်ဗူးများ။",
         "description": "PET (Polyethylene Terephthalate) သည် ကြည်လင်၊ ခိုင်မာပြီး ပေါ့ပါးသော ပလတ်စတစ်ဖြစ်ပြီး အောက်ဆီဂျင်ကြောင့် အစားအသောက်များ ပျက်စီးခြင်းမှ ကာကွယ်ပေးသဖြင့် အစားအသောက်နှင့် သောက်ရေသန့် ထုပ်ပိုးရာတွင် အများဆုံး အသုံးပြုကြသည်။",
         "properties": [
             "ကြည်လင်ပြတ်သားခြင်း — အလင်းပေါက်မှု မြင့်မားခြင်း",
@@ -564,7 +564,7 @@ RECYCLABILITY_MM = {
     },
     "HDPE": {
         "recyclable": True, "code": "2", "name_en": "High-Density Polyethylene (သိပ်သည်းဆမြင့် ပေါလီအက်သလင်း)", 
-        "examples": "နို့ဗူး၊ ဆပ်ပြာဆီဗူး၊ ခေါင်းလျှော်ရည်ဗူးများ",
+        "examples": "နို့ဗူး၊ ဆပ်ပြာဆီဗူး၊ ခေါင်းလျှော်ရည်ဗူးများ၊ အစွန်းချွတ်ဆေးဗူးများ၊ ရေချိုးခန်းသုံး ဆပ်ပြာရည်ဗူးများ၊ ဟင်းသီးဟင်းရွက်နှင့် အစားအစာတင်ကာလှီးဖြတ်သည့် ကော်ပြားများ၊ ကလေးကစားစရာ ပလတ်စတစ် အရုပ်များ၊  ",
         "description": "HDPE (High-Density Polyethylene) သည် မာကျောခိုင်မာပြီး ပျော်ရည်အမျိုးမျိုးကို ခံနိုင်ရည်ရှိသော ပလတ်စတစ်ဖြစ်သဖြင့် ခိုင်ခံ့သော ဗူးများနှင့် ကွန်တိန်းနားများ ပြုလုပ်ရာတွင် သင့်တော်သည်။",
         "properties": [
             "မာကျောခိုင်ခံ့ခြင်း — လေးလံသော ပစ္စည်းများ ဆင့်စီရာတွင် ခံနိုင်ရည်ရှိခြင်း",
@@ -575,7 +575,7 @@ RECYCLABILITY_MM = {
     },
     "LDPE": {
         "recyclable": True, "code": "4", "name_en": "Low-Density Polyethylene (သိပ်သည်းဆနည်း ပေါလီအက်သလင်း)", 
-        "examples": "ပေါင်မုန့်အိတ်၊ ညှစ်ထုတ်ရသော ဗူးများ၊ ပလတ်စတစ် အုပ်အိတ်များ",
+        "examples": "ပေါင်မုန့်အိတ်၊ ညှစ်ထုတ်ရသော ဗူးများ၊ ပလတ်စတစ်အိတ်များ၊ ဈေးဝယ်အိတ်များ၊ အစားအစာပတ်သည့် ပလတ်စတစ် ",
         "description": "LDPE (Low-Density Polyethylene) သည် ပျော့ပျောင်း ကွေးညွှတ်နိုင်ပြီး ဓာတုဗေဒဒဏ် ခံနိုင်သော ပလတ်စတစ်ဖြစ်သည်။ HDPE ထက် မာကျောမှုနည်းပါးပြီး အိတ်များနှင့် ပျော့ပျောင်းသော ထုပ်ပိုးမှုများတွင် အသုံးပြုသည်။",
         "properties": [
             "ပျော့ပျောင်းကွေးညွှတ်နိုင်ခြင်း — မကျိုးပဲ့ဘဲ ကွေးညွှတ်နိုင်ခြင်း",
@@ -586,7 +586,7 @@ RECYCLABILITY_MM = {
     },
     "PP": {
         "recyclable": True, "code": "5", "name_en": "Polypropylene (ပေါလီပရိုပလင်း)", 
-        "examples": "ဒိန်ချဉ်ခွက်၊ ဗူးအဖုံးများ၊ အဆာပြေ အစားအသောက်ထည့် ဗူးများ",
+        "examples": "ဒိန်ချဉ်ခွက်၊ ဗူးအဖုံးများ၊ အဆာပြေ အစားအသောက်ထည့် ဗူးများ၊ အစားအစာသိမ်းဆည်းသည့်ဗူးများ (Microwave ထဲထည့်၍ရသော အစားအစာဘူးများ)၊ ပလပ်စတစ်ခြင်းတောင်းနှင့် ဇလုံများ၊ ရေသောက်ခွက်နှင့် ပလတ်စတစ် ပန်းကန်များ",
         "description": "PP (Polypropylene) သည် အပူဒဏ်ခံနိုင်ပြီး ခိုင်မာသော ပလတ်စတစ်ဖြစ်ကာ စိုထိုင်းဆ၊ ဆီနှင့် ဓာတုဗေဒပစ္စည်းများကို တားဆီးပေးနိုင်သဖြင့် အပူဖြည့် သောက်စရာများနှင့် အစားအသောက် သိုလှောင်ရန် သင့်တော်သည်။",
         "properties": [
             "အပူဒဏ်ခံနိုင်မှု မြင့်မားခြင်း — မိုက်ခရိုဝေ့ဖ်နှင့် အပူချိန်မြင့် အရည်များအတွက် ဘေးကင်းခြင်း",
@@ -597,7 +597,7 @@ RECYCLABILITY_MM = {
     },
     "PS": {
         "recyclable": False, "code": "6", "name_en": "Polystyrene (ပေါလီစတိုရင်း)", 
-        "examples": "ဖော့ခွက်များ၊ အစားအသောက်ထည့် ဖော့ဗူးများ၊ ပစ္စည်းအလွှာသုံး ဖော့စေ့များ",
+        "examples": "ဖော့ခွက်များ၊ အစားအသောက်ထည့် ဖော့ဗူးများ၊ ပါတီပွဲနှင့် ဆိုင်များတွင်သုံးသော မာကြောသည့် တစ်ခါသုံးဇွန်းများ၊ စီဒီခွေထည့်သည့် မာကျောပြီး ဖောက်ထွင်းမြင်ရသော ကာဗာဘူးများ၊ ဖျော်ရည် သို့မဟုတ် ရေအေးသောက်ရန်သုံးသော ကြွပ်ဆတ်သည့် ခွက်အကြည်များ၊ ",
         "description": "PS (Polystyrene) ကို မာကျောသော ပုံစံ သို့မဟုတ် ဖော့ပုံစံ (Styrofoam) ဖြင့် တွေ့ရသည်။ ပေါ့ပါးပြီး အပူချိန် ထိန်းသိမ်းမှု ကောင်းသော်လည်း ကျိုးပဲ့လွယ်ပြီး စီးပွားရေးအရ ပြန်လည်အသုံးပြုရန် ခက်ခဲသည်။",
         "properties": [
             "ပေါ့ပါးပြီး အပူချိန်ထိန်းနိုင်ခြင်း — အပူချိန်ကို တည်ငြိမ်စေခြင်း",
@@ -665,8 +665,8 @@ def get_guidance(plastic_type, recyclable, lang="en"):
         ],
         "HDPE": [
             "ပါဝင်ပစ္စည်းများကို ရေဆေးထုတ်ပါ (နို့၊ ဆပ်ပြာဆီ၊ ခေါင်းလျှော်ရည်)",
-            "ရနိုင်ပါက ပန်းကန်ဆေးဆီ/စပရေးခေါင်းများကို ဖြုတ်ပါ",
-            "အဖုံးတပ်လျက် ပြန်လည်အသုံးပြုပါ",
+            "ဖြစ်နိုင်ပါက ပန်းကန်ဆေးဆီ/စပရေးခေါင်းများကို ဖြုတ်ပါ",
+            "အဖုံးတပ်ဆင်ပြီး ပြန်လည်အသုံးပြုပါ",
             "HDPE သည် စက်ရုံများတွင် အလွယ်ကူဆုံးနှင့် အကျယ်ပြန့်ဆုံး ပြန်လည်အသုံးပြုနိုင်သည့် ပလတ်စတစ်ဖြစ်သည်",
             "အရောင်အမျိုးမျိုး ရောနှောခြင်းကို ရှောင်ပါ — ကြည်လင်သော HDPE က ပိုမိုကောင်းမွန်စွာ ပြန်လည်အသုံးပြုနိုင်သည်"
         ],
@@ -675,7 +675,8 @@ def get_guidance(plastic_type, recyclable, lang="en"):
             "ကုန်စုံဆိုင် သို့မဟုတ် စူပါမားကတ်များရှိ သီးသန့် ပလတ်စတစ်အိတ် စွန့်ပစ်နိုင်သည့် နေရာများကို ရှာပါ",
             "မာကျောသော LDPE ပစ္စည်းများကိုမူ ပုံမှန် ပြန်လည်အသုံးပြုပုံးများတွင် ထည့်နိုင်ပါသည်",
             "အိတ်များကို သန့်ရှင်းခြောက်သွေ့အောင် ထားပါ — စိုစွတ်နေပါက ပြန်လည်အသုံးပြု၍ မရနိုင်ပါ",
-            "ပြန်လည်အသုံးပြုရန် မသေချာပါက စွန့်ပစ်ခြင်းထက် ပြန်လည်အသုံးပြုရန် ကြိုးစားပါ"
+            "ပြန်လည်အသုံးပြုရန် မသေချာပါက စနစ်တကျ စွန့်ပစ်ပါ",
+            "တစ်ချို့အခါတွင် ပေကျံနေသော အိတ်များကို ‌ရေနှင့်လျှော်ကာ ပြန်လည်အသုံးပြုလေ့ရှိကြသည်"
         ],
         "PP": [
             "အစားအသောက် ထည့်သည့်ဗူးများနှင့် ဒိန်ချဉ်ခွက်များကို သေချာ ရေဆေးပါ",
@@ -689,13 +690,14 @@ def get_guidance(plastic_type, recyclable, lang="en"):
             "PS ကို အထွေထွေ အမှိုက်အဖြစ်သာ စွန့်ပစ်ရမည်",
             "သန့်ရှင်းသော မာကျောသည့် PS များကို အထူး စွန့်ပစ်စခန်းများတွင် လက်ခံလေ့ရှိသည်",
             "PS သည် ပေါ့ပါးပြီး ကျိုးပဲ့လွယ်သောကြောင့် ပြန်လည်အသုံးပြုရန် ခက်ခဲသည်",
-            "ဖော့စေ့များကို အိမ်မွေးတိရစ္ဆာန် အိပ်ယာအဖြစ် ပြန်လည်အသုံးပြုနိုင်သည် (စစ်ဆေးပါ)"
+            "မှတ်ချက် - PS ပလတ်စတစ်သည် အပူဒဏ်ကြောင့် အရည်ပျော်လွယ်ပြီး ဓာတုပစ္စည်းများ အစားအစာထဲ သို့ စိမ့်ဝင်နိုင်သဖြင့် မိုက်ခရိုဝေ့ဖ်မီးဖိုထဲ ထည့်၍ အပူမပေးသင့်ပါ။"
         ],
         "Others": [
             "အလွှာပေါင်းစုံ ရောနှောထားသော ပလတ်စတစ်များ (အာလူးကြော်အိတ်များကဲ့သို့) ကို သီးခြားခွဲထုတ်၍ မရနိုင်ပါ",
-            "ပုံမှန် ပြန်လည်အသုံးပြုခြင်း ပြုလုပ်၍မရဘဲ အထွေထွေ အမှိုက်အဖြစ်သာ စွန့်ပစ်ရမည်",
+            "ပုံမှန် ပြန်လည်အသုံးပြုခြင်း ပြုလုပ်၍မရဘဲ ပျက်စီးသွားပါက အထွေထွေ အမှိုက်အဖြစ်သာ စွန့်ပစ်ရမည်",
             "ပလတ်စတစ်သုံးစွဲမှုကို လျှော့ချရန် ပြန်လည်အသုံးပြုနိုင်သော ထုပ်ပိုးမှုများကို ရှာဖွေပါ",
             "ဇီဝပလတ်စတစ်များသည် အထူးအခြေအနေများတွင်မှ ပြန်လည်အသုံးပြုနိုင်သည် — ဒေသတွင်း စစ်ဆေးပါ",
+            "စနစ်တကျ စစ်‌ဆေးပြီး ပြန်လည်အသုံးပြုနိုင်သည့်ပစ္စည်းများရှိသော်ငြား အများစုမှာ ပျက်စီးပြီးနောက်ပြန်လည် အသုံးပြုရန်ခက်ခဲသည်",
             "ဖြစ်နိုင်ပါက ဤပစ္စည်းအမျိုးအစားကို လုံးဝ ရှောင်ကြဉ်ပါ"
         ]
     }
@@ -721,7 +723,8 @@ def get_guidance(plastic_type, recyclable, lang="en"):
             "Check for a store drop-off point (many supermarkets collect plastic bags separately)",
             "Rigid LDPE items can often go in standard recycling",
             "Keep LDPE bags clean and dry — wet plastic is harder to recycle",
-            "When in doubt, reuse LDPE bags instead of throwing them away"
+            "When in doubt, reuse LDPE bags instead of throwing them away",
+            "Sometimes, soiled bags are washed with water and reused"
         ],
         "PP": [
             "Rinse thoroughly, especially food containers and yogurt tubs",
@@ -735,13 +738,15 @@ def get_guidance(plastic_type, recyclable, lang="en"):
             "PS generally goes in general waste — not recyclable in most areas",
             "Some specialized drop-off centers accept clean rigid PS",
             "PS is lightweight and fragile, making it difficult to recycle economically",
-            "Reuse packing peanuts for shipping, or check if local craft stores accept them"
+            "Reuse packing peanuts for shipping, or check if local craft stores accept them",
+            "Note: PS plastic should not be heated in a microwave oven, as it melts easily due to heat and chemicals can leach into the food."
         ],
         "Others": [
             "Mixed or multi-layer plastics (like chip bags and some pouches) can't be separated",
             "They are almost never recyclable through standard programs — dispose as general waste",
             "Look for reduce/reuse alternatives where possible",
             "Bioplastics may require special conditions to be recyclable — check local facilities",
+            "Although there are items that can be reused after proper inspection, most are difficult to reuse once damaged",
             "Avoid purchasing items with 'Other' plastic labeling when possible"
         ]
     }
