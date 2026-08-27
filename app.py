@@ -517,7 +517,7 @@ RECYCLABILITY_EN = {
     },
     "PP": {
         "recyclable": True, "code": "5", "name_en": "Polypropylene", 
-        "examples": "Yogurt tubs, bottle caps, takeout containers, food storage containers (microwave-safe food containers), plastic baskets and bowls, drinking cups, and plastic plates.",
+        "examples": "Yogurt tubs, straws, bottle caps, takeout containers, food storage containers (microwave-safe food containers), plastic baskets and bowls, drinking cups, and plastic plates.",
         "description": "PP (Polypropylene) is a tough, heat-resistant plastic that acts as a strong barrier against moisture, grease, and chemicals, making it great for hot-fill liquids and food storage.PP is identified by Resin Identification Code (RIC) #5, and the code system was originally established by the Society of the Plastics Industry (SPI).",
         "properties": [
             "High heat tolerance — safe for microwave and hot liquids",
@@ -586,7 +586,7 @@ RECYCLABILITY_MM = {
     },
     "PP": {
         "recyclable": True, "code": "5", "name_en": "Polypropylene (ပေါလီပရိုပလင်း)", 
-        "examples": "ဒိန်ချဉ်ခွက်၊ ဗူးအဖုံးများ၊ အဆာပြေ အစားအသောက်ထည့် ဗူးများ၊ အစားအစာသိမ်းဆည်းသည့်ဗူးများ (Microwave ထဲထည့်၍ရသော အစားအစာဘူးများ)၊ ပလပ်စတစ်ခြင်းတောင်းနှင့် ဇလုံများ၊ ခိုင်ခံ့သောအင်္ကျီချိတ်အချို့၊ ရေသောက်ခွက်နှင့် ပလတ်စတစ် ပန်းကန်များ",
+        "examples": "ဒိန်ချဉ်ခွက်၊ အချိုရည်သောက်သည့် ပိုက်များ၊ ဗူးအဖုံးများ၊ အဆာပြေ အစားအသောက်ထည့် ဗူးများ၊ အစားအစာသိမ်းဆည်းသည့်ဗူးများ (Microwave ထဲထည့်၍ရသော အစားအစာဘူးများ)၊ ပလပ်စတစ်ခြင်းတောင်းနှင့် ဇလုံများ၊ ခိုင်ခံ့သောအင်္ကျီချိတ်အချို့၊ ရေသောက်ခွက်နှင့် ပလတ်စတစ် ပန်းကန်များ",
         "description": "PP (Polypropylene) သည် အပူဒဏ်ခံနိုင်ပြီး ခိုင်မာသော ပလတ်စတစ်ဖြစ်ကာ စိုထိုင်းဆ၊ ဆီနှင့် ဓာတုဗေဒပစ္စည်းများကို တားဆီးပေးနိုင်သဖြင့် အပူဖြည့် သောက်စရာများနှင့် အစားအသောက် သိုလှောင်ရန် သင့်တော်သည်။ Resin Identification Code (RIC) နံပါတ် #5 ဖြင့် သတ်မှတ်ထားပြီး၊ အဆိုပါ code စနစ်ကို Society of the Plastics Industry (SPI) မှ မူလအစပြုကာ သတ်မှတ်ခဲ့ပါသည်။",
         "properties": [
             "အပူဒဏ်ခံနိုင်မှု မြင့်မားခြင်း — မိုက်ခရိုဝေ့ဖ်နှင့် အပူချိန်မြင့် အရည်များအတွက် ဘေးကင်းခြင်း",
