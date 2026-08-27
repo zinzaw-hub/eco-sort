@@ -553,7 +553,7 @@ RECYCLABILITY_EN = {
 RECYCLABILITY_MM = {
     "PET": {
         "recyclable": True, "code": "1", "name_en": "Polyethylene Terephthalate (ပေါလီအက်သလင်း တာရက်သလိတ်)", 
-        "examples": "ရေသန့်ဗူး၊ အအေးဗူး၊ စားသုံးဆီဗူးများ၊ သစ်သီးနှင့် အစားအစာထည့်ဗူးများ။",
+        "examples": "ရေသန့်ဗူး၊ Coca Cola, Max Plus, Speed, Royal D ကဲ့သို့သော အအေးဗူးများ၊ စားသုံးဆီဗူးများ၊ သစ်သီးနှင့် အစားအစာထည့်ဗူးများ။",
         "description": "PET (Polyethylene Terephthalate) သည် ကြည်လင်၊ ခိုင်မာပြီး ပေါ့ပါးသော ပလတ်စတစ်ဖြစ်ပြီး အောက်ဆီဂျင်ကြောင့် အစားအသောက်များ ပျက်စီးခြင်းမှ ကာကွယ်ပေးသဖြင့် အစားအသောက်နှင့် သောက်ရေသန့် ထုပ်ပိုးရာတွင် အများဆုံး အသုံးပြုကြသည်။",
         "properties": [
             "ကြည်လင်ပြတ်သားခြင်း — အလင်းပေါက်မှု မြင့်မားခြင်း",
@@ -575,7 +575,7 @@ RECYCLABILITY_MM = {
     },
     "LDPE": {
         "recyclable": True, "code": "4", "name_en": "Low-Density Polyethylene (သိပ်သည်းဆနည်း ပေါလီအက်သလင်း)", 
-        "examples": "ပေါင်မုန့်အိတ်၊ ညှစ်ထုတ်ရသော ဗူးများ၊ ပလတ်စတစ်အိတ်များ၊ ဈေးဝယ်အိတ်များ၊ အစားအစာပတ်သည့် ပလတ်စတစ် ",
+        "examples": "ပေါင်မုန့်အိတ်၊ ညှစ်ထုတ်ရသော ဗူးများ၊ စားသောက်ဆိုင်တွင်ထားလေ့ရှိသော အချဥ်ရည်ဗူးများ၊ ပလတ်စတစ်အိတ်များ၊ ဈေးဝယ်အိတ်များ၊ အစားအစာပတ်သည့် ပလတ်စတစ် ",
         "description": "LDPE (Low-Density Polyethylene) သည် ပျော့ပျောင်း ကွေးညွှတ်နိုင်ပြီး ဓာတုဗေဒဒဏ် ခံနိုင်သော ပလတ်စတစ်ဖြစ်သည်။ HDPE ထက် မာကျောမှုနည်းပါးပြီး အိတ်များနှင့် ပျော့ပျောင်းသော ထုပ်ပိုးမှုများတွင် အသုံးပြုသည်။",
         "properties": [
             "ပျော့ပျောင်းကွေးညွှတ်နိုင်ခြင်း — မကျိုးပဲ့ဘဲ ကွေးညွှတ်နိုင်ခြင်း",
@@ -586,7 +586,7 @@ RECYCLABILITY_MM = {
     },
     "PP": {
         "recyclable": True, "code": "5", "name_en": "Polypropylene (ပေါလီပရိုပလင်း)", 
-        "examples": "ဒိန်ချဉ်ခွက်၊ ဗူးအဖုံးများ၊ အဆာပြေ အစားအသောက်ထည့် ဗူးများ၊ အစားအစာသိမ်းဆည်းသည့်ဗူးများ (Microwave ထဲထည့်၍ရသော အစားအစာဘူးများ)၊ ပလပ်စတစ်ခြင်းတောင်းနှင့် ဇလုံများ၊ ရေသောက်ခွက်နှင့် ပလတ်စတစ် ပန်းကန်များ",
+        "examples": "ဒိန်ချဉ်ခွက်၊ ဗူးအဖုံးများ၊ အဆာပြေ အစားအသောက်ထည့် ဗူးများ၊ အစားအစာသိမ်းဆည်းသည့်ဗူးများ (Microwave ထဲထည့်၍ရသော အစားအစာဘူးများ)၊ ပလပ်စတစ်ခြင်းတောင်းနှင့် ဇလုံများ၊ ခိုင်ခံ့သောအင်္ကျီချိတ်အချို့၊ ရေသောက်ခွက်နှင့် ပလတ်စတစ် ပန်းကန်များ",
         "description": "PP (Polypropylene) သည် အပူဒဏ်ခံနိုင်ပြီး ခိုင်မာသော ပလတ်စတစ်ဖြစ်ကာ စိုထိုင်းဆ၊ ဆီနှင့် ဓာတုဗေဒပစ္စည်းများကို တားဆီးပေးနိုင်သဖြင့် အပူဖြည့် သောက်စရာများနှင့် အစားအသောက် သိုလှောင်ရန် သင့်တော်သည်။",
         "properties": [
             "အပူဒဏ်ခံနိုင်မှု မြင့်မားခြင်း — မိုက်ခရိုဝေ့ဖ်နှင့် အပူချိန်မြင့် အရည်များအတွက် ဘေးကင်းခြင်း",
@@ -657,39 +657,58 @@ def get_guidance(plastic_type, recyclable, lang="en"):
     # ---- Myanmar Guidance ----
     guidance_mm = {
         "PET": [
-            "ဗူးကို ရေဆေးပြီး အဖုံးကို ပိတ်ထားပါ (ယခုအခါ စက်ရုံအများစုသည် အဖုံးများကိုပါ ပြန်လည်အသုံးပြုပါသည်)",
+            "ဗူးကို ရေဆေးပြီး အဖုံးကို ပိတ်ထားပါ",
             "နေရာလွတ်သက်သာစေရန် ဗူးကို ပြားအောင် ဖိပေးပါ",
-            "ဆီပေကျံနေသော ဗူးများကို ရေမဆေးဘဲ မစွန့်ပစ်ပါနှင့်",
-            "PET ဗူးများကို စက်ရုံများတွင် အများဆုံး လက်ခံပါသည်",
-            "အခြား ပလတ်စတစ်များနှင့် မရောနှောပါနှင့် — သီးခြားခွဲထားပါ"
+            "အစားအစာ၊ အချိုရည် သို့မဟုတ် ဆီအကြွင်းအကျန်များကို ဖယ်ရှားပြီးမှ ပြန်လည်အသုံးပြုပါ",
+            "PET ဗူးများကို သတ်မှတ်ထားသော recycling bin သို့မဟုတ် recycling center များတွင် စွန့်ပစ်ပါ",
+            "PET ဗူးအောက်ခြေရှိ Resin Code #1 ကို စစ်ဆေးပါ",
+            "ဗူးနှင့်အတူ ပါရှိသော label အပတ်များကို recycling စည်းမျဉ်းအတိုင်း စွန့်ပစ်ပါ",
+            "အခြားပလတ်စတစ်အမျိုးအစားများနှင့် မရောနှောဘဲ သတ်မှတ်ထားသည့် PET recycling stream ထဲတွင် ခွဲထားပါ",
+            "အလွန်ညစ်ပတ်ခြင်း၊ အစားအစာအကြွင်းအကျန်များရှိခြင်း သို့မဟုတ် ဆီပေကျံခြင်းရှိသော ဗူးများကို သန့်ရှင်းအောင် ပြုလုပ်ပြီးမှ recycle လုပ်ပါ",
+            "PET ဗူးများကို ပြန်လည်အသုံးပြုခြင်းဖြင့် ပလတ်စတစ်အမှိုက်ပမာဏကို လျှော့ချနိုင်ပါသည်",
+            "Recycling မလုပ်မီ မိမိဒေသရှိ recycling facility ၏ လက်ခံသည့်ပစ္စည်းများနှင့် စည်းမျဉ်းများကို စစ်ဆေးပါ"
         ],
         "HDPE": [
-            "ပါဝင်ပစ္စည်းများကို ရေဆေးထုတ်ပါ (နို့၊ ဆပ်ပြာဆီ၊ ခေါင်းလျှော်ရည်)",
-            "ဖြစ်နိုင်ပါက ပန်းကန်ဆေးဆီ/စပရေးခေါင်းများကို ဖြုတ်ပါ",
-            "အဖုံးတပ်ဆင်ပြီး ပြန်လည်အသုံးပြုပါ",
-            "HDPE သည် စက်ရုံများတွင် အလွယ်ကူဆုံးနှင့် အကျယ်ပြန့်ဆုံး ပြန်လည်အသုံးပြုနိုင်သည့် ပလတ်စတစ်ဖြစ်သည်",
-            "အရောင်အမျိုးမျိုး ရောနှောခြင်းကို ရှောင်ပါ — ကြည်လင်သော HDPE က ပိုမိုကောင်းမွန်စွာ ပြန်လည်အသုံးပြုနိုင်သည်"
+            "ပါဝင်ပစ္စည်းများကို ရေဆေးထုတ်ပြီး ဗူးကို သန့်ရှင်းအောင်ထားပါ",
+            "ဗူးအောက်ခြေရှိ Resin Identification Code #2 ကို စစ်ဆေးပါ",
+            "ဖြစ်နိုင်ပါက spray head သို့မဟုတ် pump ကို သတ်မှတ်ထားသော recycling စည်းမျဉ်းအတိုင်း ခွဲထားပါ",
+            "အဖုံးများကို recycling facility ၏ စည်းမျဉ်းအတိုင်း စီမံပါ",
+            "နို့ဗူး၊ ပိုးသတ်ဆေးဗူး၊ ဆပ်ပြာဗူးနှင့် ခေါင်းလျှော်ရည်ဗူးများကဲ့သို့သော HDPE containers များကို သတ်မှတ်ထားသော recycling bins သို့မဟုတ် centers တွင် စွန့်ပစ်ပါ",
+            "အခြားပလတ်စတစ်အမျိုးအစားများနှင့် မရောနှောဘဲ ပလတ်စတစ်အမျိုးအစားအလိုက် ခွဲထားပါ",
+            "အစားအစာ သို့မဟုတ် အရည်အကြွင်းအကျန်များကို ဖယ်ရှားပြီးမှ recycle လုပ်ပါ",
+            "ပြန်လည်အသုံးပြုနိုင်မှုသည် ဒေသအလိုက် ကွာခြားနိုင်သောကြောင့် local recycling facility ၏ စည်းမျဉ်းများကို စစ်ဆေးပါ"
         ],
         "LDPE": [
-            "ကုန်စုံဆိုင် သို့မဟုတ် စူပါမားကတ်များရှိ သီးသန့် ပလတ်စတစ်အိတ် စွန့်ပစ်နိုင်သည့် နေရာများကို ရှာပါ",
-            "LDPE ပစ္စည်းများကိုမူ ပုံမှန် ပြန်လည်အသုံးပြုပုံးများတွင် ထည့်နိုင်ပါသည်",
-            "အိတ်များကို သန့်ရှင်းခြောက်သွေ့အောင် ထားပါ — စိုစွတ်နေပါက ပြန်လည်အသုံးပြု၍ မရနိုင်ပါ",
-            "ပြန်လည်အသုံးပြုရန် မသေချာပါက စနစ်တကျ စွန့်ပစ်ပါ",
-            "တစ်ချို့အခါတွင် ပေကျံနေသော အိတ်များကို ‌ရေနှင့်လျှော်ကာ ပြန်လည်အသုံးပြုလေ့ရှိကြသည်"
+            "ကုန်စုံဆိုင် သို့မဟုတ် စူပါမားကတ်များရှိ သီးသန့် ပလတ်စတစ်အိတ်နှင့် plastic film စွန့်ပစ်နိုင်သည့်နေရာများကို ရှာပါ",
+            "LDPE ပစ္စည်းများကို သတ်မှတ်ထားသော ပြန်လည်အသုံးပြုနိုင်သည့်နေရာများတွင် စွန့်ပစ်ပါ",
+            "အိတ်များကို သန့်ရှင်းပြီး ခြောက်သွေ့အောင်ထားပါ",
+            "အစားအစာအကြွင်းအကျန်၊ ဆီနှင့် အညစ်အကြေးများကို ဖယ်ရှားပြီးမှ recycle လုပ်ပါ",
+            "ပလတ်စတစ်အိတ်၊ ပေါင်မုန့်အိတ်၊ stretch film နှင့် bubble wrap ကဲ့သို့သော LDPE film များကို သတ်မှတ်ထားသော recycling point များတွင် ပြန်လည်အသုံးပြုနိုင်ပါသည်",
+            "Plastic ပေါ်တွင်ရှိ Resin Identification Code ပါရှိပါက Resin code ကို #4 ဖြစ်ကြောင်းစစ်ဆေးပြီး LDPE ဖြစ်ကြောင်း အတည်ပြုပါ",
+            "Paper labels သို့မဟုတ် sticker များကို ဖြစ်နိုင်ပါက ဖယ်ရှားပြီး recycle လုပ်ပါ",
+            "အခြားပလတ်စတစ်အမျိုးအစားများနှင့် ရောစပ်ထားသော multi-layer သို့မဟုတ် laminated plastic များကို သီးခြားစစ်ဆေးပါ",
+            "ပြန်လည်အသုံးပြုရန် မသေချာပါက သင့်ဒေသရှိ recycling center ၏ စည်းမျဉ်းများကို စစ်ဆေးပါ",
+            "Recycle မလုပ်နိုင်သေးသော LDPE အိတ်များကို ဖြစ်နိုင်ပါက အသုံးပြုပြီးနောက် စနစ်တကျ စွန့်ပစ်ပါ"
         ],
         "PP": [
-            "အစားအသောက် ထည့်သည့်ဗူးများနှင့် ဒိန်ချဉ်ခွက်များကို သေချာ ရေဆေးပါ",
-            "PP ကို ပြန်လည်အသုံးပြုနိုင်သော်လည်း PET/HDPE လောက် စက်ရုံများတွင် လက်ခံလေ့မရှိပါ",
-            "ဒေသတွင်း ပြန်လည်အသုံးပြုရေး သတ်မှတ်ချက်များကို စစ်ဆေးပါ",
-            "အဖုံးများကို ဗူးနှင့်အတူ ပြန်လည်အသုံးပြုနိုင်ပါသည် (အမျိုးအစားတူပါက)",
-            "PP သည် အပူဒဏ်ခံနိုင်သောကြောင့် မိုက်ခရိုဝေ့ဖ်သုံး ကွန်တိန်းနားများတွင် အသုံးပြုလေ့ရှိသည် — သန့်ရှင်းပါက ပြန်လည်အသုံးပြုနိုင်သည်"
+            "အစားအသောက်ထည့်သည့်ဗူးများ၊ ဒိန်ချဉ်ခွက်များနှင့် အခြား PP ပစ္စည်းများကို ရေဆေးပြီး သန့်ရှင်းအောင်ထားပါ",
+            "ဗူးအောက်ခြေရှိ Resin Identification Code #5 ကို စစ်ဆေးပါ",
+            "အစားအသောက် သို့မဟုတ် အဆီအကြွင်းအကျန်များကို ဖယ်ရှားပြီးမှ recycle လုပ်ပါ",
+            "PP ကို ပြန်လည်အသုံးပြုနိုင်သော်လည်း ဒေသအလိုက် recycling facility များတွင် လက်ခံမှုကွာခြားနိုင်ပါသည်",
+            "အဖုံးများကို local recycling guidelines အတိုင်း ဗူးနှင့်အတူ သို့မဟုတ် သီးခြား recycle လုပ်ပါ",
+            "မိုက်ခရိုဝေ့ဖ်သုံး food containers၊ yogurt cups နှင့် bottle caps များတွင် PP ကို အသုံးများပါသည်",
+            "အခြားပလတ်စတစ်အမျိုးအစားများနှင့် မရောနှောဘဲ သတ်မှတ်ထားသော recycling bin တွင် စွန့်ပစ်ပါ",
+            "ဒေသတွင်း recycling facility ၏ လက်ခံသည့်ပစ္စည်းများနှင့် စည်းမျဉ်းများကို စစ်ဆေးပါ",
+            "PP အမျိုးအစား ခြင်းများ ထိုင်ခုံများလည်းရှိရာ ပစ္စည်းများ ပျက်စီးကျိုးပဲ့ပါက စနစ်တကျစွန့်ပစ်ခြင်းဖြင့်ပြန်လည်အသုံးပြုနိုင်ရန် ကူညီပါ",
         ],
         "PS": [
-            "ဖော့ပလတ်စတစ်များ (ပစ္စည်းထုပ်သုံး ဖော့စေ့များနှင့် ဖော့ခွက်များ) ကို ပုံမှန် ပြန်လည်အသုံးပြုပုံးများတွင် မထည့်ပါနှင့်",
-            "PS ကို အထွေထွေ အမှိုက်အဖြစ်သာ စွန့်ပစ်ရမည်",
-            "သန့်ရှင်းသော မာကျောသည့် PS များကို အထူး စွန့်ပစ်စခန်းများတွင် လက်ခံလေ့ရှိသည်",
-            "PS သည် ပေါ့ပါးပြီး ကျိုးပဲ့လွယ်သောကြောင့် ပြန်လည်အသုံးပြုရန် ခက်ခဲသည်",
-            "မှတ်ချက် - PS ပလတ်စတစ်သည် အပူဒဏ်ကြောင့် အရည်ပျော်လွယ်ပြီး ဓာတုပစ္စည်းများ အစားအစာထဲ သို့ စိမ့်ဝင်နိုင်သဖြင့် မိုက်ခရိုဝေ့ဖ်မီးဖိုထဲ ထည့်၍ အပူမပေးသင့်ပါ။"
+            "ဖော့ခွက်၊ ဖော့အစားအသောက်ဗူးများနှင့် packing foam များကို ပုံမှန် recycling bin ထဲ မထည့်ပါနှင့်",
+            "PS ပစ္စည်းများကို ဒေသတွင်း recycling facility က လက်ခံမလက်ခံ စစ်ဆေးပါ",
+            "သန့်ရှင်းသော မာကျောသည့် PS ပစ္စည်းများကို သတ်မှတ်ထားသော recycling center များတွင် လက်ခံနိုင်ပါသည်",
+            "အစားအသောက်အကြွင်းအကျန်များနှင့် အညစ်အကြေးများကို ဖယ်ရှားပြီးမှ ပြန်လည်အသုံးပြုပါ",
+            "PS အမျိုးအစားသည် ကျွတ်ဆတ် ပေါ့ပါးပြီး ပျက်စီးလွယ်သောကြောင့် အခြားပလတ်စတစ်များထက် ပြန်လည်အသုံးပြုရန် ပိုမိုခက်ခဲနိုင်ပါသည်",
+            "PS ပစ္စည်းများကို မိုက်ခရိုဝေ့ဖ်တွင် အပူပေးအသုံးပြုခြင်းမှ ရှောင်ကြဉ်ပါ",
+            "ဒေသအလိုက် recycling စည်းမျဉ်းများ ကွာခြားနိုင်သောကြောင့် local recycling facility ၏ လမ်းညွှန်ချက်များကို စစ်ဆေးပါ"
         ],
         "Others": [
             "အလွှာပေါင်းစုံ ရောနှောထားသော ပလတ်စတစ်များ (အာလူးကြော်အိတ်များကဲ့သို့) ကို သီးခြားခွဲထုတ်၍ မရနိုင်ပါ",
@@ -704,41 +723,56 @@ def get_guidance(plastic_type, recyclable, lang="en"):
     # ---- English Guidance ----
     guidance_en = {
         "PET": [
-            "Empty and rinse the bottle, leave the cap on (most facilities now recycle caps too)",
-            "Flatten the bottle to save space in your recycling bin",
-            "Don't toss in food-contaminated PET (like oily takeout containers) without rinsing first",
-            "PET bottles are highly demanded by recycling facilities — keep them clean",
-            "Keep PET separate from other plastics for better recycling efficiency"
+            "Rinse the bottle and keep the cap attached, if required by the local recycling facility",
+            "Flatten the bottle to save space",
+            "Remove food, drink, or oil residue before recycling",
+            "Dispose of PET bottles in designated recycling bins or recycling centers",
+            "Check the Resin Identification Code #1 to identify PET plastic",
+            "Follow local recycling guidelines for labels and bottle caps",
+            "Keep PET bottles separate from other types of plastic when required",
+            "Make sure the bottle is empty, clean, and dry before recycling",
+            "Avoid mixing PET bottles with non-recyclable or contaminated plastics",
+            "Check with the local recycling facility to confirm whether PET bottles are accepted"
         ],
         "HDPE": [
-            "Rinse out any residue (milk, detergent, shampoo) before recycling",
-            "Remove pumps/spray tops if possible, and recycle with the cap on",
-            "HDPE is one of the most widely and easily recycled plastics",
-            "Keep HDPE items clean and dry for best recycling results",
-            "Avoid mixing different colors of HDPE — clear HDPE is more valuable"
+            "Rinse the container and keep it clean before recycling",
+            "Check the Resin Identification Code #2 to identify HDPE",
+            "Remove spray heads or pumps if required by the local recycling facility",
+            "Follow local recycling guidelines for bottle caps",
+            "Recycle HDPE containers such as milk, water, detergent, and shampoo bottles at designated recycling bins or centers",
+            "Keep HDPE separate from other plastic types when required",
+            "Remove food or liquid residue before recycling",
+            "Check local recycling guidelines because HDPE recycling availability may vary by area"
         ],
         "LDPE": [
-            "Bags, wraps, and film plastic usually can't go in regular household recycling bins",
-            "Check for a store drop-off point (many supermarkets collect plastic bags separately)",
-            "LDPE items can often go in standard recycling",
-            "Keep LDPE bags clean and dry — wet plastic is harder to recycle",
-            "When in doubt, reuse LDPE bags instead of throwing them away",
-            "Sometimes, soiled bags are washed with water and reused"
+            "Find designated recycling points for plastic bags and films at grocery stores or supermarkets",
+            "Check the Resin Identification Code #4 to identify LDPE plastic",
+            "Keep plastic bags and films clean and dry before recycling",
+            "Remove food, oil, and other residue before recycling",
+            "Do not place plastic bags and films in regular recycling bins unless accepted by the local recycling facility",
+            "LDPE is commonly used for plastic bags, bread bags, produce bags, and plastic films",
+            "Keep LDPE separate from other types of plastic when required",
+            "Reuse plastic bags when possible to reduce plastic waste",
+            "Check local recycling guidelines because LDPE recycling availability varies by area"
         ],
         "PP": [
-            "Rinse thoroughly, especially food containers and yogurt tubs",
-            "PP is recyclable but is accepted less often than PET/HDPE — check your local program",
-            "Remove any food residue before recycling PP containers",
-            "PP lids can often be recycled with the container if they are the same type",
-            "PP is heat-resistant and commonly used for microwavable containers — recycle if clean"
+            "Rinse food containers, yogurt cups, and other PP items and keep them clean",
+            "Check the Resin Identification Code #5 to identify PP plastic",
+            "Remove food and grease residue before recycling",
+            "PP can be recycled, but acceptance may vary depending on the local recycling facility",
+            "Recycle caps with the container or separately according to local recycling guidelines",
+            "PP is commonly used for microwave-safe food containers, yogurt cups, and bottle caps",
+            "Keep PP separate from other types of plastic when required",
+            "Check local recycling guidelines to confirm whether PP items are accepted"
         ],
         "PS": [
-            "Foam polystyrene (packing peanuts, foam cups) is rarely accepted by curbside recycling",
-            "PS generally goes in general waste — not recyclable in most areas",
-            "Some specialized drop-off centers accept clean rigid PS",
-            "PS is lightweight and fragile, making it difficult to recycle economically",
-            "Reuse packing peanuts for shipping, or check if local craft stores accept them",
-            "Note: PS plastic should not be heated in a microwave oven, as it melts easily due to heat and chemicals can leach into the food."
+            "Do not place foam cups, foam food containers, or packing foam in regular recycling bins",
+            "Check whether PS items are accepted by your local recycling facility",
+            "Clean rigid PS items may be accepted at designated recycling centers",
+            "Remove food residue and contamination before recycling",
+            "PS can be more difficult to recycle because it is lightweight and easily broken",
+            "Avoid heating PS food containers in the microwave unless they are specifically labeled as microwave-safe",
+            "Follow local recycling guidelines because PS recycling availability varies by area"
         ],
         "Others": [
             "Mixed or multi-layer plastics (like chip bags and some pouches) can't be separated",
