@@ -671,9 +671,8 @@ def get_guidance(plastic_type, recyclable, lang="en"):
             "အရောင်အမျိုးမျိုး ရောနှောခြင်းကို ရှောင်ပါ — ကြည်လင်သော HDPE က ပိုမိုကောင်းမွန်စွာ ပြန်လည်အသုံးပြုနိုင်သည်"
         ],
         "LDPE": [
-            "အိတ်များ၊ အုပ်အိတ်များကို ပုံမှန် အိမ်သုံး အမှိုက်ပုံးများတွင် မထည့်ပါနှင့်",
             "ကုန်စုံဆိုင် သို့မဟုတ် စူပါမားကတ်များရှိ သီးသန့် ပလတ်စတစ်အိတ် စွန့်ပစ်နိုင်သည့် နေရာများကို ရှာပါ",
-            "မာကျောသော LDPE ပစ္စည်းများကိုမူ ပုံမှန် ပြန်လည်အသုံးပြုပုံးများတွင် ထည့်နိုင်ပါသည်",
+            "LDPE ပစ္စည်းများကိုမူ ပုံမှန် ပြန်လည်အသုံးပြုပုံးများတွင် ထည့်နိုင်ပါသည်",
             "အိတ်များကို သန့်ရှင်းခြောက်သွေ့အောင် ထားပါ — စိုစွတ်နေပါက ပြန်လည်အသုံးပြု၍ မရနိုင်ပါ",
             "ပြန်လည်အသုံးပြုရန် မသေချာပါက စနစ်တကျ စွန့်ပစ်ပါ",
             "တစ်ချို့အခါတွင် ပေကျံနေသော အိတ်များကို ‌ရေနှင့်လျှော်ကာ ပြန်လည်အသုံးပြုလေ့ရှိကြသည်"
@@ -698,7 +697,7 @@ def get_guidance(plastic_type, recyclable, lang="en"):
             "ပလတ်စတစ်သုံးစွဲမှုကို လျှော့ချရန် ပြန်လည်အသုံးပြုနိုင်သော ထုပ်ပိုးမှုများကို ရှာဖွေပါ",
             "ဇီဝပလတ်စတစ်များသည် အထူးအခြေအနေများတွင်မှ ပြန်လည်အသုံးပြုနိုင်သည် — ဒေသတွင်း စစ်ဆေးပါ",
             "စနစ်တကျ စစ်‌ဆေးပြီး ပြန်လည်အသုံးပြုနိုင်သည့်ပစ္စည်းများရှိသော်ငြား အများစုမှာ ပျက်စီးပြီးနောက်ပြန်လည် အသုံးပြုရန်ခက်ခဲသည်",
-            "ဖြစ်နိုင်ပါက ဤပစ္စည်းအမျိုးအစားကို လုံးဝ ရှောင်ကြဉ်ပါ"
+            "ပလတ်စတစ်မဟုတ်သော အခြား အမျိုးအစားများမှာလည်း ပုံမှန်အခြေအနေထက်ယိုယွင်းပျက်စီးသွားပါက ပြန်လည်အသုံးပြု၍မရနိုင်သောကြောင့် သေချာစွန့်ပစ်ပါ",
         ]
     }
     
@@ -721,7 +720,7 @@ def get_guidance(plastic_type, recyclable, lang="en"):
         "LDPE": [
             "Bags, wraps, and film plastic usually can't go in regular household recycling bins",
             "Check for a store drop-off point (many supermarkets collect plastic bags separately)",
-            "Rigid LDPE items can often go in standard recycling",
+            "LDPE items can often go in standard recycling",
             "Keep LDPE bags clean and dry — wet plastic is harder to recycle",
             "When in doubt, reuse LDPE bags instead of throwing them away",
             "Sometimes, soiled bags are washed with water and reused"
@@ -747,7 +746,8 @@ def get_guidance(plastic_type, recyclable, lang="en"):
             "Look for reduce/reuse alternatives where possible",
             "Bioplastics may require special conditions to be recyclable — check local facilities",
             "Although there are items that can be reused after proper inspection, most are difficult to reuse once damaged",
-            "Avoid purchasing items with 'Other' plastic labeling when possible"
+            "Avoid purchasing items with 'Other' plastic labeling when possible",
+            "For non-plastic items as well, please dispose of them properly, as they cannot be reused if they deteriorate beyond their normal condition.",
         ]
     }
 
