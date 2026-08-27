@@ -495,7 +495,7 @@ RECYCLABILITY_EN = {
     },
     "HDPE": {
         "recyclable": True, "code": "2", "name_en": "High-Density Polyethylene", 
-        "examples": "Milk jugs, detergent bottles, shampoo bottles, cutting boards ",
+        "examples": "Recycle bins, Milk jugs, detergent bottles, shampoo bottles, cutting boards ",
         "description": "HDPE (High-Density Polyethylene) is a robust, stiff plastic known for its high tensile strength and resistance to various solvents, making it ideal for rigid containers.HDPE is identified by Resin Identification Code (RIC) #2, and the code system was originally established by the Society of the Plastics Industry (SPI).",
         "properties": [
             "Rigid and strong — withstands heavy stacking",
@@ -564,7 +564,7 @@ RECYCLABILITY_MM = {
     },
     "HDPE": {
         "recyclable": True, "code": "2", "name_en": "High-Density Polyethylene (သိပ်သည်းဆမြင့် ပေါလီအက်သလင်း)", 
-        "examples": "နို့ဗူး၊ ဆပ်ပြာဆီဗူး၊ ခေါင်းလျှော်ရည်ဗူးများ၊ အစွန်းချွတ်ဆေးဗူးများ၊ ရေချိုးခန်းသုံး ဆပ်ပြာရည်ဗူးများ၊ ဟင်းသီးဟင်းရွက်နှင့် အစားအစာတင်ကာလှီးဖြတ်သည့် ကော်ပြားများ၊ ကလေးကစားစရာ ပလတ်စတစ် အရုပ်များ၊  ",
+        "examples": "အမှိုက်ခွဲခြားစွန့်ပစ်နိုင်သည့် အမှိုက်ပုံးများ၊ နို့ဗူး၊ ဆပ်ပြာဆီဗူး၊ ခေါင်းလျှော်ရည်ဗူးများ၊ အစွန်းချွတ်ဆေးဗူးများ၊ ရေချိုးခန်းသုံး ဆပ်ပြာရည်ဗူးများ၊ ဟင်းသီးဟင်းရွက်နှင့် အစားအစာတင်ကာလှီးဖြတ်သည့် ကော်ပြားများ၊ ကလေးကစားစရာ ပလတ်စတစ် အရုပ်များ၊  ",
         "description": "HDPE (High-Density Polyethylene) သည် မာကျောခိုင်မာပြီး ပျော်ရည်အမျိုးမျိုးကို ခံနိုင်ရည်ရှိသော ပလတ်စတစ်ဖြစ်သဖြင့် ခိုင်ခံ့သော ဗူးများနှင့် ကွန်တိန်းနားများ ပြုလုပ်ရာတွင် သင့်တော်သည်။ Resin Identification Code (RIC) နံပါတ် #2 ဖြင့် သတ်မှတ်ထားပြီး၊ အဆိုပါ code စနစ်ကို Society of the Plastics Industry (SPI) မှ မူလအစပြုကာ သတ်မှတ်ခဲ့ပါသည်။",
         "properties": [
             "မာကျောခိုင်ခံ့ခြင်း — လေးလံသော ပစ္စည်းများ ဆင့်စီရာတွင် ခံနိုင်ရည်ရှိခြင်း",
