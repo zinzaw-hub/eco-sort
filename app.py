@@ -1582,7 +1582,7 @@ if uploaded_file is not None:
     if is_mm:
         st.markdown(f"""
         <div style="margin: 1rem 0; line-height: 1.8;">
-            <b>{top1_cls} ({info['name_en']})</b> — {info['description']} ရာဇင် သင်္ကေတ နံပါတ် #{info['code']} ဖြင့် သတ်မှတ်ထားပါသည်။
+            <b>{top1_cls} ({info['name_en']})</b> — {info['description']}
         </div>
         """, unsafe_allow_html=True)
         st.markdown(f"**အဓိက ဂုဏ်သတ္တိများ**")
@@ -1592,7 +1592,7 @@ if uploaded_file is not None:
     else:
         st.markdown(f"""
         <div style="margin: 1rem 0; line-height: 1.8;">
-            <b>{top1_cls} ({info['name_en']})</b> — {info['description']} Identified by recycling number #{info['code']}.
+            <b>{top1_cls} ({info['name_en']})</b> — {info['description']}
         </div>
         """, unsafe_allow_html=True)
         st.markdown(f"**Key Properties**")
