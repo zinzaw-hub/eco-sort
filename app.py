@@ -485,7 +485,7 @@ RECYCLABILITY_EN = {
     "PET": {
         "recyclable": True, "code": "1", "name_en": "Polyethylene Terephthalate", 
         "examples": "Water bottles, soda bottles, food jars, Cooking oil containers, fruit and food containers.",
-        "description": "PET (Polyethylene Terephthalate) is a clear, strong, and lightweight plastic widely used for packaging foods and beverages because it helps prevent oxygen from spoiling the product inside.",
+        "description": "PET (Polyethylene Terephthalate) is a clear, strong, and lightweight plastic widely used for packaging foods and beverages because it helps prevent oxygen from spoiling the product inside.PET is identified by Resin Identification Code (RIC) #1, and the code system was originally established by the Society of the Plastics Industry (SPI).",
         "properties": [
             "Clear and transparent — high optical clarity",
             "Strong and shatter-resistant — handles impact well",
@@ -496,7 +496,7 @@ RECYCLABILITY_EN = {
     "HDPE": {
         "recyclable": True, "code": "2", "name_en": "High-Density Polyethylene", 
         "examples": "Milk jugs, detergent bottles, shampoo bottles, cutting boards ",
-        "description": "HDPE (High-Density Polyethylene) is a robust, stiff plastic known for its high tensile strength and resistance to various solvents, making it ideal for rigid containers.",
+        "description": "HDPE (High-Density Polyethylene) is a robust, stiff plastic known for its high tensile strength and resistance to various solvents, making it ideal for rigid containers.HDPE is identified by Resin Identification Code (RIC) #2, and the code system was originally established by the Society of the Plastics Industry (SPI).",
         "properties": [
             "Rigid and strong — withstands heavy stacking",
             "Chemical resistant — handles household cleaners safely",
@@ -507,7 +507,7 @@ RECYCLABILITY_EN = {
     "LDPE": {
         "recyclable": True, "code": "4", "name_en": "Low-Density Polyethylene", 
         "examples": "Bread bags, squeeze bottles, shrink wrap, cling wrap, food wrapping film, plastic shopping bags",
-        "description": "LDPE (Low-Density Polyethylene) is a flexible, soft plastic with good chemical resistance. It is less rigid than HDPE and commonly used for films and flexible packaging.",
+        "description": "LDPE (Low-Density Polyethylene) is a flexible, soft plastic with good chemical resistance. It is less rigid than HDPE and commonly used for films and flexible packaging. LDPE (Low-Density Polyethylene) is identified by Resin Identification Code (RIC) #4, and the code system was originally established by the Society of the Plastics Industry (SPI).",
         "properties": [
             "Flexible and soft — bends without breaking",
             "Lightweight — adds minimal weight to packaging",
@@ -518,7 +518,7 @@ RECYCLABILITY_EN = {
     "PP": {
         "recyclable": True, "code": "5", "name_en": "Polypropylene", 
         "examples": "Yogurt tubs, bottle caps, takeout containers, food storage containers (microwave-safe food containers), plastic baskets and bowls, drinking cups, and plastic plates.",
-        "description": "PP (Polypropylene) is a tough, heat-resistant plastic that acts as a strong barrier against moisture, grease, and chemicals, making it great for hot-fill liquids and food storage.",
+        "description": "PP (Polypropylene) is a tough, heat-resistant plastic that acts as a strong barrier against moisture, grease, and chemicals, making it great for hot-fill liquids and food storage.PP is identified by Resin Identification Code (RIC) #5, and the code system was originally established by the Society of the Plastics Industry (SPI).",
         "properties": [
             "High heat tolerance — safe for microwave and hot liquids",
             "Tough and fatigue resistant — handles repeated flexing",
@@ -529,7 +529,7 @@ RECYCLABILITY_EN = {
     "PS": {
         "recyclable": False, "code": "6", "name_en": "Polystyrene", 
         "examples": "Foam cups, takeout clamshells, packing peanuts, rigid disposable spoons used at parties and in shops, rigid and transparent CD cases, and brittle clear cups used for drinking juice or cold water,",
-        "description": "PS (Polystyrene) can be rigid or foamed (Styrofoam). It is lightweight and provides great insulation, but it is fragile and notoriously difficult to recycle economically.",
+        "description": "PS (Polystyrene) can be rigid or foamed (Styrofoam). It is lightweight and provides great insulation, but it is fragile and notoriously difficult to recycle economically.PS is identified by Resin Identification Code (RIC) #6, and the code system was originally established by the Society of the Plastics Industry (SPI).",
         "properties": [
             "Lightweight and insulating — keeps temperature steady",
             "Rigid or foamed variants — versatile for cheap packaging",
@@ -540,7 +540,7 @@ RECYCLABILITY_EN = {
     "Others": {
         "recyclable": False, "code": "7", "name_en": "Other / Mixed Plastics", 
         "examples": "Multi-layer packaging, some bioplastics",
-        "description": "Others (Category 7) includes any plastic that does not fit into categories 1 through 6, often consisting of multi-layered combinations or polycarbonate plastics.",
+        "description": "Others (Category 7) includes any plastic that does not fit into categories 1 through 6, often consisting of multi-layered combinations or polycarbonate plastics.Other Plastics are identified by Resin Identification Code (RIC) #7 and include plastic types that do not fall under codes #1–#6.",
         "properties": [
             "Mixed composition — often made of bonded layers",
             "Customizable strength and durability",
@@ -554,7 +554,7 @@ RECYCLABILITY_MM = {
     "PET": {
         "recyclable": True, "code": "1", "name_en": "Polyethylene Terephthalate (ပေါလီအက်သလင်း တာရက်သလိတ်)", 
         "examples": "ရေသန့်ဗူး၊ Coca Cola, Max Plus, Speed, Royal D ကဲ့သို့သော အအေးဗူးများ၊ စားသုံးဆီဗူးများ၊ သစ်သီးနှင့် အစားအစာထည့်ဗူးများ။",
-        "description": "PET (Polyethylene Terephthalate) သည် ကြည်လင်၊ ခိုင်မာပြီး ပေါ့ပါးသော ပလတ်စတစ်ဖြစ်ပြီး အောက်ဆီဂျင်ကြောင့် အစားအသောက်များ ပျက်စီးခြင်းမှ ကာကွယ်ပေးသဖြင့် အစားအသောက်နှင့် သောက်ရေသန့် ထုပ်ပိုးရာတွင် အများဆုံး အသုံးပြုကြသည်။",
+        "description": "PET (Polyethylene Terephthalate) သည် ကြည်လင်၊ ခိုင်မာပြီး ပေါ့ပါးသော ပလတ်စတစ်ဖြစ်ပြီး အောက်ဆီဂျင်ကြောင့် အစားအသောက်များ ပျက်စီးခြင်းမှ ကာကွယ်ပေးသဖြင့် အစားအသောက်နှင့် သောက်ရေသန့် ထုပ်ပိုးရာတွင် အများဆုံး အသုံးပြုကြသည်။ PET သည် Resin Identification Code (RIC) နံပါတ် #1 ဖြင့် သတ်မှတ်ထားပြီး၊ အဆိုပါ code စနစ်ကို Society of the Plastics Industry (SPI) မှ မူလအစပြုကာ သတ်မှတ်ခဲ့ပါသည်။",
         "properties": [
             "ကြည်လင်ပြတ်သားခြင်း — အလင်းပေါက်မှု မြင့်မားခြင်း",
             "ခိုင်ခံ့ပြီး ရိုက်ခတ်ဒဏ် ခံနိုင်ခြင်း — ရိုက်ခတ်မှုများကို ကောင်းစွာ တောင့်ခံနိုင်ခြင်း",
@@ -565,7 +565,7 @@ RECYCLABILITY_MM = {
     "HDPE": {
         "recyclable": True, "code": "2", "name_en": "High-Density Polyethylene (သိပ်သည်းဆမြင့် ပေါလီအက်သလင်း)", 
         "examples": "နို့ဗူး၊ ဆပ်ပြာဆီဗူး၊ ခေါင်းလျှော်ရည်ဗူးများ၊ အစွန်းချွတ်ဆေးဗူးများ၊ ရေချိုးခန်းသုံး ဆပ်ပြာရည်ဗူးများ၊ ဟင်းသီးဟင်းရွက်နှင့် အစားအစာတင်ကာလှီးဖြတ်သည့် ကော်ပြားများ၊ ကလေးကစားစရာ ပလတ်စတစ် အရုပ်များ၊  ",
-        "description": "HDPE (High-Density Polyethylene) သည် မာကျောခိုင်မာပြီး ပျော်ရည်အမျိုးမျိုးကို ခံနိုင်ရည်ရှိသော ပလတ်စတစ်ဖြစ်သဖြင့် ခိုင်ခံ့သော ဗူးများနှင့် ကွန်တိန်းနားများ ပြုလုပ်ရာတွင် သင့်တော်သည်။",
+        "description": "HDPE (High-Density Polyethylene) သည် မာကျောခိုင်မာပြီး ပျော်ရည်အမျိုးမျိုးကို ခံနိုင်ရည်ရှိသော ပလတ်စတစ်ဖြစ်သဖြင့် ခိုင်ခံ့သော ဗူးများနှင့် ကွန်တိန်းနားများ ပြုလုပ်ရာတွင် သင့်တော်သည်။ Resin Identification Code (RIC) နံပါတ် #2 ဖြင့် သတ်မှတ်ထားပြီး၊ အဆိုပါ code စနစ်ကို Society of the Plastics Industry (SPI) မှ မူလအစပြုကာ သတ်မှတ်ခဲ့ပါသည်။",
         "properties": [
             "မာကျောခိုင်ခံ့ခြင်း — လေးလံသော ပစ္စည်းများ ဆင့်စီရာတွင် ခံနိုင်ရည်ရှိခြင်း",
             "ဓာတုဗေဒဆေးဝါးများ ခံနိုင်ခြင်း — အိမ်သုံးသန့်ရှင်းရေး ဆေးဝါးများကို ဘေးကင်းစွာ ထည့်သွင်းနိုင်ခြင်း",
@@ -576,7 +576,7 @@ RECYCLABILITY_MM = {
     "LDPE": {
         "recyclable": True, "code": "4", "name_en": "Low-Density Polyethylene (သိပ်သည်းဆနည်း ပေါလီအက်သလင်း)", 
         "examples": "ပေါင်မုန့်အိတ်၊ ညှစ်ထုတ်ရသော ဗူးများ၊ စားသောက်ဆိုင်တွင်ထားလေ့ရှိသော အချဥ်ရည်ဗူးများ၊ ပလတ်စတစ်အိတ်များ၊ ဈေးဝယ်အိတ်များ၊ အစားအစာပတ်သည့် ပလတ်စတစ် ",
-        "description": "LDPE (Low-Density Polyethylene) သည် ပျော့ပျောင်း ကွေးညွှတ်နိုင်ပြီး ဓာတုဗေဒဒဏ် ခံနိုင်သော ပလတ်စတစ်ဖြစ်သည်။ HDPE ထက် မာကျောမှုနည်းပါးပြီး အိတ်များနှင့် ပျော့ပျောင်းသော ထုပ်ပိုးမှုများတွင် အသုံးပြုသည်။",
+        "description": "LDPE (Low-Density Polyethylene) သည် ပျော့ပျောင်း ကွေးညွှတ်နိုင်ပြီး ဓာတုဗေဒဒဏ် ခံနိုင်သော ပလတ်စတစ်ဖြစ်သည်။ HDPE ထက် မာကျောမှုနည်းပါးပြီး အိတ်များနှင့် ပျော့ပျောင်းသော ထုပ်ပိုးမှုများတွင် အသုံးပြုသည်။ LDPE (Low-Density Polyethylene) သည် Resin Identification Code (RIC) နံပါတ် #4 ဖြင့် သတ်မှတ်ထားပြီး၊ အဆိုပါ code စနစ်ကို Society of the Plastics Industry (SPI) မှ မူလအစပြုကာ သတ်မှတ်ခဲ့ပါသည်။",
         "properties": [
             "ပျော့ပျောင်းကွေးညွှတ်နိုင်ခြင်း — မကျိုးပဲ့ဘဲ ကွေးညွှတ်နိုင်ခြင်း",
             "ပေါ့ပါးခြင်း — ထုပ်ပိုးမှု အလေးချိန်ကို နည်းပါးစေခြင်း",
@@ -587,7 +587,7 @@ RECYCLABILITY_MM = {
     "PP": {
         "recyclable": True, "code": "5", "name_en": "Polypropylene (ပေါလီပရိုပလင်း)", 
         "examples": "ဒိန်ချဉ်ခွက်၊ ဗူးအဖုံးများ၊ အဆာပြေ အစားအသောက်ထည့် ဗူးများ၊ အစားအစာသိမ်းဆည်းသည့်ဗူးများ (Microwave ထဲထည့်၍ရသော အစားအစာဘူးများ)၊ ပလပ်စတစ်ခြင်းတောင်းနှင့် ဇလုံများ၊ ခိုင်ခံ့သောအင်္ကျီချိတ်အချို့၊ ရေသောက်ခွက်နှင့် ပလတ်စတစ် ပန်းကန်များ",
-        "description": "PP (Polypropylene) သည် အပူဒဏ်ခံနိုင်ပြီး ခိုင်မာသော ပလတ်စတစ်ဖြစ်ကာ စိုထိုင်းဆ၊ ဆီနှင့် ဓာတုဗေဒပစ္စည်းများကို တားဆီးပေးနိုင်သဖြင့် အပူဖြည့် သောက်စရာများနှင့် အစားအသောက် သိုလှောင်ရန် သင့်တော်သည်။",
+        "description": "PP (Polypropylene) သည် အပူဒဏ်ခံနိုင်ပြီး ခိုင်မာသော ပလတ်စတစ်ဖြစ်ကာ စိုထိုင်းဆ၊ ဆီနှင့် ဓာတုဗေဒပစ္စည်းများကို တားဆီးပေးနိုင်သဖြင့် အပူဖြည့် သောက်စရာများနှင့် အစားအသောက် သိုလှောင်ရန် သင့်တော်သည်။ Resin Identification Code (RIC) နံပါတ် #5 ဖြင့် သတ်မှတ်ထားပြီး၊ အဆိုပါ code စနစ်ကို Society of the Plastics Industry (SPI) မှ မူလအစပြုကာ သတ်မှတ်ခဲ့ပါသည်။",
         "properties": [
             "အပူဒဏ်ခံနိုင်မှု မြင့်မားခြင်း — မိုက်ခရိုဝေ့ဖ်နှင့် အပူချိန်မြင့် အရည်များအတွက် ဘေးကင်းခြင်း",
             "ခိုင်ခံ့ပြီး ကွေးညွှတ်ဒဏ် ခံနိုင်ခြင်း — ထပ်ခါထပ်ခါ မကြာခဏ အသုံးပြုနိုင်ခြင်း",
@@ -598,7 +598,7 @@ RECYCLABILITY_MM = {
     "PS": {
         "recyclable": False, "code": "6", "name_en": "Polystyrene (ပေါလီစတိုရင်း)", 
         "examples": "ဖော့ခွက်များ၊ အစားအသောက်ထည့် ဖော့ဗူးများ၊ ပါတီပွဲနှင့် ဆိုင်များတွင်သုံးသော မာကြောသည့် တစ်ခါသုံးဇွန်းများ၊ စီဒီခွေထည့်သည့် မာကျောပြီး ဖောက်ထွင်းမြင်ရသော ကာဗာဘူးများ၊ ဖျော်ရည် သို့မဟုတ် ရေအေးသောက်ရန်သုံးသော ကြွပ်ဆတ်သည့် ခွက်အကြည်များ၊ ",
-        "description": "PS (Polystyrene) ကို မာကျောသော ပုံစံ သို့မဟုတ် ဖော့ပုံစံ (Styrofoam) ဖြင့် တွေ့ရသည်။ ပေါ့ပါးပြီး အပူချိန် ထိန်းသိမ်းမှု ကောင်းသော်လည်း ကျိုးပဲ့လွယ်ပြီး စီးပွားရေးအရ ပြန်လည်အသုံးပြုရန် ခက်ခဲသည်။",
+        "description": "PS (Polystyrene) ကို မာကျောသော ပုံစံ သို့မဟုတ် ဖော့ပုံစံ (Styrofoam) ဖြင့် တွေ့ရသည်။ ပေါ့ပါးပြီး အပူချိန် ထိန်းသိမ်းမှု ကောင်းသော်လည်း ကျိုးပဲ့လွယ်ပြီး စီးပွားရေးအရ ပြန်လည်အသုံးပြုရန် ခက်ခဲသည်။ PS (Polystyrene) သည် Resin Identification Code (RIC) နံပါတ် #6 ဖြင့် သတ်မှတ်ထားပြီး၊ အဆိုပါ code စနစ်ကို Society of the Plastics Industry (SPI) မှ မူလအစပြုကာ သတ်မှတ်ခဲ့ပါသည်။",
         "properties": [
             "ပေါ့ပါးပြီး အပူချိန်ထိန်းနိုင်ခြင်း — အပူချိန်ကို တည်ငြိမ်စေခြင်း",
             "ဈေးသက်သာသော ထုပ်ပိုးမှုများအတွက် အမျိုးမျိုး အသုံးပြုနိုင်ခြင်း",
@@ -609,7 +609,7 @@ RECYCLABILITY_MM = {
     "Others": {
         "recyclable": False, "code": "7", "name_en": "Other / Mixed Plastics (အခြား / ရောနှော ပလတ်စတစ်များ)", 
         "examples": "အလွှာပေါင်းစုံ ထုပ်ပိုးမှုများ၊ ဇီဝပလတ်စတစ် အချို့",
-        "description": "Others (အမျိုးအစား ၇) တွင် အမျိုးအစား ၁ မှ ၆ အတွင်း မပါဝင်သော ပလတ်စတစ်များ ပါဝင်ပြီး အလွှာပေါင်းစုံ ရောနှောထားသော သို့မဟုတ် ပေါလီကာဗိုနိတ် ပလတ်စတစ်များ ဖြစ်လေ့ရှိသည်။",
+        "description": "Others (အမျိုးအစား ၇) တွင် အမျိုးအစား ၁ မှ ၆ အတွင်း မပါဝင်သော ပလတ်စတစ်များ ပါဝင်ပြီး အလွှာပေါင်းစုံ ရောနှောထားသော သို့မဟုတ် ပေါလီကာဗိုနိတ် ပလတ်စတစ်များ ဖြစ်လေ့ရှိသည်။ Other Plastics သည် PET, HDPE, PVC, LDPE, PP နှင့် PS တို့မှ မပါဝင်သော အခြားပလတ်စတစ်အမျိုးအစားများကို Resin Identification Code (RIC) နံပါတ် #7 ဖြင့် သတ်မှတ်ထားခြင်းဖြစ်သည်။",
         "properties": [
             "ရောနှောပါဝင်မှု — အလွှာပေါင်းစုံ ပေါင်းစပ်ပြုလုပ်ထားခြင်း",
             "ခိုင်ခံ့မှုနှင့် ရေရှည်ခံမှု အမျိုးမျိုး ပြုလုပ်နိုင်ခြင်း",
