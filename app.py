@@ -458,6 +458,69 @@ def apply_theme(dark):
     [data-testid="stDownloadButton"] button:hover p {{
         color: {accent} !important;
     }}
+
+    /* ========================================== */
+    /* LEARN PAGE QUIZ BUTTON OVERRIDE           */
+    /* Force primary buttons to use accent color  */
+    /* ========================================== */
+    .stApp .element-container button[kind="primary"] {{
+        background: {accent} !important;
+        color: #FFFFFF !important;
+        border: 2px solid {accent} !important;
+        border-radius: 14px !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 12px {accent}44 !important;
+        transition: all 0.15s ease !important;
+    }}
+    .stApp .element-container button[kind="primary"] p,
+    .stApp .element-container button[kind="primary"] span {{
+        color: #FFFFFF !important;
+    }}
+    .stApp .element-container button[kind="primary"]:hover {{
+        background: {accent} !important;
+        color: #FFFFFF !important;
+        opacity: 0.92;
+        box-shadow: 0 4px 16px {accent}66 !important;
+    }}
+
+    /* Keep sidebar primary buttons as they are */
+    [data-testid="stSidebar"] .element-container button[kind="primary"] {{
+        background: {accent} !important;
+        color: #FFFFFF !important;
+        border: 2px solid {accent} !important;
+        border-radius: 14px !important;
+        justify-content: center !important;
+        padding: 0.65rem 1rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 0.5rem !important;
+        box-shadow: 0 4px 12px {accent}44 !important;
+    }}
+    [data-testid="stSidebar"] .element-container button[kind="primary"] p,
+    [data-testid="stSidebar"] .element-container button[kind="primary"] span {{
+        color: #FFFFFF !important;
+    }}
+    [data-testid="stSidebar"] .element-container button[kind="primary"]:hover {{
+        background: {accent} !important;
+        color: #FFFFFF !important;
+        opacity: 0.92;
+    }}
+
+    /* Previous button styling */
+    .stApp .element-container button[kind="secondary"] {{
+        background: transparent !important;
+        color: {text} !important;
+        border: 2px solid {border} !important;
+        border-radius: 14px !important;
+        font-weight: 600 !important;
+        box-shadow: none !important;
+        transition: all 0.15s ease !important;
+    }}
+    .stApp .element-container button[kind="secondary"]:hover {{
+        background: {accent}22 !important;
+        border-color: {accent} !important;
+        color: {accent} !important;
+    }}
+
     </style>
     """, unsafe_allow_html=True)
 
@@ -1297,50 +1360,652 @@ def render_learn_page(lang="en"):
             <div class="guidance-box">{LEARN_TIPS.get(cls, "")}</div>
             """, unsafe_allow_html=True)
 
-    # ---------- GENERAL TIPS ----------
-    # gen_tips_title = "🌱 အထွေထွေ အကြံပြုချက်များ" if is_mm else "🌱 General Tips"
-    # st.markdown(f'<div class="section-title">{gen_tips_title}</div>', unsafe_allow_html=True)
-    
-    # if is_mm:
-    #     st.markdown("""
-    #     <div class="result-card result-card-flex">
-    #         <div class="about-p">
-    #             <b>၁။ မသုံးဘဲ လျှော့ချပါ။</b> အထိရောက်ဆုံး ပလတ်စတစ် စွန့်ပစ်မှု လျှော့ချခြင်းမှာ မထုတ်လုပ်မီ ထိန်းချုပ်ခြင်း ဖြစ်သည် — ထပ်မံ အသုံးပြုနိုင်သော ရေသန့်ဗူးများ၊ အိတ်များ၊ ကွန်တိန်းနားများသည် ပြန်လည်အသုံးပြုခြင်းထက် ပိုမို ထိရောက်ပါသည်။
-    #         </div>
-    #         <div class="about-p">
-    #             <b>၂။ မစွန့်ပစ်မီ ရေဆေးပါ။</b> အစားအသောက် သို့မဟုတ် အရည် ပေကျံနေခြင်းသည် ပြန်လည်အသုံးပြုရေး စက်ရုံများတွင် အခြား ပြန်လည်အသုံးပြုနိုင်သော ပစ္စည်းများကိုပါ ညစ်နွမ်းစေပြီး အမှိုက်ပုံသို့ ရောက်ရှိစေပါသည်။
-    #         </div>
-    #         <div class="about-p">
-    #             <b>၃။ မသေချာဘဲ မစွန့်ပစ်ပါနှင့်။</b> ပြန်လည်အသုံးပြု၍ မရနိုင်သော ပစ္စည်းများကို စွန့်ပစ်ပုံးထဲ ထည့်ခြင်းသည် ပိုမို ပျက်စီးစေနိုင်သည် — မသေချာပါက ဒေသတွင်း သတ်မှတ်ချက်များကို စစ်ဆေးပါ။
-    #         </div>
-    #         <div class="about-p">
-    #             <b>၄။ ဒေသတွင်း စည်းကမ်းများကို လိုက်နာပါ။</b> နေရာဒေသအလိုက် ပြန်လည်အသုံးပြုနိုင်မှု သတ်မှတ်ချက်များ ကွဲပြားနိုင်သည် — ဤဆော့ဖ်ဝဲကို အခြေခံအဖြစ် အသုံးပြုပြီး သင့်ဒေသရှိ အမှိုက်စွန့်ပစ်မှု စည်းကမ်းများနှင့် တိုက်ဆိုင်စစ်ဆေးပါ။
-    #         </div>
-    #     </div>
-    #     """, unsafe_allow_html=True)
-    # else:
-    #     st.markdown("""
-    #     <div class="result-card result-card-flex">
-    #         <div class="about-p">
-    #             <b>1. Reduce first.</b> The most effective plastic is the one never produced — reusable
-    #             bottles, bags, and containers beat recycling every time.
-    #         </div>
-    #         <div class="about-p">
-    #             <b>2. Rinse before you bin it.</b> Food or liquid residue can contaminate an entire batch
-    #             of recyclables at the sorting facility, sending otherwise-recyclable material to landfill.
-    #         </div>
-    #         <div class="about-p">
-    #             <b>3. Don't "wishcycle."</b> Tossing non-recyclable items into recycling bins hoping
-    #             they'll somehow get sorted usually does more harm than good — when in doubt, check your
-    #             local program's accepted materials list.
-    #         </div>
-    #         <div class="about-p">
-    #             <b>4. Know your local rules.</b> What's accepted varies a lot by city and country —
-    #             use the Classifier page here as a starting point, but always double-check against your
-    #             local waste authority's guidelines.
-    #         </div>
-    #     </div>
-    #     """, unsafe_allow_html=True)
+    st.markdown(f'<hr style="border-color:{th["border"]}; margin:2rem 0;">', unsafe_allow_html=True)
+
+    # ==========================================
+    # ---------- PLASTIC RECYCLING QUIZ ----------
+    # ==========================================
+    quiz_title = "♻️ ပလတ်စတစ် ပြန်လည်အသုံးပြုရေး ဗဟုသုတ စစ်ဆေးခြင်း" if is_mm else "♻️ Plastic Recycling Quiz"
+    quiz_sub   = "သင်၏ ပလတ်စတစ် ပြန်လည်အသုံးပြုရေး ဗဟုသုတကို စစ်ဆေးပါ!" if is_mm else "Test your plastic recycling knowledge!"
+    st.markdown(f'<div class="section-title">{quiz_title}</div>', unsafe_allow_html=True)
+    st.markdown(f'<p style="color:{th["muted"]}; font-size:0.9rem; margin-bottom:1.2rem;">{quiz_sub}</p>', unsafe_allow_html=True)
+
+    # --- Quiz Data (bilingual) ---
+    QUIZ_EN = [
+        {
+            "q": "Which resin code is assigned to PET plastic?",
+            "options": ["#1", "#2", "#4", "#5"],
+            "answer": 0,
+            "explain": "PET (Polyethylene Terephthalate) is identified by Resin Identification Code #1. It is the most common plastic used in drink bottles."
+        },
+        {
+            "q": "Which of the following plastics is generally NOT recyclable through standard curbside programs?",
+            "options": ["PET", "HDPE", "Polystyrene (PS)", "Polypropylene (PP)"],
+            "answer": 2,
+            "explain": "PS (Polystyrene / Styrofoam) is rarely accepted in standard curbside recycling because it is low-density and prone to contamination."
+        },
+        {
+            "q": "What should you do before placing a plastic bottle in the recycling bin?",
+            "options": ["Crush and leave it dirty", "Rinse it clean and keep the cap on", "Remove all labels and break it apart", "Freeze it first"],
+            "answer": 1,
+            "explain": "Rinsing removes food/liquid residue that can contaminate an entire recycling batch. Keeping the cap on is now recommended by most facilities."
+        },
+        {
+            "q": "LDPE (Low-Density Polyethylene) carries which resin code?",
+            "options": ["#2", "#3", "#4", "#6"],
+            "answer": 2,
+            "explain": "LDPE is assigned Resin Identification Code #4. It is commonly used for plastic bags, cling wrap, and bread bags."
+        },
+        {
+            "q": "Which plastic type is widely used for milk jugs and detergent bottles?",
+            "options": ["PET", "HDPE", "PS", "Others (#7)"],
+            "answer": 1,
+            "explain": "HDPE (High-Density Polyethylene, #2) is rigid and chemical-resistant, making it ideal for milk jugs, shampoo bottles, and detergent containers."
+        },
+        {
+            "q": "Plastic bags and cling wrap are typically made from which material?",
+            "options": ["PP", "HDPE", "LDPE", "PET"],
+            "answer": 2,
+            "explain": "LDPE (#4) is flexible and lightweight, making it the primary material for plastic bags, cling wrap, and squeeze bottles."
+        },
+        {
+            "q": "What does 'wishcycling' mean?",
+            "options": [
+                "Recycling plastic efficiently at home",
+                "Tossing non-recyclables into the recycling bin hoping they will be sorted",
+                "Donating old plastics to charity",
+                "Choosing recycled products at the shop"
+            ],
+            "answer": 1,
+            "explain": "'Wishcycling' is the habit of putting items into recycling bins without knowing if they are actually recyclable, which can contaminate and ruin recyclable batches."
+        },
+        {
+            "q": "Which plastic is microwave-safe and used for yogurt tubs and food containers?",
+            "options": ["PET (#1)", "PS (#6)", "PP (#5)", "Others (#7)"],
+            "answer": 2,
+            "explain": "PP (Polypropylene, #5) has high heat tolerance, making it safe for microwave use and suitable for yogurt tubs, food storage containers, and bottle caps."
+        },
+        {
+            "q": "Resin code #7 ('Others') refers to what?",
+            "options": [
+                "PVC plastics only",
+                "Mixed or multi-layer plastics that don't fit codes #1-#6",
+                "Biodegradable plastics only",
+                "Glass and metal composites"
+            ],
+            "answer": 1,
+            "explain": "Resin code #7 covers all plastics not classified under codes #1-#6, including multi-layer packaging and some bioplastics. These are generally not recyclable through standard programs."
+        },
+        {
+            "q": "Which step in the recycling process involves melting shredded plastic into small uniform beads?",
+            "options": ["Sorting", "Shredding", "Pelletizing", "Collection"],
+            "answer": 2,
+            "explain": "Pelletizing is the process of melting shredded plastic and forming it into small uniform pellets (nurdles), which manufacturers then use to make new plastic products."
+        },
+        {
+            "q": "What percentage of global plastic waste is effectively recycled?",
+            "options": ["Less than 10%", "About 25%", "About 50%", "More than 70%"],
+            "answer": 0,
+            "explain": "Globally, less than 10% of all plastic waste produced is effectively recycled. The rest ends up in landfills, incinerators, or the natural environment."
+        },
+        {
+            "q": "Which resin code is used for Polypropylene (PP)?",
+            "options": ["#3", "#4", "#5", "#6"],
+            "answer": 2,
+            "explain": "Polypropylene (PP) is assigned Resin Identification Code #5. It is one of the most versatile plastics, used in food containers, bottle caps, and straws."
+        },
+        {
+            "q": "What is the first step in the plastic recycling process?",
+            "options": ["Shredding", "Sorting", "Collection", "Pelletizing"],
+            "answer": 2,
+            "explain": "Collection is the very first step: plastic waste must be gathered from homes, businesses, and drop-off points before any sorting or processing can begin."
+        },
+        {
+            "q": "Which property makes HDPE suitable for detergent and chemical bottles?",
+            "options": ["It is transparent", "It is chemical-resistant", "It is flexible", "It is biodegradable"],
+            "answer": 1,
+            "explain": "HDPE is highly resistant to many solvents and chemicals, making it the ideal choice for household cleaning products, detergents, and industrial containers."
+        },
+        {
+            "q": "Foam cups and packing peanuts are made from which plastic?",
+            "options": ["LDPE", "PP", "Polystyrene (PS)", "PET"],
+            "answer": 2,
+            "explain": "Expanded Polystyrene (EPS), commonly called Styrofoam, is used for foam cups, takeout containers, and protective packing peanuts because of its lightweight insulating properties."
+        },
+        {
+            "q": "Which step of recycling removes food residue and labels from plastics?",
+            "options": ["Collection", "Sorting", "Cleaning", "Pelletizing"],
+            "answer": 2,
+            "explain": "The Cleaning step washes plastics to remove food residue, labels, glue, and dirt. Contaminated plastics can ruin an entire recycling batch if not cleaned properly."
+        },
+        {
+            "q": "Bottle caps are typically made from which plastic?",
+            "options": ["PET", "LDPE", "PP", "PS"],
+            "answer": 2,
+            "explain": "Most bottle caps are made from PP (Polypropylene, #5) because it is rigid, heat-resistant, and provides a good seal. Many recycling facilities now accept caps on bottles."
+        },
+        {
+            "q": "What does 'PCR' stand for in sustainable packaging?",
+            "options": ["Plastic Carbon Reduction", "Post-Consumer Recycled", "Primary Chemical Resin", "Processed Composite Resin"],
+            "answer": 1,
+            "explain": "'PCR' stands for Post-Consumer Recycled, meaning the plastic content was previously used by consumers and then collected, processed, and turned into new products."
+        },
+        {
+            "q": "Which plastic is known for its high clarity and is often used in food jars and soda bottles?",
+            "options": ["HDPE", "PET", "PP", "LDPE"],
+            "answer": 1,
+            "explain": "PET (#1) has excellent optical clarity and strong barrier properties against oxygen and CO2, making it perfect for soda bottles and food jars."
+        },
+        {
+            "q": "What happens to plastic during the Shredding step of recycling?",
+            "options": [
+                "It is melted into pellets",
+                "It is cleaned with water",
+                "It is cut into small flakes",
+                "It is sorted by color"
+            ],
+            "answer": 2,
+            "explain": "During Shredding, clean plastics are mechanically cut or ground into small flakes or chips. This increases surface area and makes the next step (melting and pelletizing) much easier."
+        },
+        {
+            "q": "Chip bags and multi-layer food pouches belong to which resin category?",
+            "options": ["LDPE (#4)", "PP (#5)", "PS (#6)", "Others (#7)"],
+            "answer": 3,
+            "explain": "Chip bags and multi-layer pouches are classified as #7 (Others) because they are made from multiple bonded plastic layers that cannot be separated and recycled through standard programs."
+        },
+        {
+            "q": "Which of these plastics is the MOST widely recycled globally?",
+            "options": ["PS", "PET", "LDPE", "Others (#7)"],
+            "answer": 1,
+            "explain": "PET (#1) has the highest recycling rate of any plastic globally. It is accepted by nearly all curbside programs and is in high demand by manufacturers for making new bottles and fibers."
+        },
+        {
+            "q": "Squeeze bottles, such as those for honey or ketchup, are usually made from which plastic?",
+            "options": ["PET", "PS", "LDPE", "PP"],
+            "answer": 2,
+            "explain": "LDPE (#4) is flexible and soft, making it ideal for squeeze bottles for honey, ketchup, and condiments where the user needs to squeeze the container."
+        },
+        {
+            "q": "What is the main environmental problem caused by Polystyrene (PS) waste?",
+            "options": [
+                "It produces toxic gas when recycled",
+                "It breaks into tiny microplastics that persist in the environment",
+                "It absorbs water and becomes heavier",
+                "It reacts with soil and creates acid rain"
+            ],
+            "answer": 1,
+            "explain": "PS easily breaks apart into tiny microplastic particles that are extremely difficult to clean up and persist in oceans, soil, and food chains for hundreds of years."
+        },
+        {
+            "q": "The Resin Identification Code (RIC) system was originally created by which organization?",
+            "options": [
+                "United Nations Environment Programme (UNEP)",
+                "Society of the Plastics Industry (SPI)",
+                "World Health Organization (WHO)",
+                "International Recycling Bureau (IRB)"
+            ],
+            "answer": 1,
+            "explain": "The Resin Identification Code (RIC) system was originally established by the Society of the Plastics Industry (SPI) in 1988."
+        },
+        {
+            "q": "Which plastic item is least likely to be accepted in a standard curbside recycling bin?",
+            "options": ["PET water bottle", "HDPE milk jug", "Polystyrene foam cup", "PP food container"],
+            "answer": 2,
+            "explain": "Polystyrene foam cups are almost universally rejected by curbside recycling programs due to their low density, high contamination risk, and difficulty of cleaning food residue from their porous surface."
+        },
+        {
+            "q": "What is the 'circular economy' concept in the context of plastics?",
+            "options": [
+                "Burning plastics to generate electricity",
+                "Designing plastics to be reused, recycled, or composted, never wasted",
+                "Using circular-shaped recycling bins",
+                "Exporting plastic waste to other countries for processing"
+            ],
+            "answer": 1,
+            "explain": "The circular economy aims to keep materials in use as long as possible through reuse, repair, and recycling, eliminating the concept of 'waste' by closing the production loop."
+        },
+        {
+            "q": "What is the key benefit of sorting plastics by resin type before recycling?",
+            "options": [
+                "It makes plastics look cleaner",
+                "Different plastics melt at different temperatures and cannot be mixed",
+                "It reduces the weight of plastic waste",
+                "It adds color to recycled plastics"
+            ],
+            "answer": 1,
+            "explain": "Different plastic resins have different melting points and chemical structures. Mixing them produces weak, unusable material. Sorting by type ensures high-quality recycled output."
+        },
+        {
+            "q": "Which plastic resin is commonly used to make PVC pipes?",
+            "options": ["PET (#1)", "PVC (#3)", "LDPE (#4)", "PP (#5)"],
+            "answer": 1,
+            "explain": "PVC (Polyvinyl Chloride, #3) is rigid, durable, and resistant to water and chemicals, making it widely used for plumbing pipes, window frames, and flooring."
+        },
+        {
+            "q": "What does 'upcycling' mean in the context of plastic waste?",
+            "options": [
+                "Sending plastics to a higher-tier landfill",
+                "Converting waste plastics into products of higher value or quality",
+                "Melting plastics at a higher temperature",
+                "Recycling plastics more than twice"
+            ],
+            "answer": 1,
+            "explain": "Upcycling converts discarded plastics into something of greater value or quality than the original, for example turning plastic bottles into clothing fabric or bags."
+        },
+    ]
+
+    QUIZ_MM = [
+        {
+            "q": "PET ပလတ်စတစ်ရဲ့ Resin Code က ဘယ်နံပါတ်လဲ?",
+            "options": ["#1", "#2", "#4", "#5"],
+            "answer": 0,
+            "explain": "PET (Polyethylene Terephthalate) ကို Resin Identification Code #1 ဖြင့် သတ်မှတ်ထားပါသည်။ ၎င်းသည် သောက်ရေဘူးများတွင် အများဆုံးအသုံးပြုသော ပလတ်စတစ်အမျိုးအစားဖြစ်သည်။"
+        },
+        {
+            "q": "အောက်ပါ ပလတ်စတစ်တွေထဲမှာ ပုံမှန် Recycling Program နဲ့ ပြန်လည်အသုံးချလို့ မရတာ ဘယ်ဟာလဲ?",
+            "options": ["PET", "HDPE", "ပေါ်လီစတိုရင်း (PS)", "ပေါ်လီပရိုပလင်း (PP)"],
+            "answer": 2,
+            "explain": "PS (Polystyrene / Styrofoam) ကို ပုံမှန် Recycling Program တွေမှာ လက်ခံတာရှားပါတယ်။ ဘာလို့လဲဆိုတော့ ပေါ့ပါးပြီး အညစ်အကြေးတွေ ကပ်ညှိ ညစ်ညမ်းလွယ်လို့ပါ။"
+        },
+        {
+            "q": "ပလတ်စတစ်ဘူးကို အမှိုက်ပုံးထဲ မထည့်ခင် ဘာလုပ်သင့်လဲ?",
+            "options": ["ဘူးကို ချိုးဖိပြီး ညစ်ပေနေသည့်အတိုင်းထားပါ", "ရေဆေးသန့်စင်ပြီး အဖုံးကို တပ်ထားပါ", "Label အားလုံးကို ဖယ်ပြီး အပိုင်းပိုင်း ခွဲပါ", "အရင်ဆုံး အေးခဲအောင်လုပ်ပါ"],
+            "answer": 1,
+            "explain": "ရေဆေးခြင်းဖြင့် ဘူးအတွင်းရှိ အစားအစာနှင့် အရည်အကြွင်းအကျန်များကို ဖယ်ရှားနိုင်ပြီး အမှိုက်ပုံး တစ်ခုလုံးကို ညစ်ညမ်းစေခြင်းမှ ကာကွယ်နိုင်ပါသည်။ အဖုံးကို ဖုံးကာသေချာစွန့်ပစ်ခြင်းကိုလည်း ယနေ့ခေတ်တွင် Recycling Facility အများစုက အကြံပြုထားပါသည်။"
+        },
+        {
+            "q": "LDPE (Low-Density Polyethylene) သည် မည်သည့် Resin Code ကို သတ်မှတ်ထားသနည်း?",
+            "options": ["#2", "#3", "#4", "#6"],
+            "answer": 2,
+            "explain": "LDPE ကို Resin Identification Code #4 ဖြင့် သတ်မှတ်ထားပါသည်။ ၎င်းကို ပလတ်စတစ်အိတ်များ၊ Cling Wrap (အစားအစာထုပ်ပိုးရန် ပလတ်စတစ်အလွှာ) နှင့် ပေါင်မုန့်အိတ်များတွင် အများဆုံးအသုံးပြုကြသည်။"
+        },
+        {
+            "q": "နို့ဘူးများနှင့် ဆပ်ပြာရည်ဘူးများတွင် အများဆုံးအသုံးပြုသော ပလတ်စတစ်အမျိုးအစားမှာ မည်သည့်အမျိုးအစားဖြစ်သနည်း?",
+            "options": ["PET", "HDPE", "PS", "Others (#7)"],
+            "answer": 1,
+            "explain": "HDPE (High-Density Polyethylene, #2) သည် ခိုင်ခံ့ပြီး ဓာတုပစ္စည်းများကို ခံနိုင်ရည်ရှိသောကြောင့် နို့ဘူးများ၊ Shampoo ဘူးများနှင့် ဆပ်ပြာရည်ဘူးများတွင် အသုံးပြုကြပါသည်။"
+        },
+        {
+            "q": "ပလတ်စတစ်အိတ်များနှင့် Cling Wrap များကို ပုံမှန်အားဖြင့် မည်သည့်ပစ္စည်းဖြင့် ပြုလုပ်ထားသနည်း?",
+            "options": ["PP", "HDPE", "LDPE", "PET"],
+            "answer": 2,
+            "explain": "“LDPE (#4) သည် ပျော့ပြောင်းပြီး ပေါ့ပါးသောကြောင့် ပလတ်စတစ်အိတ်များ၊ Cling Wrap များနှင့် ဖိညှစ်အသုံးပြုရသော ဘူးများတွင် အဓိကအသုံးပြုသော ပစ္စည်းဖြစ်သည်။"
+        },
+        {
+            "q": "‘Wishcycling’ ဆိုတာ ဘာကိုဆိုလိုတာလဲ?",
+            "options": ["အိမ်မှာ ပလတ်စတစ်များကို ထိရောက်စွာ ပြန်လည်အသုံးချခြင်း", "မပြန်လည်အသုံးချနိုင်သော ပစ္စည်းများကို ခွဲထုတ်ပေးလိမ့်မည်ဟု မျှော်လင့်ပြီး Recycling Bin ထဲသို့ ထည့်ခြင်း", "အသုံးမပြုတော့သော ပလတ်စတစ်များကို ပေးကမ်းပစ်ခြင်း", "ဆိုင်တွင် ပြန်လည်အသုံးပြုပြီးသော ပစ္စည်းများကို ရွေးချယ်ဝယ်ယူခြင်း"],
+            "answer": 1,
+            "explain": "“Wishcycling ဆိုတာ တကယ်တမ်း Recycle လုပ်လို့ရ၊ မရ မသေချာဘဲ ပစ္စည်းတွေကို Recycling Bin ထဲ ထည့်လိုက်တဲ့ အလေ့အထ ဖြစ်ပါတယ်။ ဒီလိုလုပ်ခြင်းကြောင့် Recycle လုပ်လို့ရတဲ့ ပစ္စည်းတွေကိုပါ ညစ်ညမ်းစေပြီး အမှိုက်ပုံး တစ်ခုလုံး ပျက်စီးသွားနိုင်ပါတယ်။”"
+        },
+        {
+            "q": "ဒိန်ချဉ်ခွက်နဲ့ အစားအသောက်ထည့်တဲ့ ကွန်တိန်နာတွေမှာ အသုံးများပြီး မိုက်ခရိုဝေ့ဖ်အသုံးပြုရန် သင့်တော်တဲ့ ပလတ်စတစ်အမျိုးအစားက ဘာလဲ?",
+            "options": ["PET (#1)", "PS (#6)", "PP (#5)", "Others (#7)"],
+            "answer": 2,
+            "explain": "PP (Polypropylene, #5) သည် အပူဒဏ်ခံနိုင်ရည်မြင့်မားသောကြောင့် မိုက်ခရိုဝေ့ဖ်တွင် အသုံးပြုရန် သင့်တော်ပြီး ဒိန်ချဉ်ခွက်များ၊ အစားအသောက်သိုလှောင်သည့် ကွန်တိန်နာများနှင့် ဗူးအဖုံးများတွင် အသုံးများပါသည်။"
+        },
+        {
+            "q": "Resin Code #7 (‘Others’) ဆိုတာ ဘယ်လိုပလတ်စတစ်အမျိုးအစားတွေကို ရည်ညွှန်းတာလဲ?",
+            "options": ["PVC ပလတ်စတစ်များသာ", "Code #1–#6 အတွင်း မပါဝင်သော ရောနှောထားသည့် သို့မဟုတ် အလွှာပေါင်းစုံပါဝင်သော ပလတ်စတစ်များ", "သဘာဝအလျောက် ပျက်စီးနိုင်သော ပလတ်စတစ်များသာ", "ဖန်နှင့် သတ္တုပေါင်းစပ်ပစ္စည်းများ"],
+            "answer": 1,
+            "explain": "Resin Code #7 သည် Code #1–#6 အတွင်း မပါဝင်သော ပလတ်စတစ်အမျိုးအစားများအားလုံး ကို ရည်ညွှန်းပြီး၊ အလွှာပေါင်းစုံပါဝင်သော ထုပ်ပိုးပစ္စည်းများနှင့် အချို့သော bioplastic များ လည်း ပါဝင်ပါသည်။ ယေဘုယျအားဖြင့် ထိုပစ္စည်းများကို ပုံမှန် recycling စနစ်များမှတစ်ဆင့် ပြန်လည်အသုံးပြုရန် ခက်ခဲပါသည်။"
+        },
+        {
+            "q": "“ပြန်လည်အသုံးပြုခြင်းလုပ်ငန်းစဉ်မှာ ကြိတ်ချေထားတဲ့ ပလတ်စတစ်တွေကို အရည်ပျော်အောင်လုပ်ပြီး အရွယ်အစားတူညီတဲ့ ပလတ်စတစ်အစေ့လေးတွေ (beads/pellets) အဖြစ် ပြုလုပ်တဲ့အဆင့်က ဘာလဲ?”",
+            "options": ["အမျိုးအစားခွဲခြားခြင်း(Sorting)", "အစိတ်စိတ်အမွှာမွှာ ကြိတ်ချေခြင်း(Shredding)", "ပလတ်စတစ်အစေ့များ ပြုလုပ်ခြင်း(Pelletizing)", "စုဆောင်းခြင်း(Collection)"],
+            "answer": 2,
+            "explain": "Pelletizing ဆိုသည်မှာ ကြိတ်ချေထားသော ပလတ်စတစ်များကို အရည်ပျော်အောင်ပြုလုပ်ပြီး အရွယ်အစားတူညီသော ပလတ်စတစ်အစေ့လေးများ (nurdles) အဖြစ် ပြုလုပ်သည့် လုပ်ငန်းစဉ်ဖြစ်ပြီး၊ ထိုပလတ်စတစ်အစေ့များကို ထုတ်လုပ်သူများက ပလတ်စတစ်ထုတ်ကုန်အသစ်များ ပြုလုပ်ရန် အသုံးပြုကြပါသည်။"
+        },
+        {
+            "q": "ကမ္ဘာတစ်ဝန်းရှိ ပလတ်စတစ်အမှိုက်များထဲမှ ဘယ်လောက်ရာခိုင်နှုန်းကို ထိရောက်စွာ ပြန်လည်အသုံးပြုနိုင်သလဲ?",
+            "options": ["10% ထက်နည်းသည်", "25% ခန့်", "50% ခန့်", "70% ကျော်"],
+            "answer": 0,
+            "explain": "ကမ္ဘာတစ်ဝန်းတွင် ထုတ်လုပ်သည့် ပလတ်စတစ်အမှိုက်အားလုံး၏ 10% အောက်သာ ထိရောက်စွာ ပြန်လည်အသုံးပြုနိုင်ပါသည်။ ကျန်ရှိသည့် ပလတ်စတစ်အမှိုက်များမှာ အမှိုက်ပုံများ၊ မီးရှို့စက်များ သို့မဟုတ် သဘာဝပတ်ဝန်းကျင်၊ ရေအောက်နှင့် မြေဆီလွှာ အတွင်းသို့ ရောက်ရှိသွားကြပါသည်။"
+        },
+        {
+            "q": "Polypropylene (PP) အတွက် အသုံးပြုထားတဲ့ Resin Code က ဘယ်နံပါတ်လဲ",
+            "options": ["#3", "#4", "#5", "#6"],
+            "answer": 2,
+            "explain": "Polypropylene (PP) ကို Resin Identification Code #5 ဖြင့် သတ်မှတ်ထားပါသည်။ ၎င်းသည် အမျိုးမျိုးသော အသုံးပြုမှုများရှိသည့် ပလတ်စတစ်အမျိုးအစားတစ်ခုဖြစ်ပြီး အစားအသောက်ထည့်သည့်ဗူးများ၊ ဗူးအဖုံးများနှင့် ပိုက်များ (straws) တွင် အသုံးများပါသည်။"
+        },
+        {
+            "q": "ပလတ်စတစ်ကို ပြန်လည်ထုတ်လုပ်သည့်စက်ရုံများတွင် ပြန်လည်အသုံးပြုရန် လုပ်ဆောင်ခြင်းလုပ်ငန်းစဉ်ရဲ့ ပထမဆုံးအဆင့်က ဘာလဲ?",
+            "options": ["ကြိတ်ခြင်း", "ခွဲခြမ်းခြင်း", "စုဆောင်းခြင်း", "ပလတ်စတစ်စေ့ ပြုလုပ်ခြင်း"],
+            "answer": 2,
+            "explain": "Collection သည် ပလတ်စတစ်ပြန်လည်အသုံးပြုခြင်းလုပ်ငန်းစဉ်၏ ပထမဆုံးအဆင့် ဖြစ်ပါသည်။ အမျိုးအစားခွဲခြားခြင်း သို့မဟုတ် ပြုပြင်ခြင်းမပြုမီ အိမ်များ၊ စီးပွားရေးလုပ်ငန်းများနှင့် စွန့်ပစ်ပစ္စည်းလက်ခံသည့်နေရာများမှ ပလတ်စတစ်အမှိုက်များကို စုဆောင်းရပါသည်။"
+        },
+        {
+            "q": "HDPE ကို ဆပ်ပြာရည်နဲ့ ဓာတုပစ္စည်းထည့်တဲ့ ဗူးတွေမှာ အသုံးပြုရန် သင့်တော်စေတဲ့ ဂုဏ်သတ္တိက ဘာလဲ?",
+            "options": ["ဖောက်ထွင်းမြင်ရသောကြောင့်", "ဓာတုပစ္စည်းများကို ခံနိုင်ရည်ရှိသောကြောင့်", "ပျော့ပျောင်းသောကြောင့်", "သဘာဝအလျောက် ပျက်စီးလွယ်သောကြောင့်"],
+            "answer": 1,
+            "explain": "HDPE သည် ဆေးရည်များနှင့် ဓာတုပစ္စည်းအများအပြားကို အလွန်ကောင်းမွန်စွာ ခံနိုင်ရည်ရှိသဖြင့် အိမ်သုံးသန့်စင်ဆေးရည်များ၊ ဆပ်ပြာရည်များနှင့် စက်မှုလုပ်ငန်းသုံး ကွန်တိန်နာများအတွက် အသင့်တော်ဆုံး ရွေးချယ်မှုတစ်ခု ဖြစ်သည်။"
+        },
+        {
+            "q": "ဖောခွက်တွေ ထုပ်ပိုးရာမှာသုံးတဲ့ ဖော့စေ့လေးတွေကို ဘယ်လိုပလတ်စတစ်အမျိုးအစားနဲ့ ပြုလုပ်ထားသလဲ?",
+            "options": ["LDPE", "PP", "PS", "PET"],
+            "answer": 2,
+            "explain": "Expanded Polystyrene (EPS) ကို အများအားဖြင့် Styrofoam လို့ခေါ်ကြပါတယ်။ ၎င်းကို ပေါ့ပါးပြီး အပူကာကွယ်နိုင်တဲ့ ဂုဏ်သတ္တိရှိတာကြောင့် ဖော့ခွက်တွေ၊ အစားအစာထည့်ယူသွားတဲ့ ဘူးတွေ၊ ပစ္စည်းတွေကို ထုပ်ပိုးကာကွယ်ရာမှာ အသုံးပြုတဲ့ ဖော့စေ့လေးတွေ ပြုလုပ်ရာမှာ အသုံးများပါတယ်။"
+        },
+        {
+            "q": "ပလတ်စတစ်များမှ အစားအစာ အကြွင်းအကျန်နှင့် တံဆိပ်များကို ဖယ်ရှားသည့် ပြန်လည်အသုံးပြုခြင်း၏ အဆင့်မှာ အဘယ်အဆင့်နည်း?",
+            "options": ["စုဆောင်းခြင်း", "ခွဲခြားခြင်း", "သန့်စင်ဆေးကြောခြင်း", "ပလတ်စတစ်စေ့ပြုလုပ်ခြင်း"],
+            "answer": 2,
+            "explain": "သန့်စင်ဆေးကြောခြင်းအဆင့်တွင် ပလတ်စတစ်များကို ရေဆေးခြင်းဖြင့် အစားအစာအကြွင်းအကျန်များ၊ တံဆိပ်ကပ်စက္ကူများ၊ ကော်များနှင့် အညစ်အကြေးများကို ဖယ်ရှားပေးသည်။ ညစ်ပတ်နေသော ပလတ်စတစ်များကို စနစ်တကျ မသန့်စင်ဆေးကြောပါက ပြန်လည်အသုံးပြုသည့် လုပ်ငန်းစဥ်တစ်ခုလုံးကိုပင် ပျက်စီးစေနိုင်သည်။"
+        },
+        {
+            "q": "ပုလင်းအဖုံးများကို ပုံမှန်အားဖြင့် ဘယ်ပလတ်စတစ်အမျိုးအစားနဲ့ ပြုလုပ်ထားလဲ?",
+            "options": ["PET", "LDPE", "PP", "PS"],
+            "answer": 2,
+            "explain": "ပုလင်းအဖုံးအများစုကို PP (Polypropylene, #5) ဖြင့် ပြုလုပ်ထားလေ့ရှိပြီး အကြောင်းမှာ ၎င်းပလတ်စတစ်သည် မာကျောခိုင်ခံ့ခြင်း၊ အပူဒဏ်ခံနိုင်ခြင်းနှင့် ကောင်းမွန်စွာ အလုံပိတ်နိုင်သော ဂုဏ်သတ္တိရှိသောကြောင့်ဖြစ်သည်။ ယနေ့အခါတွင် ပြန်လည်အသုံးပြုရေး စက်ရုံအများအပြားသည် ပုလင်းတွင် အဖုံးပါရှိသည့်အတိုင်း လက်ခံလျက်ရှိသည်။"
+        },
+        {
+            "q": "ရေရှည်ခံပြီး သဘာဝပတ်ဝန်းကျင်နဲ့ လိုက်ဖက်တဲ့ ထုပ်ပိုးမှု 'PCR' ဆိုတာ ဘာကိုခေါ်တာလဲ?",
+            "options": ["ပလတ်စတစ် ကာဗွန်လျှော့ချရေး", "စားသုံးပြီးနောက် ပြန်လည်အသုံးပြုထားသော ပစ္စည်း", "အခြေခံ ဓာတုဗေဒ ပလတ်စတစ်စေး", "ပြုပြင်ထားသော ပေါင်းစပ်ပလတ်စတစ်စေး"],
+            "answer": 1,
+            "explain": "'PCR' သည် Post-Consumer Recycled ကို ရည်ညွှန်းပြီး စားသုံးသူများ အသုံးပြုပြီးဖြစ်သော ပလတ်စတစ်ပါဝင်ပစ္စည်းများကို စုဆောင်း၍ ပြုပြင်ပြီးနောက် ထုတ်ကုန်အသစ်များအဖြစ် ပြန်လည်ထုတ်လုပ်ထားခြင်းကို ဆိုလိုသည်။"
+        },
+        {
+            "q": "ကြည်လင်ရှင်းလင်းမှုမြင့်မားပြီး မုန့်ဗူးများနှင့် ဆိုဒါပုလင်းများတွင် မကြာခဏ အသုံးပြုသည့် ပလတ်စတစ်အမျိုးအစားက ဘာလဲ?",
+            "options": ["HDPE", "PET", "PP", "LDPE"],
+            "answer": 1,
+            "explain": "PET (#1) သည် အလွန်ကောင်းမွန်သော အလင်းပေါက်ရှင်းလင်းမှု ဂုဏ်သတ္တိနှင့် အောက်ဆီဂျင်နှင့် ကာဗွန်ဒိုင်အောက်ဆိုဒ်(CO2) ကို ကောင်းစွာ အကာအကွယ်ပေးနိုင်သော စွမ်းရည်တို့ ရှိသည့်အတွက် ဆိုဒါပုလင်းများနှင့် အစားအစာဖန်ဗူးများအတွက် အလွန်သင့်တော်သည်။"
+        },
+        {
+            "q": "ပလတ်စတစ်ကို ပြန်လည်အသုံးပြုခြင်း၏ ကြိတ်ခွဲခြင်းအဆင့် (Shredding step) တွင် မည်သို့ဖြစ်သွားသနည်း။",
+            "options": ["အစေ့များအဖြစ် အရည်ကျိုသည်","ရေဖြင့် ဆေးကြောသည်","အစအနသေးသေးလေးများအဖြစ် ဖြတ်တောက်သည်","အရောင်အလိုက် ခွဲခြားသည်"],
+            "answer": 2,
+            "explain": "ကြိတ်ခွဲခြင်းအဆင့်တွင် သန့်စင်ထားသော ပလတ်စတစ်များကို စက်ဖြင့် ဖြတ်တောက်၍ သို့မဟုတ် ကြိတ်ခွဲ၍ အစအနသေးငယ်များ သို့မဟုတ် အပိုင်းအစများအဖြစ် ပြောင်းလဲသည်။"
+        },
+        {
+            "q": "အာလူးကြော်အိတ်များနှင့် အလွှာပေါင်းစုံ ပါဝင်သော အစားအစာထုပ်ပိုးအိတ်များသည် မည်သည့် resin နံပါတ်အမျိုးအစားတွင် ပါဝင်သနည်း။",
+            "options": ["LDPE (#4)", "PP (#5)", "PS (#6)", "Others (#7)"],
+            "answer": 3,
+            "explain": "အာလူးကြော်အိတ်များနှင့် အလွှာပေါင်းစုံ ပါဝင်သော ထုပ်ပိုးအိတ်များကို #7 (အခြား) အမျိုးအစားအဖြစ် သတ်မှတ်သည်။ အကြောင်းမှာ ၎င်းတို့သည် ခွဲထုတ်၍မရသော ပလတ်စတစ်အလွှာများစွာဖြင့် ပေါင်းစပ်ပြုလုပ်ထားသဖြင့် ပုံမှန် ပြန်လည်အသုံးပြုရေး လုပ်ငန်းစဉ်များဖြင့် ပြန်လည်အသုံးပြုနိုင်ခြင်း မရှိပေ။"
+        },
+        {
+            "q": "ဤပလတ်စတစ်များအနက် မည်သည့်အမျိုးအစားသည် ကမ္ဘာတစ်ဝန်းတွင် အကျယ်ပြန့်ဆုံး ပြန်လည်အသုံးပြုခံရသနည်း။",
+            "options": ["PS", "PET", "LDPE", "Others (#7)"],
+            "answer": 1,
+            "explain": "PET (#1) သည် ကမ္ဘာတစ်ဝန်းရှိ ပလတ်စတစ်အားလုံးတွင် ပြန်လည်အသုံးပြုနှုန်း အမြင့်မားဆုံးဖြစ်သည်။ ၎င်းကို အိမ်တွင်းမှ စွန့်ပစ်ပစ္စည်းစုဆောင်းရေး အစီအစဉ်အားလုံးနီးပါးတွင် လက်ခံကြပြီး ပုလင်းအသစ်များနှင့် အမျှင်များထုတ်လုပ်ရန်အတွက် ထုတ်လုပ်သူများ၏ ဝယ်လိုအား မြင့်မားလျက်ရှိသည်။"
+        },
+        {
+            "q": "ပျားရည် သို့မဟုတ် ငရုပ်ချဥ်ကဲ့သို့သော ညှစ်ထုတ်ရသည့်ပုလင်းများကို များသောအားဖြင့် မည်သည့် ပလတ်စတစ်အမျိုးအစားဖြင့် ပြုလုပ်ထားသနည်း။",
+            "options": ["PET", "PS", "LDPE", "PP"],
+            "answer": 2,
+            "explain": "LDPE (#4) သည် ပျော့ပျောင်းကာ ကွေးညွှတ်နိုင်သော ဂုဏ်သတ္တိရှိသဖြင့် အသုံးပြုသူမှ ပုလင်းအား ညှစ်ကိုင်ရသော ကော်ဗူး၊ ပျားရည်ပုလင်း၊ ငရုပ်ချဥ်ပုလင်း ကဲ့သို့သော ညှစ်ထုတ်ရသည့် ပုလင်းများတွင် အသုံးပြုရန် အကောင်းဆုံးဖြစ်သည်။"
+        },
+        {
+            "q": "Polystyrene (PS) စွန့်ပစ်ပစ္စည်းကြောင့် ဖြစ်ပေါ်လာသော အဓိက သဘာဝပတ်ဝန်းကျင်ဆိုင်ရာ ပြဿနာမှာ အဘယ်နည်း?",
+            "options": ["ပြန်လည်အသုံးပြုသည့်အခါ အဆိပ်ဓာတ်ငွေ့များ ထုတ်လွှတ်သည်","ပတ်ဝန်းကျင်တွင် ကြာရှည်တည်ရှိနေသော မိုက်ခရိုပလတ်စတစ် အမှုန်ငယ်များအဖြစ် ကွဲထွက်သွားသည်","ရေကိုစုပ်ယူပြီး ပိုမိုလေးလံလာသည်","မြေဆီလွှာနှင့် ဓာတ်ပြုကာ အက်ဆစ်မိုးရေကို ဖြစ်ပေါ်စေသည်"],
+            "answer": 1,
+            "explain": "PS သည် အလွယ်တကူ မိုက်ခရိုပလတ်စတစ်အမှုန်ငယ်များအဖြစ်သို့ ပြိုကွဲသွားပြီး ယင်းတို့ကို သန့်စင်ရှင်းလင်းရန် အလွန်ခက်ခဲကာ သမုဒ္ဒရာများ၊ မြေဆီလွှာနှင့် ဇီဝဗေဒဆိုင်ရာ အစာကွင်းဆက်များတွင် နှစ်ပေါင်းရာနှင့်ချီ၍ တည်ရှိနေသည်။"
+        },
+        {
+            "q": "Resin Identification Code (RIC) စနစ်​ကို မူလ မည်သည့်​ အဖွဲ့အစည်းမှ သတ်မှတ်ခဲ့သနည်း?",
+            "options": ["United Nations Environment Programme (UNEP)", "Society of the Plastics Industry (SPI)", "World Health Organization (WHO)", "International Recycling Bureau (IRB)"],
+            "answer": 1,
+            "explain": "Resin Identification Code (RIC) စနစ်​ကို ၁၉၈၈ ခုနှစ်တွင် Society of the Plastics Industry (SPI) မှ စတင်တီထွင်ခဲ့သည်။ ၂၀၀၈ ခုနှစ်တွင် ၎င်းစနစ်၏ စီမံခန့်ခွဲမှုကို ASTM နိုင်ငံတကာ စံချိန်စံညွှန်းအဖွဲ့ထံ လွှဲပြောင်းပေးအပ်ခဲ့ပြီး ယခုအခါ ASTM D7611 စံသတ်မှတ်ချက်အဖြစ် ဆက်လက်ထိန်းသိမ်းထားသည်။"
+        },
+        {
+            "q": "ပြန်လည်အသုံးပြုရန် ခွဲခြားထားသည့်အမှိုက်ပုံးတွင် လက်ခံနိုင်ခြေ အနည်းဆုံး ပလတ်စတစ်ပစ္စည်းမှာ မည်သည့်အမျိုးအစားနည်း။",
+            "options": ["PET ရေဘူး", "HDPE နို့ဘူး", " PS ဖော့ခွက်", "PP အစားအသောက်ဘူး"],
+            "answer": 2,
+            "explain": "Polystyrene ဖော့ခွက်များသည် သိပ်သည်းဆနည်းပါးခြင်း၊ ညစ်ညမ်းမှုအန္တရာယ် မြင့်မားခြင်းနှင့် ချွေးပေါက်များရှိသော မျက်နှာပြင်မှ အစားအစာအကြွင်းအကျန်များကို သန့်စင်ရန် ခက်ခဲခြင်းတို့ကြောင့် ပြန်လည်အသုံးပြုသည့် အမှိုက်ပုံးများတွင် လက်မခံပေ။"
+        },
+        {
+            "q": "ပလတ်စတစ်အသုံးပြုခြင်းအောက်က ‘Circular Economy’ (စက်ဝိုင်းပုံစံ စီးပွားရေးစနစ်) ဆိုတာဘာကိုဆိုလိုတာလဲ?",
+            "options": ["ပလတ်စတစ်များကို မီးရှို့၍ လျှပ်စစ်ဓာတ်အားထုတ်လုပ်ခြင်း","ပလတ်စတစ်များကို ပြန်လည်အသုံးပြုခြင်း သို့မဟုတ် မြေဆွေးပြုလုပ်နိုင်ရန် ဒီဇိုင်းထုတ်ခြင်း သို့မဟုတ် အလေအလွင့်အမှိုက်မရှိစေရန် စွန့်ပစ်အမှိုက်ကို ပြန်လည်ထုတ်လုပ်ရန်အသုံးပြုခြင်း","စက်ဝိုင်းပုံသဏ္ဍာန် ပြန်လည်အသုံးပြုရေးအမှိုက်ပုံးများကို အသုံးပြုခြင်း","ပလတ်စတစ်စွန့်ပစ်ပစ္စည်းများကို အခြားနိုင်ငံများသို့ ပြန်လည်အသုံးပြုရန်အတွက် တင်ပို့ခြင်း"],
+            "answer": 1,
+            "explain": "စက်ဝိုင်းပုံစံ စီးပွားရေးဆိုတာ ပစ္စည်းတွေကို ပြန်သုံးတာ၊ ပြင်တာ၊ ပြန်လည်အသုံးပြုတာတွေနဲ့ တတ်နိုင်သမျှ ကြာကြာသုံးနိုင်အောင် ရည်ရွယ်ထားတာပါ။ ထုတ်လုပ်မှုကွင်းဆက်ကို ပိတ်လိုက်ခြင်းအားဖြင့် 'အမှိုက်' ဆိုတာကိုယ်တိုင် မရှိတော့အောင် ဖန်တီးတာပဲဖြစ်ပါတယ်။"
+        },
+        {
+            "q": "ပြန်လည်အသုံးပြုခြင်းမပြုမီ ပလတ်စတစ်များကို resin အမျိုးအစားအလိုက် ခွဲခြားခြင်းရဲ့ အဓိကအကျိုးကျေးဇူးကဘာလဲ?",
+            "options": ["ပလတ်စတစ်များကို ပိုမိုသန့်ရှင်းစေသည်","မတူညီသော ပလတ်စတစ်များသည် မတူညီသော အပူချိန်တွင် အရည်ပျော်ကြပြီး ရောနှောခြင်းမဖြစ်တော့ပါ","ပလတ်စတစ်စွန့်ပစ်ပစ္စည်း၏ အလေးချိန်ကို လျှော့ချပေးသည်","ပြန်လည်အသုံးပြုထားသော ပလတ်စတစ်များသို့ အရောင်ထည့်ပေးသည်"],
+            "answer": 1,
+            "explain": "မတူညီသော ပလတ်စတစ်အမျိုးအစာများတွင် မတူညီသော အရည်ပျော်မှတ်များနှင့် ဓာတုဗေဒဆိုင်ရာ တည်ဆောက်ပုံများ ရှိကြသည်။ အမျိုးအစားအလိုက် ခွဲခြားခြင်းသည် အရည်အသွေးမြင့်မားသော ပြန်လည်အသုံးပြုထားသည့် ထုတ်ကုန်ကို ရရှိစေသည်။"
+        },
+        {
+            "q": "စျေးဝယ်အိတ် အများစုကို ဘယ် ပလတ်စတစ်အမျိုးအစားနဲ့ ထုတ်လုပ်ထားတာလဲ?",
+            "options": ["PET (#1)", "PVC (#3)", "LDPE (#4)", "PP (#5)"],
+            "answer": 2,
+            "explain": "LDPE (#4)"
+        },
+        {
+            "q": "ပလတ်စတစ်စွန့်ပစ်ပစ္စည်းများနှင့် ပတ်သက်၍ 'upcycling' ဆိုသည်မှာ အဘယ်ကို ဆိုလိုသနည်း။",
+            "options": ["ပလတ်စတစ်များကို အဆင့်မြင့် အမှိုက်ပုံသို့ ပို့ခြင်း","စွန့်ပစ်ပလတ်စတစ်များကို တန်ဖိုးပိုမိုမြင့်မားသော သို့မဟုတ် အရည်အသွေးပိုမိုကောင်းမွန်သော ထုတ်ကုန်များအဖြစ် ပြောင်းလဲခြင်း","ပလတ်စတစ်များကို အပူချိန်ပိုမိုမြင့်မားစွာ အရည်ကျိုခြင်း","ပလတ်စတစ်များကို နှစ်ကြိမ်ထက်ပို၍ ပြန်လည်အသုံးပြုခြင်း"],
+            "answer": 1,
+            "explain": "Upcycling ဆိုသည်မှာ စွန့်ပစ်ထားသော ပလတ်စတစ်များကို မူလပစ္စည်းထက် တန်ဖိုးပိုကြီးသော သို့မဟုတ် အရည်အသွေးပိုကောင်းသော ပစ္စည်းအဖြစ် ပြောင်းလဲခြင်းဖြစ်သည်။ ဥပမာ – ပလတ်စတစ်ပုလင်းများကို အထည်အမျှင် သို့မဟုတ် အိတ်များအဖြစ် ပြောင်းလဲခြင်းဖြစ်သည်။"
+        },
+    ]
+
+    QUIZ_DATA = QUIZ_MM if is_mm else QUIZ_EN
+
+    # --- Session State for Quiz ---
+    if "quiz_index" not in st.session_state:
+        st.session_state.quiz_index = 0
+    if "quiz_score" not in st.session_state:
+        st.session_state.quiz_score = 0
+    if "quiz_answered" not in st.session_state:
+        st.session_state.quiz_answered = False
+    if "quiz_selected" not in st.session_state:
+        st.session_state.quiz_selected = None
+    if "quiz_done" not in st.session_state:
+        st.session_state.quiz_done = False
+    if "quiz_history" not in st.session_state:
+        st.session_state.quiz_history = []  # list of (index, score, answered, selected)
+
+    total_q = len(QUIZ_DATA)
+    idx = st.session_state.quiz_index
+
+    # --- Restart Quiz ---
+    def restart_quiz():
+        st.session_state.quiz_index = 0
+        st.session_state.quiz_score = 0
+        st.session_state.quiz_answered = False
+        st.session_state.quiz_selected = None
+        st.session_state.quiz_done = False
+        st.session_state.quiz_history = []
+
+    # --- Quiz Complete Screen ---
+    if st.session_state.quiz_done:
+        score = st.session_state.quiz_score
+        pct = int(score / total_q * 100)
+
+        if pct >= 80:
+            grade_emoji = "🏆"
+            grade_color = "#06D6A0"
+            grade_msg_en = "Excellent! You're a Recycling Champion!"
+            grade_msg_mm = "အလွန်ကောင်းသည်! သင်သည် ပြန်လည်အသုံးပြုရေး ချန်ပီယံဖြစ်သည်!"
+        elif pct >= 50:
+            grade_emoji = "🌱"
+            grade_color = "#FFD166"
+            grade_msg_en = "Good effort! Keep learning about recycling."
+            grade_msg_mm = "ကောင်းသည်! ဆက်လက် လေ့လာပါ။"
+        else:
+            grade_emoji = "♻️"
+            grade_color = "#EF476F"
+            grade_msg_en = "Keep going! Review the Resin Types section above."
+            grade_msg_mm = "ဆက်ကြိုးစားပါ! အပေါ်ရှိ ပလတ်စတစ် အမျိုးအစားများ ကဏ္ဍကို ပြန်လည် ဖတ်ရှုပါ။"
+
+        grade_msg = grade_msg_mm if is_mm else grade_msg_en
+        score_lbl = f"မေးခွန်း {total_q} ခုအနက် {score} ခု မှန်ကန်သည်" if is_mm else f"You scored {score} out of {total_q}"
+        restart_lbl = "🔄 ထပ်မံကစားမည်" if is_mm else "🔄 Try Again"
+
+        st.markdown(f"""
+        <div style="background:{th['card_bg']}; border:3px solid {grade_color}; border-radius:24px;
+                    padding:2.5rem; text-align:center; margin:1rem 0;
+                    box-shadow: 0 8px 24px {grade_color}33;">
+            <div style="font-size:4rem; margin-bottom:0.5rem;">{grade_emoji}</div>
+            <div style="font-size:2rem; font-weight:800; color:{grade_color}; margin-bottom:0.3rem;">{pct}%</div>
+            <div style="font-size:1rem; font-weight:600; color:{th['text']}; margin-bottom:0.5rem;">{score_lbl}</div>
+            <div style="font-size:0.95rem; color:{th['muted']};">{grade_msg}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        if st.button(restart_lbl, key="quiz_restart_btn", use_container_width=True):
+            restart_quiz()
+            st.rerun()
+        return
+
+    # --- Progress Bar ---
+    progress_pct = idx / total_q
+    progress_label = f"မေးခွန်း {idx + 1} / {total_q}" if is_mm else f"Question {idx + 1} of {total_q}"
+    st.markdown(f"""
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+        <span style="font-size:0.85rem; color:{th['muted']}; font-weight:600;">{progress_label}</span>
+        <span style="font-size:0.85rem; color:{th['accent']}; font-weight:700;">
+            {'မှတ်နှုန်း' if is_mm else 'Score'}: {st.session_state.quiz_score}
+        </span>
+    </div>
+    <div style="background:{th['border']}; border-radius:8px; height:8px; margin-bottom:1.5rem; overflow:hidden;">
+        <div style="background:linear-gradient(90deg, {th['accent']}, {th['accent2']}); height:100%;
+                    width:{int(progress_pct * 100)}%; border-radius:8px; transition:width 0.4s ease;"></div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # --- Current Question ---
+    q_data = QUIZ_DATA[idx]
+
+    st.markdown(f"""
+    <div style="background:{th['card_bg']}; border:2px solid {th['border']}; border-radius:20px;
+                padding:1.8rem; margin-bottom:1rem;
+                box-shadow:0 4px 16px rgba(6,214,160,0.08);">
+        <div style="font-size:1.05rem; font-weight:700; color:{th['text']}; line-height:1.7;">
+            {q_data['q']}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # --- Answer Options (2x2 card grid) ---
+    answered  = st.session_state.quiz_answered
+    selected  = st.session_state.quiz_selected
+    correct_i = q_data["answer"]
+    OPT_LABELS = ["A", "B", "C", "D"]
+
+    col_top_l, col_top_r = st.columns(2, gap="small")
+    col_bot_l, col_bot_r = st.columns(2, gap="small")
+    opt_cols = [col_top_l, col_top_r, col_bot_l, col_bot_r]
+
+    for opt_i, (opt_text, col) in enumerate(zip(q_data["options"], opt_cols)):
+        label_letter = OPT_LABELS[opt_i]
+
+        # Determine card colours based on state
+        if answered:
+            if opt_i == correct_i:
+                border_c = "#06D6A0"
+                bg_c     = "#06D6A020"
+                lbl_bg   = "#06D6A0"
+                lbl_fg   = "#FFFFFF"
+                icon     = "✓"
+            elif opt_i == selected:
+                border_c = "#EF476F"
+                bg_c     = "#EF476F18"
+                lbl_bg   = "#EF476F"
+                lbl_fg   = "#FFFFFF"
+                icon     = "✗"
+            else:
+                border_c = th["border"]
+                bg_c     = th["card_bg"]
+                lbl_bg   = th["border"]
+                lbl_fg   = th["muted"]
+                icon     = label_letter
+        else:
+            border_c = th["border"]
+            bg_c     = th["card_bg"]
+            lbl_bg   = th["accent"] + "33"
+            lbl_fg   = th["accent"]
+            icon     = label_letter
+
+        with col:
+            # Render a styled card via HTML for visuals
+            st.markdown(f"""
+            <div style="background:{bg_c}; border:2px solid {border_c}; border-radius:16px;
+                        padding:0.75rem 1rem; display:flex; align-items:flex-start; gap:0.7rem;
+                        min-height:64px; margin-bottom:0.1rem;">
+                <div style="min-width:28px; height:28px; border-radius:8px;
+                            background:{lbl_bg}; color:{lbl_fg};
+                            font-weight:800; font-size:0.85rem;
+                            display:flex; align-items:center; justify-content:center;
+                            flex-shrink:0;">{icon}</div>
+                <div style="font-size:0.88rem; font-weight:600; color:{th['text'] if not answered or opt_i in [correct_i, selected] else th['muted']};
+                            line-height:1.5; padding-top:0.15rem;">{opt_text}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+            # Invisible click button overlaid — shown only when not answered
+            if not answered:
+                if st.button(f"{label_letter}", key=f"quiz_opt_{idx}_{opt_i}",
+                             use_container_width=True):
+                    st.session_state.quiz_answered = True
+                    st.session_state.quiz_selected = opt_i
+                    if opt_i == correct_i:
+                        st.session_state.quiz_score += 1
+                    st.rerun()
+
+    # --- Explanation Box (shown after answering) ---
+    if st.session_state.quiz_answered:
+        sel_i       = st.session_state.quiz_selected
+        correct_txt = q_data["options"][correct_i]
+
+        if sel_i == correct_i:
+            fb_emoji = "🎉"
+            fb_color = "#06D6A0"
+            fb_lbl   = "မှန်ကန်သည်!" if is_mm else "Correct!"
+        else:
+            fb_emoji  = "💡"
+            fb_color  = "#FFD166"
+            c_prefix  = "မှန်ကန်သောအဖြေ —" if is_mm else "Correct answer:"
+            fb_lbl    = f"မမှန်ကန်ပါ — {c_prefix} {correct_txt}" if is_mm else f"Incorrect — {c_prefix} {correct_txt}"
+
+        st.markdown(f"""
+        <div style="background:{fb_color}15; border-left:4px solid {fb_color}; border-radius:0 14px 14px 0;
+                    padding:0.9rem 1.3rem; margin-top:1rem;">
+            <div style="font-weight:700; color:{fb_color}; margin-bottom:0.35rem; font-size:0.95rem;">
+                {fb_emoji} {fb_lbl}
+            </div>
+            <div style="font-size:0.88rem; color:{th['text']}; line-height:1.8;">{q_data['explain']}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<div style='margin-top:0.8rem;'></div>", unsafe_allow_html=True)
+
+        next_lbl   = "နောက်မေးခွန်း ➜" if is_mm else "Next Question ➜"
+        finish_lbl = "ရလဒ်ကြည့်ရှုမည် 🏆" if is_mm else "See Results 🏆"
+        prev_lbl   = "← ရှေ့မေးခွန်း" if is_mm else "← Previous"
+        btn_text   = finish_lbl if idx >= total_q - 1 else next_lbl
+
+        nav_col1, nav_col2 = st.columns([1, 2], gap="small")
+
+        with nav_col1:
+            has_history = len(st.session_state.quiz_history) > 0
+            if st.button(prev_lbl, key=f"quiz_prev_{idx}",
+                         use_container_width=True,
+                         disabled=not has_history):
+                # Restore previous state
+                prev = st.session_state.quiz_history.pop()
+                st.session_state.quiz_index    = prev["index"]
+                st.session_state.quiz_score    = prev["score"]
+                st.session_state.quiz_answered = prev["answered"]
+                st.session_state.quiz_selected = prev["selected"]
+                st.rerun()
+
+        with nav_col2:
+            if st.button(btn_text, key=f"quiz_next_{idx}",
+                         use_container_width=True, type="primary"):
+                # Save current state to history before moving forward
+                st.session_state.quiz_history.append({
+                    "index":    idx,
+                    "score":    st.session_state.quiz_score
+                              - (1 if st.session_state.quiz_selected == correct_i else 0),
+                    "answered": True,
+                    "selected": st.session_state.quiz_selected
+                })
+                if idx >= total_q - 1:
+                    st.session_state.quiz_done = True
+                else:
+                    st.session_state.quiz_index += 1
+                    st.session_state.quiz_answered = False
+                    st.session_state.quiz_selected = None
+                st.rerun()
 
 # ==========================================
 # SIDEBAR NAVIGATION
