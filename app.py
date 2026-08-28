@@ -1947,11 +1947,11 @@ def render_learn_page(lang="en"):
         correct_txt = q_data["options"][correct_i]
 
         if sel_i == correct_i:
-            fb_emoji = "🎉"
+            fb_emoji = ""
             fb_color = "#06D6A0"
             fb_lbl   = "မှန်ကန်သည်!" if is_mm else "Correct!"
         else:
-            fb_emoji  = "💡"
+            fb_emoji  = ""
             fb_color  = "#FFD166"
             c_prefix  = "မှန်ကန်သောအဖြေ —" if is_mm else "Correct answer:"
             fb_lbl    = f"မမှန်ကန်ပါ — {c_prefix} {correct_txt}" if is_mm else f"Incorrect — {c_prefix} {correct_txt}"
