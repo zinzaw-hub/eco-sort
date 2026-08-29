@@ -1853,7 +1853,7 @@ def render_learn_page(lang="en"):
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
         <span style="font-size:0.85rem; color:{th['muted']}; font-weight:600;">{progress_label}</span>
         <span style="font-size:0.85rem; color:{th['accent']}; font-weight:700;">
-            {'မှတ်နှုန်း' if is_mm else 'Score'}: {st.session_state.quiz_score}
+            {'ရမှတ်' if is_mm else 'Score'}: {st.session_state.quiz_score}
         </span>
     </div>
     <div style="background:{th['border']}; border-radius:8px; height:8px; margin-bottom:1.5rem; overflow:hidden;">
