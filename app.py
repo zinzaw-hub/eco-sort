@@ -956,7 +956,7 @@ def generate_pdf_report(image, plastic_type, confidence, info, guidance_points, 
 # ==========================================
 @st.cache_resource
 def load_model():
-    return YOLO("ecosort_det_best.pt")
+    return YOLO("ecosort_cls_best.pt")
 
 model = load_model()
 
@@ -2163,21 +2163,19 @@ if uploaded_file is not None:
         results = model(image)
 
     r = results[0]
-    if len(r.boxes) > 0:
-        annotated_img = Image.fromarray(r.plot()[..., ::-1])
-        best_box = r.boxes[r.boxes.conf.argmax()]
-        top1_idx = int(best_box.cls[0].item())
+    annotated_img = image
+    if r.probs is not None:
+        top1_idx = r.probs.top1
         top1_cls = model.names[top1_idx]
-        top1_conf = float(best_box.conf[0].item())
+        top1_conf = float(r.probs.top1conf)
     else:
-        annotated_img = image
         top1_cls = "Others"
         top1_conf = 0.0
 
     col1, col2 = st.columns([1, 1], gap="large")
 
     with col1:
-        img_cap = "📷 တွေ့ရှိထားသော ပလတ်စတစ်" if is_mm else "📷 Detected Plastic"
+        img_cap = "📷 တင်သွင်းထားသော ပလတ်စတစ်" if is_mm else "📷 Uploaded Plastic"
         st.image(annotated_img, caption=img_cap, use_container_width=False)
 
     info = RECYCLABILITY.get(top1_cls, RECYCLABILITY["Others"])
