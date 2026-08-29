@@ -1,0 +1,169 @@
+{
+    "total_scans": 26,
+    "plastic_types": {
+        "Others": 6,
+        "LDPE": 7,
+        "PET": 5,
+        "HDPE": 4,
+        "PP": 3,
+        "PS": 1
+    },
+    "history": [
+        {
+            "time": "2026-08-29 10:34",
+            "type": "Others",
+            "confidence": 99,
+            "recyclable": false
+        },
+        {
+            "time": "2026-08-29 10:34",
+            "type": "LDPE",
+            "confidence": 50,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 10:34",
+            "type": "PET",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 15:09",
+            "type": "PET",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 15:34",
+            "type": "Others",
+            "confidence": 99,
+            "recyclable": false
+        },
+        {
+            "time": "2026-08-29 15:34",
+            "type": "HDPE",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 15:34",
+            "type": "HDPE",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 15:34",
+            "type": "PP",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 15:34",
+            "type": "PP",
+            "confidence": 97,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 15:34",
+            "type": "PET",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 15:34",
+            "type": "Others",
+            "confidence": 99,
+            "recyclable": false
+        },
+        {
+            "time": "2026-08-29 15:34",
+            "type": "Others",
+            "confidence": 99,
+            "recyclable": false
+        },
+        {
+            "time": "2026-08-29 15:35",
+            "type": "PP",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 15:35",
+            "type": "LDPE",
+            "confidence": 44,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 15:35",
+            "type": "Others",
+            "confidence": 86,
+            "recyclable": false
+        },
+        {
+            "time": "2026-08-29 15:35",
+            "type": "LDPE",
+            "confidence": 100,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 22:29",
+            "type": "LDPE",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 22:29",
+            "type": "PET",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 22:29",
+            "type": "PS",
+            "confidence": 85,
+            "recyclable": false
+        },
+        {
+            "time": "2026-08-29 22:30",
+            "type": "PET",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 22:30",
+            "type": "LDPE",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 22:30",
+            "type": "Others",
+            "confidence": 95,
+            "recyclable": false
+        },
+        {
+            "time": "2026-08-29 22:30",
+            "type": "HDPE",
+            "confidence": 94,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 22:30",
+            "type": "LDPE",
+            "confidence": 99,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 22:30",
+            "type": "LDPE",
+            "confidence": 88,
+            "recyclable": true
+        },
+        {
+            "time": "2026-08-29 22:37",
+            "type": "HDPE",
+            "confidence": 72,
+            "recyclable": true
+        }
+    ]
+}
