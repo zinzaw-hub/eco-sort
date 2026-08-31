@@ -1059,8 +1059,7 @@ def render_about_page(lang="en"):
             <div class="about-p">
                 <b>အသုံးပြုထားသော နည်းပညာများ:</b> ခွဲခြားစစ်ဆေးရန် YOLOv8 (Ultralytics)၊ အသုံးပြုသူ အင်တာဖေ့စ်အတွက် Streamlit နှင့် လွယ်ကူသော လမ်းညွှန်ချက်များ ထုတ်ပေးနိုင်ရန် develop လုပ်ထားပါသည်။
             </div>
-            <div class="about-p">
-            </div>
+            
         </div>
         """, unsafe_allow_html=True)
     else:
@@ -1088,9 +1087,7 @@ def render_about_page(lang="en"):
                 <b>Tech stack:</b> YOLOv8 (Ultralytics) for classification, Streamlit for the interface,
                 and disposal guidance.
             </div>
-            <div class="about-p">
-                
-            </div>
+            
         </div>
         """, unsafe_allow_html=True)
 
