@@ -1060,8 +1060,6 @@ def render_about_page(lang="en"):
                 <b>အသုံးပြုထားသော နည်းပညာများ:</b> ခွဲခြားစစ်ဆေးရန် YOLOv8 (Ultralytics)၊ အသုံးပြုသူ အင်တာဖေ့စ်အတွက် Streamlit နှင့် လွယ်ကူသော လမ်းညွှန်ချက်များ ထုတ်ပေးနိုင်ရန် develop လုပ်ထားပါသည်။
             </div>
             <div class="about-p">
-                <b>ရေးသားသူ:</b> ဇင်ဝတ်ရည်ဇော်၊ ပြည်ကွန်ပျူတာတက္ကသိုလ် (UCSPyay)၊ ကွန်ပျူတာသိပ္ပံ ကျောင်းသူ။<br>
-                <b>ဆက်သွယ်ရန်:</b> wyee659@gmail.com
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -1091,8 +1089,7 @@ def render_about_page(lang="en"):
                 and disposal guidance.
             </div>
             <div class="about-p">
-                <b>Author:</b> Zin Wut Yee Zaw, UCSPyay, Computer Science Student.<br>
-                <b>Contact:</b> wyee659@gmail.com.
+                
             </div>
         </div>
         """, unsafe_allow_html=True)
